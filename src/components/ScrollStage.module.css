@@ -1,0 +1,38 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.viewport {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  z-index: var(--panel-index);
+  min-height: 100svh;
+  overflow: visible;
+}
+
+.panelInner {
+  min-height: 100svh;
+}
+
+/* @media (max-width: 767px), (max-height: 680px) {
+  .stage,
+  .viewport {
+    height: auto;
+    overflow: visible;
+  }
+
+  .panel {
+    position: relative;
+    min-height: 100svh;
+    overflow: visible;
+  }
+} */

@@ -1,0 +1,248 @@
+.genplan {
+    position: relative;
+    min-height: 100svh;
+}
+
+.genplan * {
+    font-size: 0;
+}
+
+.content {
+    position: relative;
+    width: 100%;
+    overflow: hidden !important; 
+}
+
+.content:active {
+    cursor: grabbing;
+}
+
+.img_wrap {
+    position: relative;
+    aspect-ratio: 1920 / 1024;
+    min-width: 1440px;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.point {
+    position: absolute;
+}
+
+.point:nth-child(1) {
+    bottom: 10%;
+    left: 31%;
+}
+.point:nth-child(2) {
+    bottom: 44%;
+    left: 35%;
+}
+.point:nth-child(3) {
+    top: 44%;
+    left: 45%;
+}
+.point:nth-child(4) {
+    top: 39%;
+    left: 29%;
+}
+.point:nth-child(5) {
+    bottom: 31%;
+    left: 47%;
+}
+.point:nth-child(6) {
+    top: 41%;
+    left: 49%;
+}
+.point:nth-child(7) {
+    top: 28%;
+    left: 50%;
+}
+.point:nth-child(8) {
+    right: 44%;
+    top: 39%;
+}
+.point:nth-child(9) {
+    bottom: 43%;
+    right: 29%;
+}
+.point:nth-child(10) {
+    bottom: 51%;
+    right: 39%;
+}
+.point:nth-child(11) {
+    top: 35%;
+    right: 37%;
+}
+.point:nth-child(12) {
+    top: 37%;
+    right: 29%;
+}
+.point:nth-child(13) {
+    top: 29%;
+    right: 31%;
+}
+.point:nth-child(14) {
+    top: 26%;
+    right: 25%;
+}
+.point:nth-child(15) {
+    top: 39%;
+    right: 6.5%;
+}
+
+
+.icon {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 1px solid var(--new-color-light-beight);
+    background: rgba(74, 59, 58, 0.1);
+    backdrop-filter: blur(10px);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.icon svg {
+    width: 24px;
+    height: auto;
+}
+
+.text {
+    position: absolute;
+    height: calc(100% + 8px);
+    top: -4px;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 14px !important;
+    line-height: 122%;
+    text-transform: uppercase;
+    color: var(--new-color-light-beight);
+    backdrop-filter: blur(4px);
+    background: rgba(74, 59, 58, 0.75);
+    border-radius: 1000px;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.left {
+    padding: 0 76px 3px 32px;
+    right: -4px;
+    justify-content: flex-start;
+    transform: translateX(5px);
+}
+
+.right {
+    padding: 0 32px 3px 76px;
+    left: -4px;
+    justify-content: flex-end;
+    transform: translateX(-5px);
+}
+
+.point:hover {
+    z-index: 3;
+}
+
+.point:hover .text {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.hint {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: none !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+}
+
+.hint::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--new-color-dark-taupe);
+    opacity: 0.75;
+    z-index: 2;
+}
+
+.hint svg {
+    position: relative;
+    z-index: 3;
+}
+
+.hint p {
+    position: relative;
+    z-index: 3;
+    margin: 12px 0 24px;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px !important;
+    line-height: 130%;
+    text-align: center;
+    color: var(--white);
+}
+
+.hint button {
+    position: relative;
+    z-index: 3;
+}
+
+@media (max-width: 1500px){
+    .content,
+    .img_wrap {
+        min-height: 1024px;
+    }
+}
+
+@media (max-width: 1200px){
+    .genplan {
+        min-height: auto;
+    }
+
+    .content {
+        min-height: 600px;
+    }
+
+    .img_wrap {
+        min-height: 800px;
+    }
+
+    .icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .text {
+        font-size: 12px !important;
+    }
+
+    .left {
+        padding: 0 48px 2px 16px;
+    }
+
+    .right {
+        padding: 0 16px 2px 48px;
+    }
+
+    .hint {
+        display: flex !important;
+    }
+}
