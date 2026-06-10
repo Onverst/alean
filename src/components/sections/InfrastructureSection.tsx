@@ -19,30 +19,38 @@ export function InfrastructureSection({
   const imgHeight = img?.media_details?.height ?? 1024;
 
   return (
-    <section className={styles.infrastructure}>
-      <div className={styles.container}>
-        <h3 className={`${styles.title} section-title`}>
+    <section className={styles.infrastructure} data-infrastructure-section>
+      <div className={styles.container} data-infrastructure-content>
+        <h3
+          className={`${styles.title} section-title`}
+          data-infrastructure-title
+        >
           <span
             className={`${styles.top_title} section-title-top`}
             dangerouslySetInnerHTML={{ __html: top_title }}
           />
           <span dangerouslySetInnerHTML={{ __html: title }} />
         </h3>
- 
-        <div
-          className={styles.text}
-          dangerouslySetInnerHTML={{ __html: text }}
-        />
+
+        <div className={styles.textWrap} data-infrastructure-text>
+          <div
+            className={styles.text}
+            dangerouslySetInnerHTML={{ __html: text }}
+          />
+        </div>
       </div>
 
       {img ? (
-        <Image
-          className={styles.img}
-          src={img.source_url}
-          alt={img.alt_text}
-          width={imgWidth}
-          height={imgHeight}
-        />
+        <div className={styles.imageWrap} data-infrastructure-image>
+          <Image
+            className={styles.img}
+            src={img.source_url}
+            alt={img.alt_text}
+            width={imgWidth}
+            height={imgHeight}
+            priority={false}
+          />
+        </div>
       ) : null}
     </section>
   );

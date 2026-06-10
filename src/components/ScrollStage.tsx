@@ -16,6 +16,9 @@ type ScrollStageProps = {
   children: ReactNode;
 };
 
+const INFRASTRUCTURE_REVEAL_DURATION = 1.35;
+const INFRASTRUCTURE_SCROLL_DURATION = 0.9;
+
 export function ScrollStage({ children }: ScrollStageProps) {
   const stageRef = useRef<HTMLDivElement>(null);
 
@@ -81,6 +84,10 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
         return Number(slider.dataset.scrollDuration) || 0;
       };
+      const getInfrastructureAnimationDuration = (panel: HTMLElement) =>
+        panel.querySelector("[data-infrastructure-section]")
+          ? INFRASTRUCTURE_REVEAL_DURATION + INFRASTRUCTURE_SCROLL_DURATION
+          : 0;
       const getAboutBgOverflow = () => {
         if (!aboutBg) {
           return 0;
@@ -93,6 +100,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           (duration, panel) =>
             duration +
             0.95 +
+            getInfrastructureAnimationDuration(panel) +
             getPanelScrollDrivenDuration(panel) +
             getPanelScrollDuration(panel),
           0,
@@ -272,6 +280,92 @@ export function ScrollStage({ children }: ScrollStageProps) {
           "[data-scroll-driven-slider]",
         );
         const scrollDrivenDuration = getPanelScrollDrivenDuration(panel);
+        const infrastructureImage = panel.querySelector<HTMLElement>(
+          "[data-infrastructure-image]",
+        );
+        const infrastructureContent = panel.querySelector<HTMLElement>(
+          "[data-infrastructure-content]",
+        );
+        const infrastructureTitle = panel.querySelector<HTMLElement>(
+          "[data-infrastructure-title]",
+        );
+        const infrastructureText = panel.querySelector<HTMLElement>(
+          "[data-infrastructure-text]",
+        );
+        const infrastructureDuration = getInfrastructureAnimationDuration(panel);
+
+        if (infrastructureDuration > 0) {
+          if (infrastructureImage) {
+            gsap.set(infrastructureImage, { xPercent: 0 });
+          }
+          if (infrastructureContent) {
+            gsap.set(infrastructureContent, { y: 0 });
+          }
+          if (infrastructureTitle) {
+            gsap.set(infrastructureTitle, { autoAlpha: 1, y: 0 });
+          }
+          if (infrastructureText) {
+            gsap.set(infrastructureText, {
+              autoAlpha: 0,
+              height: 0,
+              y: 32,
+            });
+          }
+          snapPoints.push(overlayStart + infrastructureDuration);
+
+          if (infrastructureImage) {
+            timeline.to(
+              infrastructureImage,
+              {
+                xPercent: -50,
+                ease: "power1.inOut",
+                duration: INFRASTRUCTURE_REVEAL_DURATION,
+              },
+              overlayStart,
+            );
+          }
+
+          if (infrastructureText) {
+            timeline.to(
+              infrastructureText,
+              {
+                autoAlpha: 1,
+                height: "auto",
+                y: 0,
+                ease: "power1.out",
+                duration: INFRASTRUCTURE_REVEAL_DURATION * 0.58,
+              },
+              overlayStart + INFRASTRUCTURE_REVEAL_DURATION * 0.36,
+            );
+          }
+
+          if (infrastructureTitle) {
+            timeline.to(
+              infrastructureTitle,
+              {
+                autoAlpha: 0,
+                y: -24,
+                ease: "power1.out",
+                duration: INFRASTRUCTURE_REVEAL_DURATION * 0.48,
+              },
+              overlayStart + INFRASTRUCTURE_REVEAL_DURATION * 0.36,
+            );
+          }
+
+          if (infrastructureContent) {
+            timeline.to(
+              infrastructureContent,
+              {
+                y: () => -window.innerHeight * 0.42,
+                ease: "none",
+                duration: INFRASTRUCTURE_SCROLL_DURATION,
+              },
+              overlayStart + INFRASTRUCTURE_REVEAL_DURATION,
+            );
+          }
+
+          overlayStart += infrastructureDuration;
+        }
 
         if (scrollDrivenSlider && scrollDrivenDuration > 0) {
           const scrollDrivenState = { progress: 0 };

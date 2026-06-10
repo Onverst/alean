@@ -81,6 +81,12 @@
   max-width: calc(var(--slide-width) * 1.69 + 12px) !important;
 }
 
+@media (max-width: 1500px){
+  .text {
+    margin-bottom: 48px;
+  }
+}
+
 @media (max-width: 1200px){
   .service {
     padding: 96px 0;
@@ -94,10 +100,6 @@
   .slider {
     max-width: 100%;
     --slide-width: 150px;
-  }
-
-  .text {
-    margin-bottom: 48px;
   }
 }
 
