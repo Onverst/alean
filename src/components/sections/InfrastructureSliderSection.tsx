@@ -10,7 +10,7 @@ import styles from "./InfrastructureSliderSection.module.css";
 type InfrastructureSlide = {
   title: string;
   text: string;
-  img: WpMedia | null;
+  images: WpMedia[];
 };
 
 type InfrastructureSliderSectionProps = {
@@ -52,72 +52,22 @@ export function InfrastructureSliderSection({
     }
   };
 
-  const goPrev = () => {
-    goToSlide(Math.max(activeIndex - 1, 0));
-  };
-
-  const goNext = () => {
-    goToSlide(Math.min(activeIndex + 1, slides.length - 1));
-  };
-
   return (
     <section className={styles.infrastructure_slider}>
       <div className={styles.images}>
         <Swiper
           className={styles.image_swiper}
           slidesPerView={1}
+          allowTouchMove={false}
           onSwiper={setImageSwiper}
           onSlideChange={handleImageSlideChange}
         >
-          {slides.map((slide, index) => {
-            const imgWidth = slide.img?.media_details?.width ?? 900;
-            const imgHeight = slide.img?.media_details?.height ?? 720;
-
-            return (
-              <SwiperSlide key={`${slide.title}-${index}`}>
-                {slide.img ? (
-                  <Image
-                    className={styles.img}
-                    src={slide.img.source_url}
-                    alt={slide.img.alt_text}
-                    width={imgWidth}
-                    height={imgHeight}
-                  />
-                ) : null}
-              </SwiperSlide>
-            );
-          })}
+          {slides.map((slide, index) => (
+            <SwiperSlide key={`${slide.title}-${index}`}>
+              <InnerImageSlider images={slide.images} />
+            </SwiperSlide>
+          ))}
         </Swiper>
-
-        <div className={styles.controls}>
-          <span className={styles.counter}>
-            <span>{String(activeIndex + 1).padStart(2, '0')}</span> | {String(slides.length).padStart(2, '0')}
-          </span>
-          <div className={styles.arrows}>
-            <button
-              className={styles.arrow}
-              type="button"
-              onClick={goPrev}
-              disabled={activeIndex === 0}
-              aria-label="Предыдущий слайд"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 12H5M12 5L5 12L12 19" stroke="#FAF5EF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <button
-              className={styles.arrow}
-              type="button"
-              onClick={goNext}
-              disabled={activeIndex === slides.length - 1}
-              aria-label="Следующий слайд"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12H19M12 19L19 12L12 5" stroke="#FAF5EF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </div>
       </div>
 
       <div className={styles.content}>
@@ -153,5 +103,78 @@ export function InfrastructureSliderSection({
         </Swiper>
       </div>
     </section>
+  );
+}
+
+function InnerImageSlider({ images }: { images: WpMedia[] }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [swiper, setSwiper] = useState<SwiperClass | null>(null);
+
+  const goPrev = () => {
+    swiper?.slideTo(Math.max(activeIndex - 1, 0));
+  };
+
+  const goNext = () => {
+    swiper?.slideTo(Math.min(activeIndex + 1, images.length - 1));
+  };
+
+  return (
+    <div className={styles.inner_slider}>
+      <Swiper
+        className={styles.inner_image_swiper}
+        slidesPerView={1}
+        onSwiper={setSwiper}
+        onSlideChange={(instance) => setActiveIndex(instance.activeIndex)}
+      >
+        {images.map((img, index) => {
+          const imgWidth = img.media_details?.width ?? 900;
+          const imgHeight = img.media_details?.height ?? 720;
+
+          return (
+            <SwiperSlide key={`${img.source_url}-${index}`}>
+              <Image
+                className={styles.img}
+                src={img.source_url}
+                alt={img.alt_text}
+                width={imgWidth}
+                height={imgHeight}
+              />
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+
+      {images.length > 1 ? (
+        <div className={styles.controls}>
+          <span className={styles.counter}>
+            <span>{String(activeIndex + 1).padStart(2, '0')}</span> | {String(images.length).padStart(2, '0')}
+          </span>
+          <div className={styles.arrows}>
+            <button
+              className={styles.arrow}
+              type="button"
+              onClick={goPrev}
+              disabled={activeIndex === 0}
+              aria-label="Предыдущее изображение"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5M12 5L5 12L12 19" stroke="#FAF5EF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <button
+              className={styles.arrow}
+              type="button"
+              onClick={goNext}
+              disabled={activeIndex === images.length - 1}
+              aria-label="Следующее изображение"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19M12 19L19 12L12 5" stroke="#FAF5EF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      ) : null}
+    </div>
   );
 }

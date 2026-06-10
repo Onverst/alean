@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { getSiteOptions, fetchMediaById } from "@/lib/wordpress";
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PopupProvider } from "@/components/PopupProvider";
 
@@ -71,7 +70,6 @@ export default async function RootLayout({
           >
             <Header data={options?.header} />
             {children}
-            <Footer data={options?.footer} />
           </PopupProvider>
       </body>
     </html>

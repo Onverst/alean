@@ -2,6 +2,19 @@
     display: flex;
 }
 
+.left,
+.right {
+    transition: top .35s ease, transform .35s ease;
+}
+
+:global(.header-is-hidden) .left {
+    top: -180px;
+}
+
+:global(.header-is-hidden) .right {
+    transform: translateY(-100%);
+}
+
 .left {
     position: fixed;
     top: 0;

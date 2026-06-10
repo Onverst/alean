@@ -71,7 +71,7 @@
 }
 
 
-@media (max-width: 600px){
+@media (max-width: 600px){ 
     .container {
         padding-bottom: 24px;
     }

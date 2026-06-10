@@ -18,8 +18,10 @@
 .top_title {
   position: absolute;
   top: 5%;
-  left: 17.5%;
+  left: 50%;
+  transform: translateX(-50%);
   color: var(--new-color-dark-taupe);
+  width: max-content;
 }
 
 .img_wrap {

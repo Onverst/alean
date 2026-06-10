@@ -101,6 +101,7 @@ a {
   .section-title-top {
     position: static;
     line-height: 115%;
+    transform: none;
   }
 }
 

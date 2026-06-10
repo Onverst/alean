@@ -15,18 +15,20 @@ import { InfrastructureSliderSection } from "@/components/sections/Infrastructur
 import { InfrastructureFullscreenSliderSection } from "@/components/sections/InfrastructureFullscreenSliderSection";
 import { ServiceSection } from "@/components/sections/ServiceSection";
 import { ServiceSliderSection } from "@/components/sections/ServiceSliderSection";
+import { Footer } from "@/components/Footer";
 
 import { RoomsSection } from "@/components/sections/RoomsSection";
 import { FinanceSection } from "@/components/sections/FinanceSection";
 import { GallerySection } from "@/components/sections/GallerySection";
 
-import { fetchMediaById, getHomePage } from "@/lib/wordpress";
+import { fetchMediaById, getHomePage, getSiteOptions } from "@/lib/wordpress";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
 
 export default async function Home() {
   const page = await getHomePage();
+  const options = await getSiteOptions();
 
   const heroTitle = page?.acf?.hero_title || "";
   const heroText = page?.acf?.hero_text || "";
@@ -116,18 +118,31 @@ export default async function Home() {
   const infrastructureText = page?.acf.infrastructure_text || "";
   const infrastructureImg = await fetchMediaById(page?.acf.infrastructure_img);
   const infrastructureSlides = await Promise.all(
-    (page?.acf.infrastructure_list ?? []).map(async (item) => ({
-      title: item.title,
-      text: item.text,
-      img: await fetchMediaById(item.img),
-    })),
+    (page?.acf.infrastructure_list ?? []).map(async (item) => {
+      const imageIds = Array.isArray(item.img) ? item.img : [item.img];
+      const images = (
+        await Promise.all(imageIds.map((id) => fetchMediaById(id)))
+      ).filter((img) => img !== null);
+
+      return {
+        title: item.title,
+        text: item.text,
+        images,
+      };
+    }),
   );
   const infrastructureFullscreenSlides = await Promise.all(
-    (page?.acf.infrastructure_list_two ?? []).map(async (item) => ({
-      title: item.title,
-      text: item.text,
-      img: await fetchMediaById(item.img),
-    })),
+    (page?.acf.infrastructure_list_two ?? []).map(async (item) => {
+      const images = (
+        await Promise.all((item.img ?? []).map((id) => fetchMediaById(id)))
+      ).filter((img) => img !== null);
+
+      return {
+        title: item.title,
+        text: item.text,
+        images,
+      };
+    }),
   );
 
   const serviceTopTitle = page?.acf.service_top_title || "";
@@ -138,13 +153,35 @@ export default async function Home() {
       (page?.acf.service_gallery ?? []).map((id) => fetchMediaById(id)),
     )
   ).filter((img) => img !== null);
+  const serviceIntroSlides = (
+    await Promise.all(
+      (page?.acf.service_list_one ?? []).map(async (item) => ({
+        title: item.title,
+        text: item.text,
+        img: await fetchMediaById(item.img),
+      })),
+    )
+  )
+    .filter((slide) => slide.img !== null)
+    .map((slide) => ({
+      title: slide.title,
+      text: slide.text,
+      img: slide.img!,
+    }));
 
   const serviceSlides = await Promise.all(
-    (page?.acf.service_list ?? []).map(async (item) => ({
-      title: item.title,
-      text: item.text,
-      img: await fetchMediaById(item.img),
-    })),
+    (page?.acf.service_list ?? []).map(async (item) => {
+      const imageIds = Array.isArray(item.img) ? item.img : [item.img];
+      const images = (
+        await Promise.all(imageIds.map((id) => fetchMediaById(id)))
+      ).filter((img) => img !== null);
+
+      return {
+        title: item.title,
+        text: item.text,
+        images,
+      };
+    }),
   );
 
   const roomsSectionSlides = await Promise.all(
@@ -152,7 +189,9 @@ export default async function Home() {
       title: item.title,
       square: item.square,
       text: item.text,
-      img: await fetchMediaById(item.img),
+      images: (
+        await Promise.all((item.img ?? []).map((id) => fetchMediaById(id)))
+      ).filter((img) => img !== null),
       income: await fetchMediaById(item.income),
       plans: (
         await Promise.all((item.plans ?? []).map((id) => fetchMediaById(id)))
@@ -194,72 +233,74 @@ export default async function Home() {
           text_two={investmentsTextTwo}
           list={investmentsList}
         />
+        <AdvantagesSection
+          top_title={advantagesTopTitle}
+          title={advantagesTitle}
+          text={advantagesText}
+          img={advantagesImg}
+          tabs={advantagesTabs}
+        />
+        <IncomeSection tabs={incomeTabs} />
+        <LocationSection
+          top_title={locationTopTitle}
+          title={locationTitle}
+          text_one={locationTextOne}
+          text_two={locationTextTwo}
+          img={locationImg}
+        />
+        <PointSection tabs={pointTabs} />
+        <ConceptSection
+          top_title={conceptTopTitle}
+          title={conceptTitle}
+          img_one={conceptImgOne}
+          text_one={conceptTextOne}
+          text_two={conceptTextTwo}
+          img_two={conceptImgTwo}
+          img_three={conceptImgThree}
+        />
+        <ProductSection tabs={productTabs} />
+        <OpenFormSection
+          title={openFormTitle}
+          text={openFormText}
+          bg={openFormBg}
+        />
+        <InfrastructureSection
+          top_title={infrastructureTopTitle}
+          title={infrastructureTitle}
+          text={infrastructureText}
+          img={infrastructureImg}
+        />
+        <GenplanSection/>
+        <InfrastructureSliderSection slides={infrastructureSlides} />
+        <InfrastructureFullscreenSliderSection
+          slides={infrastructureFullscreenSlides}
+        />
+        <ServiceSection
+          top_title={serviceTopTitle}
+          title={serviceTitle}
+          text={serviceText}
+          gallery={serviceGallery}
+          slides={serviceIntroSlides}
+        />
+        <ServiceSliderSection slides={serviceSlides} />
+        <RoomsSection
+          slides={roomsSectionSlides}
+        />
+        <FinanceSection
+          top_title={financeTopTitle}
+          title={financeTitle}
+          img={financeImg}
+          text={financeText}
+          list_one={financeListOne}
+          list_two={financeListTwo}
+        />
+        <GallerySection
+          top_title={galleryTopTitle}
+          title={galleryTitle}
+          gallery={galleryList}
+        />
+        <Footer data={options?.footer} />
       </ScrollStage>
-      <AdvantagesSection
-        top_title={advantagesTopTitle}
-        title={advantagesTitle}
-        text={advantagesText}
-        img={advantagesImg}
-        tabs={advantagesTabs}
-      />
-      <IncomeSection tabs={incomeTabs} /> 
-      <LocationSection
-        top_title={locationTopTitle}
-        title={locationTitle}
-        text_one={locationTextOne}
-        text_two={locationTextTwo}
-        img={locationImg}
-      />
-      <PointSection tabs={pointTabs} />
-      <ConceptSection
-        top_title={conceptTopTitle}
-        title={conceptTitle}
-        img_one={conceptImgOne}
-        text_one={conceptTextOne}
-        text_two={conceptTextTwo}
-        img_two={conceptImgTwo}
-        img_three={conceptImgThree}
-      />
-      <ProductSection tabs={productTabs} />
-      <OpenFormSection
-        title={openFormTitle}
-        text={openFormText}
-        bg={openFormBg}
-      />
-      <InfrastructureSection
-        top_title={infrastructureTopTitle}
-        title={infrastructureTitle}
-        text={infrastructureText}
-        img={infrastructureImg}
-      />
-      <GenplanSection/>
-      <InfrastructureSliderSection slides={infrastructureSlides} />
-      <InfrastructureFullscreenSliderSection
-        slides={infrastructureFullscreenSlides}
-      />
-      <ServiceSection
-        top_title={serviceTopTitle}
-        title={serviceTitle}
-        text={serviceText}
-        gallery={serviceGallery}
-      /> 
-      <ServiceSliderSection slides={serviceSlides} />
-      <RoomsSection
-        slides={roomsSectionSlides}
-      />  
-      <FinanceSection
-        top_title={financeTopTitle}
-        title={financeTitle}
-        img={financeImg}
-        text={financeText}
-        list_one={financeListOne}
-        list_two={financeListTwo}
-      />
-      <GallerySection
-        top_title={galleryTopTitle}
-        title={galleryTitle}
-        gallery={galleryList}
-      />
     </main>
   );
 }

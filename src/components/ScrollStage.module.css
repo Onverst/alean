@@ -3,6 +3,7 @@
   width: 100%;
   height: 100svh;
   overflow: hidden;
+  scroll-snap-type: y mandatory;
 }
 
 .viewport {
@@ -17,10 +18,12 @@
   z-index: var(--panel-index);
   min-height: 100svh;
   overflow: visible;
+  scroll-snap-align: start;
 }
 
 .panelInner {
   min-height: 100svh;
+  scroll-snap-align: start;
 }
 
 /* @media (max-width: 767px), (max-height: 680px) {

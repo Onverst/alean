@@ -1,9 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import type { WpMedia } from "@/types/wordpress";
+
+const MENU_OPEN_CLASS = "header-menu-is-open";
+const HEADER_HIDDEN_CLASS = "header-is-hidden";
 
 type Menu = {
   img: WpMedia | null;
@@ -16,6 +19,20 @@ export default function HeaderMenu({
 
     const toggleMenu = () => setIsOpen((v) => !v);
     const closeMenu = () => setIsOpen(false);
+
+    useEffect(() => {
+      const root = document.documentElement;
+
+      root.classList.toggle(MENU_OPEN_CLASS, isOpen);
+
+      if (isOpen) {
+        root.classList.remove(HEADER_HIDDEN_CLASS);
+      }
+
+      return () => {
+        root.classList.remove(MENU_OPEN_CLASS);
+      };
+    }, [isOpen]);
 
     const menuImgWidth = img?.media_details?.width ?? 1248;
     const menuImgHeight = img?.media_details?.height ?? 960;

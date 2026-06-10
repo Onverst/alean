@@ -118,13 +118,13 @@ export type HomePageAcf = {
   infrastructure_list: {
     title: string;
     text: string;
-    img: number;
+    img: number | number[];
   }[];
 
   infrastructure_list_two: {
     title: string;
     text: string;
-    img: number;
+    img: number[];
   }[];
 
   service_top_title: string;
@@ -132,17 +132,23 @@ export type HomePageAcf = {
   service_text: string;
   service_gallery: number[];
 
-  service_list: {
+  service_list_one: {
     title: string;
     text: string;
     img: number;
+  }[];
+
+  service_list: {
+    title: string;
+    text: string;
+    img: number | number[];
   }[];
 
   rooms_list: {
     title: string;
     square: string;
     text: string;
-    img: number;
+    img: number[];
     income: number;
     plans: number[];
   }[];

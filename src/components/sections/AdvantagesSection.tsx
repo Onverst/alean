@@ -28,18 +28,13 @@ export function AdvantagesSection({
   tabs = [],
 }: AdvantagesSectionProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>({
-    "0-0": true,
-  });
+  const [openItemKey, setOpenItemKey] = useState<string | null>(null);
   const imgWidth = img?.media_details?.width ?? 712;
   const imgHeight = img?.media_details?.height ?? 767;
   const activeTab = tabs[activeTabIndex];
 
   const toggleItem = (itemKey: string) => {
-    setOpenItems((current) => ({
-      ...current,
-      [itemKey]: !current[itemKey],
-    }));
+    setOpenItemKey((current) => (current === itemKey ? null : itemKey));
   };
 
   return (
@@ -96,7 +91,7 @@ export function AdvantagesSection({
                   <ul className={styles.tab_list}>
                     {activeTab.list.map((item, index) => {
                       const itemKey = `${activeTabIndex}-${index}`;
-                      const isOpen = Boolean(openItems[itemKey]);
+                      const isOpen = openItemKey === itemKey;
 
                       return (
                         <li className={styles.tab_item} key={`${item.title}-${index}`}>

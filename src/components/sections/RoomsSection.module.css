@@ -11,11 +11,31 @@
   z-index: 1;
   width: 100%;
   height: 100%;
+  scroll-snap-type: x mandatory;
 }
 
 .bg_swiper :global(.swiper-wrapper),
-.bg_swiper :global(.swiper-slide) {
+.bg_swiper :global(.swiper-slide),
+.bg_inner_slider,
+.bg_inner_swiper,
+.bg_inner_swiper :global(.swiper-wrapper),
+.bg_inner_swiper :global(.swiper-slide) {
   height: 100%;
+}
+
+.bg_swiper :global(.swiper-slide),
+.bg_inner_swiper :global(.swiper-slide),
+.content_swiper :global(.swiper-slide) {
+  scroll-snap-align: start;
+}
+
+.bg_inner_slider,
+.bg_inner_swiper {
+  width: 100%;
+}
+
+.bg_inner_slider {
+  position: relative;
 }
 
 .bg { 
@@ -25,7 +45,7 @@
   object-fit: cover;
 }
 
-.container {
+/* .container {
   position: relative;
   padding-top: 48px;
   padding-bottom: 48px;
@@ -34,14 +54,15 @@
   justify-content: flex-end;
   height: auto;
   z-index: 3;
-}
+} */
 
 
 .panel {
-  /* position: absolute;
+  position: absolute;
   bottom: 48px;
-  right: 96px; */
-  padding: 24px 24px 64px;
+  right: 96px;
+  /* padding: 24px 24px 64px; */
+  padding: 48px 24px;
   width: min(100%, 420px);
   background: var(--new-color-dark-taupe);
   z-index: 2;
@@ -49,6 +70,7 @@
 
 .content_swiper {
   width: 100%;
+  scroll-snap-type: x mandatory;
 }
 
 .slide_content {
@@ -61,6 +83,7 @@
 }
 
 .toggle {
+  display: none !important;
   margin-left: auto;
   margin-bottom: 32px;
   width: 48px;
@@ -142,13 +165,12 @@
   width: 100%;
   height: 2px;
   background: rgb(250 245 239 / 28%);
-}
+} 
 
 .progress span {
   display: block;
   height: 100%;
   background: var(--new-color-light-beight);
-  transition: width 0.3s ease;
 }
 
 .slider_controls {
@@ -355,15 +377,23 @@
   color: var(--new-color-dark-taupe);
 }
 
+@media (max-width: 1500px){
+  .panel {
+    right: 24px;
+  }
+}
+
 
 @media (max-width: 1200px){
-  .container {
+  /* .container {
     padding-top: 24px;
     padding-bottom: 24px;
-  }
+  } */
 
   .panel {
-    padding: 16px 16px 32px;
+    bottom: 24px;
+    /* padding: 16px 16px 32px; */
+    padding: 32px 16px;
     width: min(100%, 330px);
     background: var(--new-color-dark-taupe);
     z-index: 2;
@@ -416,6 +446,12 @@
   }
 }
 
+@media (max-width: 990px){
+  .panel {
+    right: 16px;
+  }
+}
+
 @media (max-width: 600px){
   .fullscreen_slider {
     flex-direction: column;
@@ -435,11 +471,12 @@
     min-height: 240px;
   }
 
-  .container {
+  /* .container {
     padding: 0;
-  }
+  } */
 
   .panel {
+    position: static;
     max-width: 100%;
     width: 100%;
   }

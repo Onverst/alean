@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { FreeMode, Mousewheel } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import type { WpMedia } from "@/types/wordpress";
 import styles from "./ProductSection.module.css";
 
@@ -26,6 +28,7 @@ type ProductSectionProps = {
 
 export function ProductSection({ tabs = [] }: ProductSectionProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const isMobileSlider = useMediaQuery("(max-width: 1200px)");
   const activeTab = tabs[activeTabIndex];
   const isReversed = activeTabIndex === 1;
 
@@ -35,6 +38,9 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
 
   const imgOneWidth = activeTab.img_one?.media_details?.width ?? 720;
   const imgOneHeight = activeTab.img_one?.media_details?.height ?? 720;
+  const productImages = activeTab.list_img.length > 1
+    ? duplicateProductImages(activeTab.list_img)
+    : activeTab.list_img;
 
   return (
     <section className={styles.product}>
@@ -53,15 +59,44 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
           </div>
 
           <div className={styles.content}>
-            <div className={styles.left} data-lenis-prevent>
+            <div
+              className={styles.left}
+              data-lenis-prevent
+            >
               {activeTab.list_img.length > 0 ? (
-                <ul className={styles.list_img}>
-                  {activeTab.list_img.map((item, index) => {
+                <Swiper
+                  key={`${activeTabIndex}-${isMobileSlider ? "mobile" : "desktop"}`}
+                  className={styles.list_img}
+                  direction={isMobileSlider ? "horizontal" : "vertical"}
+                  slidesPerView="auto"
+                  spaceBetween={8}
+                  loop={activeTab.list_img.length > 1}
+                  centeredSlides={!isMobileSlider}
+                  freeMode={{
+                    enabled: true,
+                    momentum: true,
+                    momentumRatio: 0.6,
+                    momentumVelocityRatio: 0.6,
+                  }}
+                  mousewheel={{
+                    enabled: true,
+                    forceToAxis: true,
+                    releaseOnEdges: true,
+                    sensitivity: 0.6,
+                  }}
+                  modules={[FreeMode, Mousewheel]}
+                  onSlideChange={(swiper) => {
+                    if (swiper.realIndex >= 2) {
+                      swiper.el.classList.add(styles.list_img_changed);
+                    }
+                  }}
+                >
+                  {productImages.map((item, index) => {
                     const imgWidth = item.img?.media_details?.width ?? 240;
                     const imgHeight = item.img?.media_details?.height ?? 320;
 
                     return (
-                      <li className={styles.img_item} key={`${item.name}-${index}`}>
+                      <SwiperSlide className={styles.img_item} key={`${item.name}-${index}-${item.img?.id ?? "empty"}`}>
                         {item.img ? (
                           <Image
                             className={styles.item_img}
@@ -72,10 +107,10 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
                           />
                         ) : null}
                         <span dangerouslySetInnerHTML={{ __html: item.name }} />
-                      </li>
+                      </SwiperSlide>
                     );
                   })}
-                </ul>
+                </Swiper>
               ) : null}
             </div>
 
@@ -128,4 +163,26 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
       </div>
     </section>
   );
+}
+
+function duplicateProductImages(items: ProductTab["list_img"]) {
+  return [...items, ...items, ...items];
+}
+
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    const updateMatches = () => setMatches(mediaQuery.matches);
+
+    updateMatches();
+    mediaQuery.addEventListener("change", updateMatches);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateMatches);
+    };
+  }, [query]);
+
+  return matches;
 }

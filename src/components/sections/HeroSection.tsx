@@ -26,6 +26,7 @@ export function HeroSection({
       {bgImg ? (
         <Image
           className={styles.bg}
+          data-scroll-hero-bg
           src={bgImg.source_url}
           alt={bgImg.alt_text}
           priority
@@ -33,7 +34,10 @@ export function HeroSection({
           height={bgHeight}
         />
       ) : null}
-      <div className={styles.container}>
+      <div 
+        className={styles.container}
+        data-scroll-hero-container
+      >
         {logo ? ( 
           <Image
             className={styles.logo}
