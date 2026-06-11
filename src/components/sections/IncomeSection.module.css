@@ -1,29 +1,41 @@
 .income {
     position: relative;
+    overflow: hidden;
 }
 
 .tab {
     min-height: 100svh;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    overflow: hidden;
 }
 
-.main_img_wrap {
+.side {
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
-.main_img_wrap img {
+.image_inner img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-[data-reversed="true"] .main_img_wrap {
-    order: 2;
+.side_inner {
+    width: 100%;
+    height: 100%;
 }
 
-.content {
+.switching[data-income-switch-side="left"] {
+    animation: income-tab-left-in 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.switching[data-income-switch-side="right"] {
+    animation: income-tab-right-in 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.content_inner {
     padding: 48px 40px;
     display: flex;
     flex-direction: column;
@@ -32,7 +44,7 @@
     background: var(--new-color-warm-gray);
 }
 
-[data-reversed="true"] .content {
+[data-reversed="true"] .content_inner {
     background: #e2d4c4;
 }
 
@@ -144,6 +156,30 @@
     color: var(--new-color-light-beight);
 }
 
+@keyframes income-tab-left-in {
+    from {
+        opacity: 0;
+        transform: translateY(72%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes income-tab-right-in {
+    from {
+        opacity: 0;
+        transform: translateY(-72%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 1200px){
     .tab {
         grid-template-columns: 1fr;
@@ -154,7 +190,11 @@
         display: none;
     }
 
-    .content {
+    .side:has(.image_inner) {
+        display: none;
+    }
+
+    .content_inner {
         padding: 64px 16px 112px;
         max-height: none;
     }

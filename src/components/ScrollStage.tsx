@@ -18,6 +18,13 @@ type ScrollStageProps = {
 
 const INFRASTRUCTURE_REVEAL_DURATION = 1.35;
 const INFRASTRUCTURE_SCROLL_DURATION = 0.9;
+const INVESTMENTS_REVEAL_DURATION = 1.15;
+const INVESTMENTS_EXIT_DURATION = 0.7;
+const INVESTMENTS_TO_ADVANTAGES_OVERLAP = 0.42;
+const ADVANTAGES_REVEAL_DURATION = 1;
+const LOCATION_REVEAL_DURATION = 0.95;
+const LOCATION_EXIT_DURATION = 0.55;
+const CONCEPT_REVEAL_DURATION = 1.15;
 
 export function ScrollStage({ children }: ScrollStageProps) {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -69,6 +76,8 @@ export function ScrollStage({ children }: ScrollStageProps) {
       const getThirdPanelOverflow = () => getPanelOverflow(thirdPanel);
       const getThirdPanelScrollDuration = () =>
         Math.max(getThirdPanelOverflow() / window.innerHeight, 0.01);
+      const getThirdPanelPassDuration = () =>
+        0.95 + getThirdPanelScrollDuration();
       const getAboutScrollDuration = () =>
         Math.max(getAboutBgOverflow() / window.innerHeight, 0.01);
       const getPanelScrollDuration = (panel: HTMLElement) =>
@@ -88,6 +97,17 @@ export function ScrollStage({ children }: ScrollStageProps) {
         panel.querySelector("[data-infrastructure-section]")
           ? INFRASTRUCTURE_REVEAL_DURATION + INFRASTRUCTURE_SCROLL_DURATION
           : 0;
+      const getLocationAnimationDuration = (panel: HTMLElement) =>
+        panel.querySelector("[data-location-section]")
+          ? LOCATION_EXIT_DURATION
+          : 0;
+      const getInvestmentsAnimationDuration = () =>
+        thirdPanel?.querySelectorAll("[data-investments-reveal]").length
+          ? INVESTMENTS_EXIT_DURATION +
+            (thirdPanel.querySelectorAll("[data-investments-reveal]").length -
+              1) *
+              0.08
+          : 0;
       const getAboutBgOverflow = () => {
         if (!aboutBg) {
           return 0;
@@ -100,9 +120,12 @@ export function ScrollStage({ children }: ScrollStageProps) {
           (duration, panel) =>
             duration +
             0.95 +
+            getLocationAnimationDuration(panel) +
             getInfrastructureAnimationDuration(panel) +
             getPanelScrollDrivenDuration(panel) +
-            getPanelScrollDuration(panel),
+            (panel.querySelector("[data-location-section]")
+              ? 0
+              : getPanelScrollDuration(panel)),
           0,
         );
 
@@ -131,12 +154,38 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
       const aboutScrollDuration = getAboutScrollDuration();
       const thirdPanelRevealStart = 1 + aboutScrollDuration;
-      const thirdPanelScrollStart = thirdPanelRevealStart + 0.95;
+      const investmentsRevealElements = thirdPanel
+        ? gsap.utils.toArray<HTMLElement>(
+            thirdPanel.querySelectorAll("[data-investments-reveal]"),
+          )
+        : [];
+      const investmentsList = thirdPanel?.querySelector<HTMLElement>(
+        "[data-investments-list]",
+      );
+      const investmentsExitTotalDuration =
+        investmentsRevealElements.length > 0
+          ? INVESTMENTS_EXIT_DURATION +
+            (investmentsRevealElements.length - 1) * 0.08
+          : 0;
+      const investmentsToAdvantagesOverlap =
+        investmentsExitTotalDuration > 0
+          ? Math.min(
+              INVESTMENTS_TO_ADVANTAGES_OVERLAP,
+              investmentsExitTotalDuration * 0.75,
+            )
+          : 0;
+
+      if (investmentsRevealElements.length > 0) {
+        gsap.set(investmentsRevealElements, {
+          autoAlpha: 0,
+          y: 28,
+        });
+      }
+
+      let overlayStart = 0;
       const snapPoints = [
         0,
         1,
-        thirdPanelRevealStart,
-        thirdPanelScrollStart,
       ];
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -145,7 +194,10 @@ export function ScrollStage({ children }: ScrollStageProps) {
           end: () =>
             `+=${
               window.innerHeight *
-                (thirdPanelScrollStart + getOverlayPanelsDuration()) +
+                (thirdPanelRevealStart +
+                  0.95 +
+                  getInvestmentsAnimationDuration() +
+                  getOverlayPanelsDuration()) +
               getThirdPanelOverflow()
             }`,
           pin: true,
@@ -154,11 +206,21 @@ export function ScrollStage({ children }: ScrollStageProps) {
           snap: {
             duration: { min: 0.18, max: 0.45 },
             ease: "power1.inOut",
-            snapTo: (progress) =>
-              gsap.utils.snap(
+            snapTo: (progress) => {
+              const timelineProgress = progress * timeline.duration();
+
+              if (
+                timelineProgress > thirdPanelRevealStart &&
+                timelineProgress < overlayStart
+              ) {
+                return progress;
+              }
+
+              return gsap.utils.snap(
                 snapPoints.map((point) => point / timeline.duration()),
                 progress,
-              ),
+              );
+            },
           },
           invalidateOnRefresh: true,
         },
@@ -243,38 +305,262 @@ export function ScrollStage({ children }: ScrollStageProps) {
         thirdPanel,
         {
           yPercent: 0,
+          y: () => -getThirdPanelOverflow(),
           ease: "none",
-          duration: 0.95,
+          duration: getThirdPanelPassDuration,
         },
         thirdPanelRevealStart,
       );
 
-      timeline.to(
-        thirdPanel,
-        {
-          y: () => -getThirdPanelOverflow(),
-          ease: "none",
-          duration: getThirdPanelScrollDuration,
-        },
-        thirdPanelScrollStart,
-      );
+      if (investmentsRevealElements.length > 0) {
+        timeline.to(
+          investmentsRevealElements,
+          {
+            autoAlpha: 1,
+            y: 0,
+            ease: "power1.out",
+            stagger: 0.12,
+            duration: INVESTMENTS_REVEAL_DURATION,
+          },
+          thirdPanelRevealStart + 0.18,
+        );
+      }
 
-      let overlayStart = thirdPanelScrollStart + getThirdPanelScrollDuration();
+      const investmentsExitStart =
+        thirdPanelRevealStart + getThirdPanelPassDuration();
+
+      if (investmentsRevealElements.length > 0) {
+        timeline.to(
+          investmentsRevealElements,
+          {
+            autoAlpha: 0,
+            y: -24,
+            ease: "power1.in",
+            stagger: 0.08,
+            duration: INVESTMENTS_EXIT_DURATION,
+          },
+          investmentsExitStart,
+        );
+      }
+
+      if (investmentsList) {
+        timeline.to(
+          investmentsList,
+          {
+            autoAlpha: 0,
+            ease: "power1.inOut",
+            duration: INVESTMENTS_EXIT_DURATION,
+          },
+          investmentsExitStart,
+        );
+      }
+
+      overlayStart =
+        investmentsExitStart +
+        investmentsExitTotalDuration -
+        investmentsToAdvantagesOverlap;
       snapPoints.push(overlayStart);
 
       overlayPanels.forEach((panel) => {
-        timeline.to(
-          panel,
-          {
-            yPercent: 0,
-            ease: "none",
-            duration: 0.95,
-          },
-          overlayStart,
+        const advantagesRevealElements = gsap.utils.toArray<HTMLElement>(
+          panel.querySelectorAll("[data-advantages-reveal]"),
+        );
+        const incomeLeft = panel.querySelector<HTMLElement>(
+          "[data-income-side='left']",
+        );
+        const incomeRight = panel.querySelector<HTMLElement>(
+          "[data-income-side='right']",
+        );
+        const incomeButtons = panel.querySelector<HTMLElement>(
+          "[data-income-buttons]",
+        );
+        const isIncomePanel = Boolean(incomeLeft && incomeRight);
+        const locationSection = panel.querySelector<HTMLElement>(
+          "[data-location-section]",
+        );
+        const locationImage = panel.querySelector<HTMLElement>(
+          "[data-location-image]",
+        );
+        const locationContent = panel.querySelector<HTMLElement>(
+          "[data-location-content]",
+        );
+        const isLocationPanel = Boolean(locationSection);
+        const conceptRevealElements = gsap.utils.toArray<HTMLElement>(
+          panel.querySelectorAll("[data-concept-reveal]"),
         );
 
-        overlayStart += 0.95;
+        if (advantagesRevealElements.length > 0) {
+          gsap.set(advantagesRevealElements, {
+            autoAlpha: 0,
+            y: 28,
+          });
+        }
+
+        if (incomeLeft) {
+          gsap.set(incomeLeft, {
+            autoAlpha: 1,
+            yPercent: -100,
+          });
+        }
+
+        if (incomeRight) {
+          gsap.set(incomeRight, {
+            autoAlpha: 1,
+            yPercent: 100,
+          });
+        }
+
+        if (incomeButtons) {
+          gsap.set(incomeButtons, {
+            autoAlpha: 0,
+            y: 18,
+          });
+        }
+
+        if (locationImage) {
+          gsap.set(locationImage, {
+            y: () => window.innerHeight * 0.16,
+          });
+        }
+
+        if (locationContent) {
+          gsap.set(locationContent, {
+            autoAlpha: 0,
+            y: () => window.innerHeight * 0.28,
+          });
+        }
+
+        if (conceptRevealElements.length > 0) {
+          gsap.set(conceptRevealElements, {
+            autoAlpha: 0,
+            y: 28,
+          });
+        }
+
+        if (isIncomePanel) {
+          timeline.set(panel, { yPercent: 0 }, overlayStart);
+        } else if (isLocationPanel) {
+          timeline.to(
+            panel,
+            {
+              yPercent: 0,
+              ease: "none",
+              duration: LOCATION_REVEAL_DURATION,
+            },
+            overlayStart,
+          );
+        } else {
+          timeline.to(
+            panel,
+            {
+              yPercent: 0,
+              ease: "none",
+              duration: 0.95,
+            },
+            overlayStart,
+          );
+        }
+
+        if (isLocationPanel) {
+          if (locationImage) {
+            timeline.to(
+              locationImage,
+              {
+                y: () => -window.innerHeight * 0.06,
+                ease: "none",
+                duration: LOCATION_REVEAL_DURATION,
+              },
+              overlayStart,
+            );
+          }
+
+          if (locationContent) {
+            timeline.to(
+              locationContent,
+              {
+                autoAlpha: 1,
+                y: 0,
+                ease: "none",
+                duration: LOCATION_REVEAL_DURATION,
+              },
+              overlayStart,
+            );
+          }
+        }
+
+        if (incomeLeft && incomeRight) {
+          timeline.to(
+            [incomeLeft, incomeRight],
+            {
+              yPercent: 0,
+              ease: "none",
+              duration: 0.95,
+            },
+            overlayStart,
+          );
+        }
+
+        if (incomeButtons) {
+          timeline.to(
+            incomeButtons,
+            {
+              autoAlpha: 1,
+              y: 0,
+              ease: "power1.out",
+              duration: 0.35,
+            },
+            overlayStart + 0.55,
+          );
+        }
+
+        if (advantagesRevealElements.length > 0) {
+          timeline.to(
+            advantagesRevealElements,
+            {
+              autoAlpha: 1,
+              y: 0,
+              ease: "power1.out",
+              stagger: 0.12,
+              duration: ADVANTAGES_REVEAL_DURATION,
+            },
+            overlayStart + 0.18,
+          );
+        }
+
+        if (conceptRevealElements.length > 0) {
+          timeline.to(
+            conceptRevealElements,
+            {
+              autoAlpha: 1,
+              y: 0,
+              ease: "power1.out",
+              stagger: 0.12,
+              duration: CONCEPT_REVEAL_DURATION,
+            },
+            overlayStart + 0.18,
+          );
+        }
+
+        overlayStart += isLocationPanel ? LOCATION_REVEAL_DURATION : 0.95;
         snapPoints.push(overlayStart);
+
+        if (isLocationPanel) {
+          if (locationContent) {
+            timeline.to(
+              locationContent,
+              {
+                autoAlpha: 0,
+                y: () => -window.innerHeight * 0.18,
+                ease: "power1.in",
+                duration: LOCATION_EXIT_DURATION,
+              },
+              overlayStart,
+            );
+          }
+
+          overlayStart += LOCATION_EXIT_DURATION;
+          snapPoints.push(overlayStart);
+        }
 
         const scrollDrivenSlider = panel.querySelector<HTMLElement>(
           "[data-scroll-driven-slider]",
@@ -405,7 +691,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
         const scrollDuration = getPanelScrollDuration(panel);
 
-        if (scrollDuration > 0) {
+        if (scrollDuration > 0 && !isLocationPanel) {
           timeline.to(
             panel,
             {
@@ -419,6 +705,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           overlayStart += scrollDuration;
           snapPoints.push(overlayStart);
         }
+
       });
     }, stageRef);
 

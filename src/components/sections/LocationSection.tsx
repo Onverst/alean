@@ -22,8 +22,8 @@ export function LocationSection({
   const imgHeight = img?.media_details?.height ?? 1024;
 
   return (
-    <section className={styles.location}>
-      <div className={styles.container}>
+    <section className={styles.location} data-location-section>
+      <div className={styles.container} data-location-content>
         <h3 className={`${styles.title} section-title`}>
           <span
             className={`${styles.top_title} section-title-top`}
@@ -52,6 +52,7 @@ export function LocationSection({
       {img ? (
         <Image
           className={styles.img}
+          data-location-image
           src={img.source_url}
           alt={img.alt_text}
           width={imgWidth}

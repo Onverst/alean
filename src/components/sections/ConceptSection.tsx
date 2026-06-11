@@ -29,9 +29,9 @@ export function ConceptSection({
   const imgThreeHeight = img_three?.media_details?.height ?? 400;
 
   return (
-    <section className={styles.concept}>
+    <section className={styles.concept} data-concept-section>
       <div className={styles.container}>
-        <h3 className={`${styles.title} section-title`}>
+        <h3 className={`${styles.title} section-title`} data-concept-reveal>
           <span
             className={`${styles.top_title} section-title-top`}
             dangerouslySetInnerHTML={{ __html: top_title }}
@@ -39,12 +39,12 @@ export function ConceptSection({
           <span dangerouslySetInnerHTML={{ __html: title }} />
         </h3>
 
-        <div className={styles.img_one_wrap}>
+        <div className={styles.img_one_wrap} data-concept-reveal>
           {img_one ? (
             <Image
               className={styles.img_one}
               src={img_one.source_url}
-              alt={img_one.alt_text} 
+              alt={img_one.alt_text}
               width={imgOneWidth}
               height={imgOneHeight}
             />
@@ -53,36 +53,38 @@ export function ConceptSection({
 
         <p
           className={styles.text_one}
+          data-concept-reveal
           dangerouslySetInnerHTML={{ __html: text_one }}
         />
         <p
           className={styles.text_two}
+          data-concept-reveal
           dangerouslySetInnerHTML={{ __html: text_two }}
         />
 
         <div className={styles.wrapper}>
-          <div className={styles.img_two_wrap}>
-          {img_two ? (
-            <Image
-              className={styles.img_two}
-              src={img_two.source_url}
-              alt={img_two.alt_text}
-              width={imgTwoWidth} 
-              height={imgTwoHeight}
-            />
-          ) : null}
+          <div className={styles.img_two_wrap} data-concept-reveal>
+            {img_two ? (
+              <Image
+                className={styles.img_two}
+                src={img_two.source_url}
+                alt={img_two.alt_text}
+                width={imgTwoWidth}
+                height={imgTwoHeight}
+              />
+            ) : null}
           </div>
 
-          <div className={styles.img_three_wrap}>
-          {img_three ? (
-            <Image
-              className={styles.img_three}
-              src={img_three.source_url}
-              alt={img_three.alt_text}
-              width={imgThreeWidth}
-              height={imgThreeHeight}
-            />
-          ) : null}
+          <div className={styles.img_three_wrap} data-concept-reveal>
+            {img_three ? (
+              <Image
+                className={styles.img_three}
+                src={img_three.source_url}
+                alt={img_three.alt_text}
+                width={imgThreeWidth}
+                height={imgThreeHeight}
+              />
+            ) : null}
           </div>
         </div>
       </div>

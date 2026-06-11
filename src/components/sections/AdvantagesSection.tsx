@@ -38,9 +38,9 @@ export function AdvantagesSection({
   };
 
   return (
-  <section className={styles.advantages}>
+  <section className={styles.advantages} data-advantages-section>
     <div className={styles.container}>
-      <h3 className={`${styles.title} section-title`} >
+      <h3 className={`${styles.title} section-title`} data-advantages-reveal>
         <span
           className={`${styles.top_title} section-title-top`}
           dangerouslySetInnerHTML={{ __html: top_title }}
@@ -49,14 +49,18 @@ export function AdvantagesSection({
       </h3>
 
       <div className={styles.bottom}>
-        <p className={styles.text} dangerouslySetInnerHTML={{ __html: text }}></p>
+        <p
+          className={styles.text}
+          data-advantages-reveal
+          dangerouslySetInnerHTML={{ __html: text }}
+        ></p>
 
-        <Button className={`${styles.button} main-button`}>
+        <Button className={`${styles.button} main-button`} data-advantages-reveal>
             рассчитать доходность
         </Button>
 
         <div className={styles.wrap}>
-          <div className={styles.img_wrap}>
+          <div className={styles.img_wrap} data-advantages-reveal>
             {img ? (
               <Image
                 className={styles.img}
@@ -70,7 +74,7 @@ export function AdvantagesSection({
             
           </div>
 
-          <div className={styles.tabs}>
+          <div className={styles.tabs} data-advantages-reveal>
             {tabs.length > 0 ? (
               <>
                 <div className={styles.tab_buttons}>
