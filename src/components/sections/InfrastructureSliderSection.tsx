@@ -29,8 +29,8 @@ export function InfrastructureSliderSection({
   }
 
   const goToSlide = (index: number) => {
-    imageSwiper?.slideTo(index);
-    contentSwiper?.slideTo(index);
+    imageSwiper?.slideTo(index, 1000);
+    contentSwiper?.slideTo(index, 1000);
     setActiveIndex(index);
   };
 
@@ -38,7 +38,7 @@ export function InfrastructureSliderSection({
     const nextIndex = swiper.activeIndex;
 
     if (nextIndex !== activeIndex) {
-      contentSwiper?.slideTo(nextIndex);
+      contentSwiper?.slideTo(nextIndex, 1000);
       setActiveIndex(nextIndex);
     }
   };
@@ -47,7 +47,7 @@ export function InfrastructureSliderSection({
     const nextIndex = swiper.activeIndex;
 
     if (nextIndex !== activeIndex) {
-      imageSwiper?.slideTo(nextIndex);
+      imageSwiper?.slideTo(nextIndex, 1000);
       setActiveIndex(nextIndex);
     }
   };
@@ -111,11 +111,11 @@ function InnerImageSlider({ images }: { images: WpMedia[] }) {
   const [swiper, setSwiper] = useState<SwiperClass | null>(null);
 
   const goPrev = () => {
-    swiper?.slideTo(Math.max(activeIndex - 1, 0));
+    swiper?.slideTo(Math.max(activeIndex - 1, 0), 1000);
   };
 
   const goNext = () => {
-    swiper?.slideTo(Math.min(activeIndex + 1, images.length - 1));
+    swiper?.slideTo(Math.min(activeIndex + 1, images.length - 1), 1000);
   };
 
   return (

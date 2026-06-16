@@ -27,8 +27,8 @@ export function GallerySection({
     }
 
     const goToSlide = (index: number) => {
-        imageSwiper?.slideTo(index);
-        contentSwiper?.slideTo(index);
+        imageSwiper?.slideTo(index, 1000);
+        contentSwiper?.slideTo(index, 1000);
         setActiveIndex(index);
     };
 
@@ -36,7 +36,7 @@ export function GallerySection({
         const nextIndex = swiper.activeIndex;
 
         if (nextIndex !== activeIndex) {
-        contentSwiper?.slideTo(nextIndex);
+        contentSwiper?.slideTo(nextIndex, 1000);
         setActiveIndex(nextIndex);
         }
     };
@@ -45,7 +45,7 @@ export function GallerySection({
         const nextIndex = swiper.activeIndex;
 
         if (nextIndex !== activeIndex) {
-        imageSwiper?.slideTo(nextIndex);
+        imageSwiper?.slideTo(nextIndex, 1000);
         setActiveIndex(nextIndex);
         }
     };
@@ -58,7 +58,7 @@ export function GallerySection({
         goToSlide(Math.min(activeIndex + 1, gallery.length - 1));
     };
   return (
-    <section className={styles.gallery}>
+    <section className={styles.gallery} data-gallery={1}>
         <div className={styles.container}>
             <h3 className={`${styles.title} section-title`} >
                 <span

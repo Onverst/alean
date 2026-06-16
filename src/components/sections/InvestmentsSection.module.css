@@ -1,8 +1,11 @@
 .investments {
   min-height: 100svh;
   padding-top: 192px;
-  padding-bottom: 96px;
+  /*padding-bottom: 96px;*/
   background: var(--new-color-light-beight);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .container {

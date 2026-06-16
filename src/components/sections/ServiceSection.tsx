@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectFade } from "swiper/modules";
 import type { Swiper as SwiperClass } from "swiper/types";
 import type { WpMedia } from "@/types/wordpress";
 import styles from "./ServiceSection.module.css";
@@ -134,6 +135,10 @@ export function ServiceSection({
           <Swiper
             key={`content-${shouldLoop ? "loop" : "static"}`}
             className={styles.content_slider}
+            modules={[ EffectFade ]}
+            effect="fade"
+            fadeEffect={{ crossFade: true }}
+            speed={600}
             slidesPerView={1}
             allowTouchMove={false}
             autoHeight

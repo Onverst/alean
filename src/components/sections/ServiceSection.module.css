@@ -1,4 +1,5 @@
 .service {
+  min-height: 100svh;
   padding: 124px 0 64px;
   background: var(--new-color-light-beight);
 }

@@ -1,4 +1,4 @@
-/* .stage {
+ .stage {
   position: relative;
   width: 100%;
   height: 100svh;
@@ -24,7 +24,7 @@
 .panelInner {
   min-height: 100svh;
   scroll-snap-align: start;
-} */
+}
 
 /* @media (max-width: 767px), (max-height: 680px) {
   .stage,
