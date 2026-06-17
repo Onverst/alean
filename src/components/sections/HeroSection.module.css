@@ -28,6 +28,18 @@
   height: 124svh;
   will-change: transform;
 }
+.video {
+  width: 100%;
+  height: 124svh;
+  object-fit: cover;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+.video.mobile_video {
+  display: none;
+}
 
 .logo {
   width: 100%;
@@ -71,5 +83,11 @@
 
   .title {
     font-size: 32px;
-  } 
+  }
+  .video.mobile_video {
+    display: block;
+  }
+  .video.desktop_video {
+    display: none;
+  }
 }

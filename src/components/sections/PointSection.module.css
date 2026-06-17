@@ -28,11 +28,11 @@
 }
 
 .switching[data-income-switch-side="left"] {
-    animation: point-tab-left-in 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: point-tab-left-in 2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .switching[data-income-switch-side="right"] {
-    animation: point-tab-right-in 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: point-tab-right-in 2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .content_inner {

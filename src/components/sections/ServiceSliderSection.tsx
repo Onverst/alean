@@ -51,7 +51,8 @@ export function ServiceSliderSection({ slides = [] }: ServiceSliderSectionProps)
   };
 
   return (
-    <section className={styles.service_slider}>
+    <section className={styles.service_slider}
+    data-service-slider-section={1}>
       <div className={styles.content}>
         <div className={styles.titles}>
           {slides.map((slide, index) => (

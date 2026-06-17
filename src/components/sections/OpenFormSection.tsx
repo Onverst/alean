@@ -100,7 +100,8 @@ export function OpenFormSection({
   }
 
   return (
-    <section className={styles.open_form}>
+    <section className={styles.open_form}
+    data-body-form-section={1}>
       {bg ? (
         <Image
           className={styles.bg}

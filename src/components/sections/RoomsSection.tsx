@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectFade } from "swiper/modules";
+import "swiper/css/effect-fade";
 import type { Swiper as SwiperClass } from "swiper/types";
 import type { WpMedia } from "@/types/wordpress";
 import styles from "./RoomsSection.module.css";
@@ -119,9 +121,9 @@ export function RoomsSection({
       return;
     }
 
-    imageSwiper?.slideTo(nextIndex);
-    titleSwiper?.slideTo(nextIndex);
-    textSwiper?.slideTo(nextIndex);
+    imageSwiper?.slideTo(nextIndex, 1000);
+    titleSwiper?.slideTo(nextIndex, 1000);
+    textSwiper?.slideTo(nextIndex, 1000);
 
     activeIndexRef.current = nextIndex;
     setActiveIndex(nextIndex);
@@ -142,11 +144,11 @@ export function RoomsSection({
   };
 
   const goPrevPlan = () => {
-    plansSwiper?.slideTo(Math.max(activePlanIndex - 1, 0));
+    plansSwiper?.slideTo(Math.max(activePlanIndex - 1, 0), 1000);
   };
 
   const goNextPlan = (plansLength: number) => {
-    plansSwiper?.slideTo(Math.min(activePlanIndex + 1, plansLength - 1));
+    plansSwiper?.slideTo(Math.min(activePlanIndex + 1, plansLength - 1), 1000);
   };
 
   const popupSlide = popup ? slides[popup.slideIndex] : null;
@@ -159,6 +161,7 @@ export function RoomsSection({
       data-scroll-driven-slider
       data-scroll-duration={Math.max(slides.length - 1, 0)}
       ref={sectionRef}
+      data-room-section={1}
     >
       <div className={styles.wrap}>
         <Swiper 
@@ -211,6 +214,10 @@ export function RoomsSection({
             slidesPerView={1}
             allowTouchMove={false}
             autoHeight
+            effect="fade"
+            fadeEffect={{ crossFade: true }}
+            modules={[EffectFade]}
+            speed={1000}
             onSwiper={setTitleSwiper}
             onSlideChange={handleSlideChange}
           >
@@ -260,6 +267,10 @@ export function RoomsSection({
             slidesPerView={1}
             allowTouchMove={false}
             autoHeight
+            effect="fade"
+            fadeEffect={{ crossFade: true }}
+            modules={[EffectFade]}
+            speed={1000}
             onSwiper={setTextSwiper}
             onSlideChange={handleSlideChange}
           >
@@ -324,6 +335,10 @@ export function RoomsSection({
                   key={`plans-${popup.slideIndex}`}
                   className={styles.plans_slider}
                   slidesPerView={1}
+                  effect="fade"
+                  fadeEffect={{ crossFade: true }}
+                  modules={[EffectFade]}
+                  speed={1000}
                   onSwiper={setPlansSwiper}
                   onSlideChange={handlePlanSlideChange}
                 >
@@ -391,11 +406,11 @@ function InnerBackgroundSlider({ images }: { images: WpMedia[] }) {
   const [swiper, setSwiper] = useState<SwiperClass | null>(null);
 
   const goPrev = () => {
-    swiper?.slideTo(Math.max(activeIndex - 1, 0));
+    swiper?.slideTo(Math.max(activeIndex - 1, 0), 1000);
   };
 
   const goNext = () => {
-    swiper?.slideTo(Math.min(activeIndex + 1, images.length - 1));
+    swiper?.slideTo(Math.min(activeIndex + 1, images.length - 1), 1000);
   };
 
   return (
@@ -403,6 +418,10 @@ function InnerBackgroundSlider({ images }: { images: WpMedia[] }) {
       <Swiper
         className={styles.bg_inner_swiper}
         slidesPerView={1}
+        effect="fade"
+        fadeEffect={{ crossFade: true }}
+        modules={[EffectFade]}
+        speed={1000}
         onSwiper={setSwiper}
         onSlideChange={(instance) => setActiveIndex(instance.activeIndex)}
       >

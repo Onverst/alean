@@ -124,7 +124,8 @@ export function ServiceSection({
   };
 
   return (
-    <section className={styles.service}>
+    <section className={styles.service}
+    data-service-section={1}>
       <div className={styles.container}>
         <span
           className={styles.top_title}

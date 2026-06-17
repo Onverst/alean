@@ -53,7 +53,8 @@ export function InfrastructureSliderSection({
   };
 
   return (
-    <section className={styles.infrastructure_slider}>
+    <section className={styles.infrastructure_slider}
+    data-infrastruture-slider-section={1}>
       <div className={styles.images}>
         <Swiper
           className={styles.image_swiper}

@@ -22,8 +22,9 @@ export function HeroSection({
   const bgHeight = bgImg?.media_details?.height ?? 1024;
 
   return (
-    <section className={styles.hero}>
-      {bgImg ? (
+    <section className={styles.hero}
+    data-hero-section={1}>
+      {/*{bgImg ? (
         <Image
           className={styles.bg}
           data-scroll-hero-bg
@@ -33,7 +34,27 @@ export function HeroSection({
           width={bgWidth}
           height={bgHeight}
         />
-      ) : null}
+      ) : null}*/}
+      <video
+          className={`${styles.video} ${styles.desktop_video}`}
+          data-scroll-hero-bg
+          autoPlay
+          muted
+          loop
+          playsInline
+      >
+        <source src="/hero_desktop.mp4" type="video/mp4" />
+      </video>
+      <video
+          className={`${styles.video} ${styles.mobile_video}`}
+          data-scroll-hero-bg
+          autoPlay
+          muted
+          loop
+          playsInline
+      >
+        <source src="/hero_mobile.mp4" type="video/mp4" />
+      </video>
       <div 
         className={styles.container}
         data-scroll-hero-container

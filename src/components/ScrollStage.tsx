@@ -129,6 +129,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           0,
         );
 
+
       gsap.set(heroPanel, { yPercent: 0, zIndex: 3 });
       gsap.set(aboutPanel, { yPercent: 0, zIndex: 2 });
       gsap.set(thirdPanel, { y: 0, yPercent: 100, zIndex: 4 });
@@ -309,7 +310,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           ease: "none",
           duration: getThirdPanelPassDuration,
         },
-        thirdPanelRevealStart,
+        thirdPanelRevealStart + 0.3,
       );
 
       if (investmentsRevealElements.length > 0) {
@@ -362,32 +363,32 @@ export function ScrollStage({ children }: ScrollStageProps) {
       snapPoints.push(overlayStart);
 
       overlayPanels.forEach((panel) => {
-        const advantagesRevealElements = gsap.utils.toArray<HTMLElement>(
-          panel.querySelectorAll("[data-advantages-reveal]"),
-        );
-        const incomeLeft = panel.querySelector<HTMLElement>(
-          "[data-income-side='left']",
-        );
-        const incomeRight = panel.querySelector<HTMLElement>(
-          "[data-income-side='right']",
-        );
-        const incomeButtons = panel.querySelector<HTMLElement>(
-          "[data-income-buttons]",
-        );
-        const isIncomePanel = Boolean(incomeLeft && incomeRight);
-        const locationSection = panel.querySelector<HTMLElement>(
-          "[data-location-section]",
-        );
-        const locationImage = panel.querySelector<HTMLElement>(
-          "[data-location-image]",
-        );
-        const locationContent = panel.querySelector<HTMLElement>(
-          "[data-location-content]",
-        );
-        const isLocationPanel = Boolean(locationSection);
-        const conceptRevealElements = gsap.utils.toArray<HTMLElement>(
-          panel.querySelectorAll("[data-concept-reveal]"),
-        );
+          const advantagesRevealElements = gsap.utils.toArray<HTMLElement>(
+              panel.querySelectorAll("[data-advantages-reveal]"),
+          );
+          const incomeLeft = panel.querySelector<HTMLElement>(
+              "[data-income-side='left']",
+          );
+          const incomeRight = panel.querySelector<HTMLElement>(
+              "[data-income-side='right']",
+          );
+          const incomeButtons = panel.querySelector<HTMLElement>(
+              "[data-income-buttons]",
+          );
+          const isIncomePanel = Boolean(incomeLeft && incomeRight);
+          const locationSection = panel.querySelector<HTMLElement>(
+              "[data-location-section]",
+          );
+          const locationImage = panel.querySelector<HTMLElement>(
+              "[data-location-image]",
+          );
+          const locationContent = panel.querySelector<HTMLElement>(
+              "[data-location-content]",
+          );
+          const isLocationPanel = Boolean(locationSection);
+          const conceptRevealElements = gsap.utils.toArray<HTMLElement>(
+              panel.querySelectorAll("[data-concept-reveal]"),
+          );
           const gallerySection = panel.querySelector<HTMLElement>(
               "[data-gallery]",
           );
@@ -409,50 +410,74 @@ export function ScrollStage({ children }: ScrollStageProps) {
           const Footer = panel.querySelector<HTMLElement>(
               "footer",
           );
+          const BodyFormSection = panel.querySelector<HTMLElement>(
+              "[data-body-form-section]",
+          );
+          const InfrastructureSection = panel.querySelector<HTMLElement>(
+              "[data-infrastructure-section]",
+          );
+          const GenplanSection = panel.querySelector<HTMLElement>(
+              "[data-genplan-section]",
+          );
+          const InfrastructureSliderSection = panel.querySelector<HTMLElement>(
+              "[data-infrastruture-slider-section]",
+          );
+          const InfrastructureFullSection = panel.querySelector<HTMLElement>(
+              "[data-infrastructure-full]",
+          );
+          const ServiceSection = panel.querySelector<HTMLElement>(
+              "[data-service-section]",
+          );
+          const ServiceSliderSection = panel.querySelector<HTMLElement>(
+              "[data-service-slider-section]",
+          );
+          const RoomSection = panel.querySelector<HTMLElement>(
+              "[data-room-section]",
+          );
 
 
-        if (advantagesRevealElements.length > 0) {
-          gsap.set(advantagesRevealElements, {
-              autoAlpha: 0,
-              y: 18,
-          });
-        }
+          if (advantagesRevealElements.length > 0) {
+              gsap.set(advantagesRevealElements, {
+                  autoAlpha: 0,
+                  y: 18,
+              });
+            }
 
-        if ( IncomeSection ) {
-            gsap.set(IncomeSection, {
-                y: 0,
-            });
-            timeline.to(
-                IncomeSection,
-                {
+          if ( IncomeSection ) {
+                gsap.set(IncomeSection, {
                     y: 0,
-                    duration: 1,
-                    ease: "power1.out",
-                },
-                overlayStart += 0.3
-            );
-        }
+                });
+                timeline.to(
+                    IncomeSection,
+                    {
+                        y: 0,
+                        duration: 1,
+                        ease: "power1.out",
+                    },
+                    overlayStart += 0.3
+                );
+            }
 
-        if (incomeLeft) {
-          gsap.set(incomeLeft, {
-            autoAlpha: 1,
-            yPercent: -100,
-          });
-        }
+          if (incomeLeft) {
+              gsap.set(incomeLeft, {
+                autoAlpha: 1,
+                yPercent: -100,
+              });
+            }
 
-        if (incomeRight) {
-          gsap.set(incomeRight, {
-            autoAlpha: 1,
-            yPercent: 100,
-          });
-        }
+          if (incomeRight) {
+              gsap.set(incomeRight, {
+                autoAlpha: 1,
+                yPercent: 100,
+              });
+            }
 
-        if (incomeButtons) {
-          gsap.set(incomeButtons, {
-            autoAlpha: 0,
-            y: 18,
-          });
-        }
+          if (incomeButtons) {
+              gsap.set(incomeButtons, {
+                autoAlpha: 0,
+                y: 18,
+              });
+            }
 
           if ( ProductSection ) {
               gsap.set(locationSection, {
@@ -483,6 +508,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
                   overlayStart += 0.5
               );
           }
+
           if (ConceptSection) {
               gsap.set(ConceptSection, {
                   y: 0,
@@ -498,145 +524,237 @@ export function ScrollStage({ children }: ScrollStageProps) {
               );
           }
 
-
-        if (locationImage) {
-          gsap.set(locationImage, {
-            //y: () => window.innerHeight * 0.16,
-          });
-        }
-
-        if (locationContent) {
-          gsap.set(locationContent, {
-            autoAlpha: 0,
-            y: () => window.innerHeight * 0.28,
-          });
-        }
-
-        if (conceptRevealElements.length > 0) {
-          gsap.set(conceptRevealElements, {
-            autoAlpha: 0,
-            y: 28,
-          });
-        }
-
-        if (isIncomePanel) {
-          timeline.set(panel, { yPercent: 0 }, overlayStart);
-        } else if (isLocationPanel) {
-          timeline.to(
-            panel,
-            {
-              yPercent: 0,
-              ease: "none",
-              duration: LOCATION_REVEAL_DURATION,
-            },
-            overlayStart,
-          );
-        } else {
-          timeline.to(
-            panel,
-            {
-              yPercent: 0,
-              ease: "none",
-              duration: 0.95,
-            },
-            overlayStart,
-          );
-        }
-
-        if (isLocationPanel) {
-          if (locationImage) {
-            timeline.to(
-              locationImage,
-              {
-                //y: () => -window.innerHeight * 0.06,
-                ease: "none",
-                duration: LOCATION_REVEAL_DURATION,
-              },
-              overlayStart,
-            );
+          if ( BodyFormSection ) {
+              timeline.to(
+                  BodyFormSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.5
+              );
           }
 
-          if (locationContent) {
-            timeline.to(
-              locationContent,
-              {
-                autoAlpha: 1,
-                y: 0,
-                ease: "none",
-                duration: LOCATION_REVEAL_DURATION,
-              },
-              overlayStart,
-            );
+          if ( InfrastructureSection ) {
+              timeline.to(
+                  InfrastructureSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.3
+              );
           }
-        }
 
-        if (incomeLeft && incomeRight) {
-          timeline.to(
-            [incomeLeft, incomeRight],
-            {
-              yPercent: 0,
-              ease: "none",
-              duration: 0.95,
-            },
-            overlayStart,
-          );
-        }
+          if ( GenplanSection ) {
+              timeline.to(
+                  GenplanSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.3
+              );
+          }
 
-        if (incomeButtons) {
-          timeline.to(
-            incomeButtons,
-            {
-              autoAlpha: 1,
-              y: 0,
-              ease: "power1.out",
-              duration: 0.35,
-            },
-            overlayStart + 1,
-          );
-        }
+          if ( InfrastructureSliderSection ) {
+              timeline.to(
+                  InfrastructureSliderSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.3
+              );
+          }
 
-        if (advantagesRevealElements.length > 0) {
-          timeline.to(
-            advantagesRevealElements,
-            {
-              autoAlpha: 1,
-              y: 0,
-              ease: "power1.out",
-              stagger: 0.12,
-              duration: ADVANTAGES_REVEAL_DURATION,
-            },
-            overlayStart + 0.18,
-          );
-        }
+          if ( InfrastructureFullSection ) {
+              timeline.to(
+                  InfrastructureFullSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.3
+              );
+          }
 
-        if (conceptRevealElements.length > 0) {
-          timeline.to(
-            conceptRevealElements,
-            {
-              autoAlpha: 1,
-              y: 0,
-              ease: "power1.out",
-              stagger: 0.12,
-              duration: CONCEPT_REVEAL_DURATION,
-            },
-            overlayStart + 0.18,
-          );
-        }
+          if ( ServiceSection ) {
+              timeline.to(
+                  ServiceSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.3
+              );
+          }
 
-          /*if ( FinanceSection ) {
-              gsap.set(FinanceSection, {
-                  y: 0,
-              });
+          if ( ServiceSliderSection ) {
+              timeline.to(
+                  ServiceSliderSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.3
+              );
+          }
+
+          if ( RoomSection ) {
+              timeline.to(
+                  RoomSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.3
+              );
+          }
+
+          if ( FinanceSection ) {
               timeline.to(
                   FinanceSection,
                   {
                       y: 0,
-                      ease: "power1.out",
                       duration: 1,
+                      ease: "power1.out",
                   },
-                  overlayStart += 0.3,
+                  overlayStart += 0.3
               );
-          }*/
+          }
+
+          if (locationImage) {
+              gsap.set(locationImage, {
+                  //y: () => window.innerHeight * 0.16,
+              });
+          }
+
+          if (locationContent) {
+              gsap.set(locationContent, {
+                  autoAlpha: 0,
+                  y: () => window.innerHeight * 0.28,
+              });
+          }
+
+          if (conceptRevealElements.length > 0) {
+              gsap.set(conceptRevealElements, {
+                  autoAlpha: 0,
+                  y: 28,
+              });
+          }
+
+          if (isIncomePanel) {
+              timeline.set(panel, {yPercent: 0}, overlayStart);
+          } else if (isLocationPanel) {
+              timeline.to(
+                  panel,
+                  {
+                      yPercent: 0,
+                      ease: "none",
+                      duration: LOCATION_REVEAL_DURATION,
+                  },
+                  overlayStart,
+              );
+          } else {
+              timeline.to(
+                  panel,
+                  {
+                      yPercent: 0,
+                      ease: "none",
+                      duration: 0.95,
+                  },
+                  overlayStart,
+              );
+          }
+
+          if (isLocationPanel) {
+              if (locationImage) {
+                  timeline.to(
+                      locationImage,
+                      {
+                          //y: () => -window.innerHeight * 0.06,
+                          ease: "none",
+                          duration: LOCATION_REVEAL_DURATION,
+                      },
+                      overlayStart,
+                  );
+              }
+
+              if (locationContent) {
+                  timeline.to(
+                      locationContent,
+                      {
+                          autoAlpha: 1,
+                          y: 0,
+                          ease: "none",
+                          duration: LOCATION_REVEAL_DURATION,
+                      },
+                      overlayStart,
+                  );
+              }
+          }
+
+          if (incomeLeft && incomeRight) {
+              timeline.to(
+                  [incomeLeft, incomeRight],
+                  {
+                      yPercent: 0,
+                      ease: "none",
+                      duration: 0.95,
+                  },
+                  overlayStart,
+              );
+          }
+
+          if (incomeButtons) {
+              timeline.to(
+                  incomeButtons,
+                  {
+                      autoAlpha: 1,
+                      y: 0,
+                      ease: "power1.out",
+                      duration: 0.35,
+                  },
+                  overlayStart + 1,
+              );
+          }
+
+          if (advantagesRevealElements.length > 0) {
+              timeline.to(
+                  advantagesRevealElements,
+                  {
+                      autoAlpha: 1,
+                      y: 0,
+                      ease: "power1.out",
+                      stagger: 0.12,
+                      duration: ADVANTAGES_REVEAL_DURATION,
+                  },
+                  overlayStart + 0.18,
+              );
+          }
+
+          if (conceptRevealElements.length > 0) {
+              timeline.to(
+                  conceptRevealElements,
+                  {
+                      autoAlpha: 1,
+                      y: 0,
+                      ease: "power1.out",
+                      stagger: 0.12,
+                      duration: CONCEPT_REVEAL_DURATION,
+                  },
+                  overlayStart + 0.18,
+              );
+          }
 
           if ( gallerySection ) {
               gsap.set(panel, {
