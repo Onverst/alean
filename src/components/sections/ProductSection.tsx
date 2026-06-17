@@ -157,7 +157,9 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
   );
 
   return (
-    <section className={styles.product}>
+    <section className={styles.product}
+             data-product-section={1}
+    >
       <div className={styles.container}>
         <div className={styles.tab} data-reversed={isReversed}>
           <div className={styles.side} data-income-side="left">

@@ -19,8 +19,8 @@ type ScrollStageProps = {
 const INFRASTRUCTURE_REVEAL_DURATION = 1.35;
 const INFRASTRUCTURE_SCROLL_DURATION = 0.9;
 const INVESTMENTS_REVEAL_DURATION = 1.15;
-const INVESTMENTS_EXIT_DURATION = 0.75;
-const INVESTMENTS_TO_ADVANTAGES_OVERLAP = 0.16;
+const INVESTMENTS_EXIT_DURATION = 1.4;
+const INVESTMENTS_TO_ADVANTAGES_OVERLAP = 0.26;
 const ADVANTAGES_REVEAL_DURATION = 1;
 const LOCATION_REVEAL_DURATION = 1.5;
 const LOCATION_EXIT_DURATION = 0.75;
@@ -391,6 +391,25 @@ export function ScrollStage({ children }: ScrollStageProps) {
           const gallerySection = panel.querySelector<HTMLElement>(
               "[data-gallery]",
           );
+          const PointSection = panel.querySelector<HTMLElement>(
+              "[data-point-section]",
+          );
+          const ConceptSection = panel.querySelector<HTMLElement>(
+              "[data-concept-section]",
+          );
+          const IncomeSection = panel.querySelector<HTMLElement>(
+              "[data-income-section]",
+          );
+          const ProductSection = panel.querySelector<HTMLElement>(
+              "[data-product-section]",
+          );
+          const FinanceSection = panel.querySelector<HTMLElement>(
+              "[data-finance-section]",
+          );
+          const Footer = panel.querySelector<HTMLElement>(
+              "footer",
+          );
+
 
         if (advantagesRevealElements.length > 0) {
           gsap.set(advantagesRevealElements, {
@@ -399,17 +418,32 @@ export function ScrollStage({ children }: ScrollStageProps) {
           });
         }
 
+        if ( IncomeSection ) {
+            gsap.set(IncomeSection, {
+                y: 0,
+            });
+            timeline.to(
+                IncomeSection,
+                {
+                    y: 0,
+                    duration: 1,
+                    ease: "power1.out",
+                },
+                overlayStart += 0.5
+            );
+        }
+
         if (incomeLeft) {
           gsap.set(incomeLeft, {
             autoAlpha: 1,
-            yPercent: -140,
+            yPercent: -100,
           });
         }
 
         if (incomeRight) {
           gsap.set(incomeRight, {
             autoAlpha: 1,
-            yPercent: 140,
+            yPercent: 100,
           });
         }
 
@@ -420,11 +454,50 @@ export function ScrollStage({ children }: ScrollStageProps) {
           });
         }
 
-          if (locationSection) {
-              /*gsap.set(locationSection, {
-                  y: 550,
-              });*/
+          if ( ProductSection ) {
+              gsap.set(locationSection, {
+                  y: 0,
+              });
+              timeline.to(
+                  ProductSection,
+                  {
+                      y: 0,
+                      ease: "power1.in",
+                      duration: 1,
+                  },
+                  overlayStart += 0.3,
+              );
           }
+
+          if (locationSection) {
+              gsap.set(locationSection, {
+                  y: 0,
+              });
+              timeline.to(
+                  locationSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.5
+              );
+          }
+          if (ConceptSection) {
+              gsap.set(ConceptSection, {
+                  y: 0,
+              });
+              timeline.to(
+                  ConceptSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.5
+              );
+          }
+
 
         if (locationImage) {
           gsap.set(locationImage, {
@@ -518,7 +591,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
               ease: "power1.out",
               duration: 0.35,
             },
-            overlayStart + 0.55,
+            overlayStart + 1,
           );
         }
 
@@ -550,6 +623,52 @@ export function ScrollStage({ children }: ScrollStageProps) {
           );
         }
 
+          /*if ( FinanceSection ) {
+              gsap.set(FinanceSection, {
+                  y: 0,
+              });
+              timeline.to(
+                  FinanceSection,
+                  {
+                      y: 0,
+                      ease: "power1.out",
+                      duration: 1,
+                  },
+                  overlayStart += 0.3,
+              );
+          }*/
+
+          if ( gallerySection ) {
+              gsap.set(panel, {
+                  y: 500,
+              });
+              timeline.to(
+                  panel,
+                  {
+                      y: 0,
+                      ease: "power1.out",
+                      duration: 1,
+                  },
+                  overlayStart,
+              );
+          }
+
+          if ( Footer ) {
+              gsap.set(panel, {
+                  y: 500,
+              });
+              timeline.to(
+                  panel,
+                  {
+                      y: 0,
+                      ease: "power1.out",
+                      duration: 1,
+                  },
+                  overlayStart,
+              );
+          }
+
+
         overlayStart += isLocationPanel ? LOCATION_REVEAL_DURATION : 0.95;
         snapPoints.push(overlayStart);
 
@@ -570,13 +689,6 @@ export function ScrollStage({ children }: ScrollStageProps) {
           overlayStart += LOCATION_EXIT_DURATION;
           snapPoints.push(overlayStart);
         }
-
-          if ( gallerySection ) {
-              gsap.set(gallerySection, {
-                  autoAlpha: 1,
-                  y: 550,
-              });
-          }
 
         const scrollDrivenSlider = panel.querySelector<HTMLElement>(
           "[data-scroll-driven-slider]",

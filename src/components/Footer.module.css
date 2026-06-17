@@ -1,10 +1,13 @@
 .footer {
     background: var(--new-color-dark-taupe);
+    min-height: 100svh;
 }
 
 .container {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    min-height: 100svh;
 }
 
 .top {
@@ -233,6 +236,10 @@
 .copyrights a svg {
     width: 100px;
     height: auto;
+}
+
+.bottom_part{
+
 }
 
 @media (max-width: 1200px){

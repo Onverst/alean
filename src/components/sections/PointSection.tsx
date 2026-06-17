@@ -48,6 +48,7 @@ export function PointSection({ tabs = [] }: PointSectionProps) {
       className={`${styles.side_inner} ${styles.image_inner} ${hasTabSwitched ? styles.switching : ""}`}
       data-income-switch-side={side}
       key={`image-inner-${activeTabIndex}-${side}`}
+      data-point-section={1}
     >
       {activeTab.img_one ? (
         <Image
