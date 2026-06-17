@@ -20,7 +20,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  padding-top: 192px;
+  padding-top: 192px!important;
   display: flex;
   align-items: flex-start;
   z-index: 3;
