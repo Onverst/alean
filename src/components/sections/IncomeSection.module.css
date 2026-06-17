@@ -171,7 +171,7 @@
 @keyframes income-tab-right-in {
     from {
         /*opacity: 0;*/
-        transform: translateY(-10%);
+        transform: translateY(-100%);
     }
 
     to {
