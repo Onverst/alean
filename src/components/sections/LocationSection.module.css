@@ -16,8 +16,8 @@
 
 .container {
     position: relative;
-    padding-top: 124px;
-    padding-bottom: 124px;
+    padding-top: 124px!important;
+    padding-bottom: 124px!important;
     min-height: 100svh;
     display: flex;
     flex-direction: column;
