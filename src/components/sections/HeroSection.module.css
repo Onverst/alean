@@ -34,7 +34,7 @@
   object-fit: cover;
   position: absolute;
   z-index: 1;
-  top: 0;
+  top: -12svh;
   left: 0;
 }
 .video.mobile_video {
