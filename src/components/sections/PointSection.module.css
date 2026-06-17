@@ -226,7 +226,7 @@
 @keyframes point-tab-left-in {
     from {
         /*opacity: 0;*/
-        transform: translateY(72%);
+        transform: translateY(100%);
     }
 
     to {
@@ -238,7 +238,7 @@
 @keyframes point-tab-right-in {
     from {
         /*opacity: 0;*/
-        transform: translateY(-72%);
+        transform: translateY(-100%);
     }
 
     to {
