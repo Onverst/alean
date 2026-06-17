@@ -429,7 +429,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
                     duration: 1,
                     ease: "power1.out",
                 },
-                overlayStart += 0.5
+                overlayStart += 0.3
             );
         }
 
