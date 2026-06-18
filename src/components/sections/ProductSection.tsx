@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FreeMode, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { WpMedia } from "@/types/wordpress";
 import styles from "./ProductSection.module.css";
+import { gsap } from "gsap";
 
 type ProductTab = {
   name: string;
@@ -15,7 +16,7 @@ type ProductTab = {
     title: string;
     text: string;
   }[];
-  img_one: WpMedia | null; 
+  img_one: WpMedia | null;
   list_img: {
     name: string;
     img: WpMedia | null;
@@ -33,6 +34,9 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
   const activeTab = tabs[activeTabIndex];
   const isReversed = activeTabIndex === 1;
 
+  const tab_ref = useRef<HTMLDivElement | null>(null);
+  const is_animating_ref = useRef(false);
+
   if (!activeTab) {
     return null;
   }
@@ -42,13 +46,82 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
   const productImages = activeTab.list_img.length > 1
     ? duplicateProductImages(activeTab.list_img)
     : activeTab.list_img;
-  const handleTabClick = (index: number) => {
-    if (index === activeTabIndex) {
+  const handleTabClick = ( index: number ) => {
+    if ( index === activeTabIndex || is_animating_ref.current ) {
       return;
     }
 
-    setHasTabSwitched(true);
-    setActiveTabIndex(index);
+    is_animating_ref.current = true;
+
+    const container = tab_ref.current;
+
+    if ( !container ) {
+      setHasTabSwitched( true );
+      setActiveTabIndex( index );
+      is_animating_ref.current = false;
+      return;
+    }
+
+    const leftSide = container.querySelector( '[data-income-side="left"]' );
+    const rightSide = container.querySelector( '[data-income-side="right"]' );
+
+    gsap.to( leftSide, {
+      yPercent: 100,
+      // opacity: 0,
+      duration: 0.9,
+      ease: "power2.in",
+    } );
+
+    gsap.to( rightSide, {
+      yPercent: -100,
+      // opacity: 0,
+      duration: 0.9,
+      ease: "power2.in",
+      onComplete: () => {
+
+        setHasTabSwitched( true );
+        setActiveTabIndex( index );
+
+        requestAnimationFrame( () => {
+
+          const newLeft = container.querySelector( '[data-income-side="left"]' );
+          const newRight = container.querySelector( '[data-income-side="right"]' );
+
+          gsap.fromTo(
+            newLeft,
+            {
+              yPercent: 100,
+              // opacity: 0,
+            },
+            {
+              yPercent: 0,
+              // opacity: 1,
+              duration: 0.9,
+              ease: "power2.out",
+            },
+          );
+
+          gsap.fromTo(
+            newRight,
+            {
+              yPercent: -100,
+              // opacity: 0,
+            },
+            {
+              yPercent: 0,
+              // opacity: 1,
+              duration: 0.9,
+              ease: "power2.out",
+              onComplete: () => {
+                is_animating_ref.current = false;
+              },
+            },
+          );
+
+        } );
+
+      },
+    } );
   };
   const renderImagePanel = (side: "left" | "right") => (
     <div
@@ -77,23 +150,25 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
         {activeTab.list_img.length > 0 ? (
           <Swiper
             key={`${activeTabIndex}-${isMobileSlider ? "mobile" : "desktop"}`}
+            loop={false}
             className={styles.list_img}
             direction={isMobileSlider ? "horizontal" : "vertical"}
             slidesPerView="auto"
             spaceBetween={8}
-            loop={activeTab.list_img.length > 1}
+            //loop={activeTab.list_img.length > 1}
             centeredSlides={!isMobileSlider}
+            speed={600}
             freeMode={{
               enabled: true,
               momentum: true,
-              momentumRatio: 0.6,
-              momentumVelocityRatio: 0.6,
+              momentumRatio: 0.35,
+              momentumVelocityRatio: 0.35,
             }}
             mousewheel={{
               enabled: true,
               forceToAxis: true,
-              releaseOnEdges: true,
-              sensitivity: 0.6,
+              releaseOnEdges: false,
+              sensitivity: 0.25,
             }}
             modules={[FreeMode, Mousewheel]}
             onSlideChange={(swiper) => {
@@ -161,7 +236,7 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
              data-product-section={1}
     >
       <div className={styles.container}>
-        <div className={styles.tab} data-reversed={isReversed}>
+        <div className={styles.tab} data-reversed={isReversed} ref={tab_ref}>
           <div className={styles.side} data-income-side="left">
             {isReversed ? renderContentPanel("left") : renderImagePanel("left")}
           </div>

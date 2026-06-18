@@ -122,6 +122,7 @@ export function OpenFormSection({
             dangerouslySetInnerHTML={{
               __html: title,
             }}
+            data-form-title={1}
           />
 
           <p
@@ -129,55 +130,61 @@ export function OpenFormSection({
             dangerouslySetInnerHTML={{
               __html: text,
             }}
+            data-form-text={1}
           />
 
-          <label className={styles.field}>
-            <span>Имя</span>
-            <input
-              name="name"
-              type="text"
-              placeholder="Имя"
-              required
-            />
-          </label>
+          <div
+            className={styles.form_area}
+            data-form-area={1}
+            >
+            <label className={styles.field}>
+              <span>Имя</span>
+              <input
+                  name="name"
+                  type="text"
+                  placeholder="Имя"
+                  required
+              />
+            </label>
 
-          <label className={styles.field}>
-            <span>Телефон</span>
-            <input
-              ref={phoneInputRef}
-              name="phone"
-              type="tel"
-              inputMode="tel"
-              required
-            />
-          </label>
+            <label className={styles.field}>
+              <span>Телефон</span>
+              <input
+                  ref={phoneInputRef}
+                  name="phone"
+                  type="tel"
+                  inputMode="tel"
+                  required
+              />
+            </label>
 
-          <label className={styles.policy}>
-            <input
-              name="policy"
-              type="checkbox"
-              required
-            />
-            <span>
+            <label className={styles.policy}>
+              <input
+                  name="policy"
+                  type="checkbox"
+                  required
+              />
+              <span>
               Я&nbsp;соглашаюсь
               на&nbsp;обработку
               персональных данных
               согласно политике
               конфиденциальности
             </span>
-          </label>
+            </label>
 
-          <button
-            className={`${styles.button} main-button`}
-            type="submit"
-            disabled={isSending}
-          >
+            <button
+                className={`${styles.button} main-button`}
+                type="submit"
+                disabled={isSending}
+            >
             <span>
               {isSending
-                ? "Отправка..."
-                : "оставить заявку"}
+                  ? "Отправка..."
+                  : "оставить заявку"}
             </span>
-          </button>
+            </button>
+          </div>
           {isSuccess ? (
             <div className={styles.thanks}>
               <svg width="80" height="61" viewBox="0 0 80 61" fill="none" xmlns="http://www.w3.org/2000/svg">

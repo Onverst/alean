@@ -63,7 +63,7 @@ export function ConceptSection({
         />
 
         <div className={styles.wrapper}>
-          <div className={styles.img_two_wrap} data-concept-reveal>
+          <div className={styles.img_two_wrap} data-concept-img="left">
             {img_two ? (
               <Image
                 className={styles.img_two}
@@ -75,7 +75,7 @@ export function ConceptSection({
             ) : null}
           </div>
 
-          <div className={styles.img_three_wrap} data-concept-reveal>
+          <div className={styles.img_three_wrap} data-concept-img="right">
             {img_three ? (
               <Image
                 className={styles.img_three}

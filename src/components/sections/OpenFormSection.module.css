@@ -101,6 +101,10 @@
   color: var(--new-color-light-beight);
 }
 
+.form_area {
+  position: relative;
+}
+
 .field {
   margin-bottom: 24px;
   width: 100%;

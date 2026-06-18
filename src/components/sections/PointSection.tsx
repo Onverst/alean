@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import type { WpMedia } from "@/types/wordpress";
 import styles from "./PointSection.module.css";
+import { gsap } from "gsap";
 
 type PointTab = {
   name: string;
@@ -24,6 +25,8 @@ type PointSectionProps = {
 export function PointSection({ tabs = [] }: PointSectionProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [hasTabSwitched, setHasTabSwitched] = useState(false);
+  const tab_ref = useRef<HTMLDivElement | null>(null);
+  const is_animating_ref = useRef(false);
   const activeTab = tabs[activeTabIndex];
   const isReversed = activeTabIndex === 1;
 
@@ -35,13 +38,80 @@ export function PointSection({ tabs = [] }: PointSectionProps) {
   const imgOneHeight = activeTab.img_one?.media_details?.height ?? 1024;
   const imgTwoWidth = activeTab.img_two?.media_details?.width ?? 360;
   const imgTwoHeight = activeTab.img_two?.media_details?.height ?? 240;
-  const handleTabClick = (index: number) => {
-    if (index === activeTabIndex) {
+  const handleTabClick = ( index: number ) => {
+    if ( index === activeTabIndex || is_animating_ref.current ) {
       return;
     }
 
-    setHasTabSwitched(true);
-    setActiveTabIndex(index);
+    is_animating_ref.current = true;
+
+    const container = tab_ref.current;
+
+    if ( !container ) {
+      setActiveTabIndex( index );
+      is_animating_ref.current = false;
+      return;
+    }
+
+    const leftSide = container.querySelector( '[data-income-side="left"]' );
+    const rightSide = container.querySelector( '[data-income-side="right"]' );
+
+    gsap.to( leftSide, {
+      yPercent: 100,
+      // opacity: 0,
+      duration: 0.9,
+      ease: "power2.in",
+    } );
+
+    gsap.to( rightSide, {
+      yPercent: -100,
+      // opacity: 0,
+      duration: 0.9,
+      ease: "power2.in",
+      onComplete: () => {
+
+        setActiveTabIndex( index );
+
+        requestAnimationFrame( () => {
+
+          const newLeft = container.querySelector( '[data-income-side="left"]' );
+          const newRight = container.querySelector( '[data-income-side="right"]' );
+
+          gsap.fromTo(
+            newLeft,
+            {
+              yPercent: 100,
+              // opacity: 0,
+            },
+            {
+              yPercent: 0,
+              // opacity: 1,
+              duration: 0.9,
+              ease: "power2.out",
+            },
+          );
+
+          gsap.fromTo(
+            newRight,
+            {
+              yPercent: -100,
+              // opacity: 0,
+            },
+            {
+              yPercent: 0,
+              // opacity: 1,
+              duration: 0.9,
+              ease: "power2.out",
+              onComplete: () => {
+                is_animating_ref.current = false;
+              },
+            },
+          );
+
+        } );
+
+      },
+    } );
   };
   const renderImagePanel = (side: "left" | "right") => (
     <div
@@ -111,7 +181,7 @@ export function PointSection({ tabs = [] }: PointSectionProps) {
   return (
     <section className={styles.point}>
       <div className={styles.container}>
-        <div className={styles.tab} data-reversed={isReversed}>
+      <div className={styles.tab} data-reversed={isReversed} ref={tab_ref}>
           <div className={styles.side} data-income-side="left">
             {isReversed ? renderImagePanel("left") : renderContentPanel("left")}
           </div>

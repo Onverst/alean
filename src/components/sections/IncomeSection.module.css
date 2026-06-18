@@ -27,13 +27,13 @@
     height: 100%;
 }
 
-.switching[data-income-switch-side="left"] {
-    animation: income-tab-left-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+/*.switching[data-income-switch-side="left"] {
+    animation: income-tab-left-in 2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .switching[data-income-switch-side="right"] {
-    animation: income-tab-right-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
+    animation: income-tab-right-in 2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}*/
 
 .content_inner {
     padding: 48px 40px;
@@ -156,29 +156,29 @@
     color: var(--new-color-light-beight);
 }
 
-@keyframes income-tab-left-in {
+/*@keyframes income-tab-left-in {
     from {
         opacity: 0;
-        /*transform: translateY(100%);*/
+        transform: translateY(100%);
     }
 
     to {
         opacity: 1;
-        /*transform: translateY(0);*/
+        transform: translateY(0);
     }
 }
 
 @keyframes income-tab-right-in {
     from {
         opacity: 0;
-        /*transform: translateY(-100%);*/
+        transform: translateY(-100%);
     }
 
     to {
         opacity: 1;
-        /*transform: translateY(0);*/
+        transform: translateY(0);
     }
-}
+}*/
 
 @media (max-width: 1200px){
     .tab {

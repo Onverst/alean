@@ -401,6 +401,12 @@ export function ScrollStage({ children }: ScrollStageProps) {
           const ConceptSection = panel.querySelector<HTMLElement>(
               "[data-concept-section]",
           );
+          const ConceptImageLeft = panel.querySelector<HTMLElement>(
+              "[data-concept-img='left']",
+          );
+          const ConceptImageRight = panel.querySelector<HTMLElement>(
+              "[data-concept-img='right']",
+          );
           const IncomeSection = panel.querySelector<HTMLElement>(
               "[data-income-section]",
           );
@@ -437,6 +443,16 @@ export function ScrollStage({ children }: ScrollStageProps) {
           const RoomSection = panel.querySelector<HTMLElement>(
               "[data-room-section]",
           );
+          const FormBodyTitle = panel.querySelector<HTMLElement>(
+              "[data-form-title]",
+          );
+          const FormBodyText = panel.querySelector<HTMLElement>(
+              "[data-form-text]",
+          );
+          const FormBodyArea = panel.querySelector<HTMLElement>(
+              "[data-form-area]",
+          );
+
 
           if ( advantagesSection ) {
               timeline.to(
@@ -535,6 +551,60 @@ export function ScrollStage({ children }: ScrollStageProps) {
                       ease: "power1.out",
                   },
                   overlayStart += 0.5
+              );
+          }
+
+          if ( ConceptImageLeft ) {
+              timeline.fromTo(
+                  ConceptImageLeft,
+                  {
+                      autoAlpha: 0,
+                  },
+                  {
+                      autoAlpha: 1,
+                      ease: "power1.out",
+                      duration: 2,
+                  },
+                  overlayStart,
+              );
+              timeline.fromTo(
+                  ConceptImageLeft,
+                  {
+                      yPercent: -80,
+                  },
+                  {
+                      yPercent: 20,
+                      ease: "none",
+                      duration: 1.5,
+                  },
+                  overlayStart,
+              );
+          }
+
+          if ( ConceptImageRight ) {
+              timeline.fromTo(
+                  ConceptImageRight,
+                  {
+                      autoAlpha: 0,
+                  },
+                  {
+                      autoAlpha: 1,
+                      ease: "power1.out",
+                      duration: 2,
+                  },
+                  overlayStart,
+              );
+              timeline.fromTo(
+                  ConceptImageRight,
+                  {
+                      yPercent: 80,
+                  },
+                  {
+                      yPercent: -70,
+                      ease: "none",
+                      duration: 1.5,
+                  },
+                  overlayStart,
               );
           }
 
@@ -665,6 +735,59 @@ export function ScrollStage({ children }: ScrollStageProps) {
                   y: 28,
               });
           }
+
+          if ( FormBodyTitle ) {
+              gsap.set(FormBodyTitle, {
+                  autoAlpha: 0,
+                  y: 200,
+              });
+              timeline.to(
+                  FormBodyTitle,
+                  {
+                      autoAlpha: 1,
+                      y: 0,
+                      ease: "none",
+                      duration: 0.55,
+                  },
+                  overlayStart + 0.015,
+              );
+          }
+
+          if ( FormBodyText ) {
+              gsap.set(FormBodyText, {
+                  autoAlpha: 0,
+                  y: 100,
+              });
+              timeline.to(
+                  FormBodyText,
+                  {
+                      autoAlpha: 1,
+                      y: 0,
+                      ease: "none",
+                      duration: 0.7,
+                  },
+                  overlayStart + 0.15,
+              );
+          }
+
+          if ( FormBodyArea ) {
+              gsap.set(FormBodyArea, {
+                  autoAlpha: 0,
+                  y: 140,
+              });
+              timeline.to(
+                  FormBodyArea,
+                  {
+                      autoAlpha: 1,
+                      y: 0,
+                      ease: "none",
+                      duration: 1,
+                  },
+                  overlayStart + 0.25,
+              );
+          }
+
+
 
           if (isIncomePanel) {
               timeline.set(panel, {yPercent: 0}, overlayStart);
@@ -853,7 +976,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           if (infrastructureText) {
             gsap.set(infrastructureText, {
               autoAlpha: 0,
-              height: 0,
+              // height: 0,
               y: 32,
             });
           }
@@ -879,7 +1002,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
                 height: "auto",
                 y: 0,
                 ease: "power1.out",
-                duration: INFRASTRUCTURE_REVEAL_DURATION * 0.58,
+                duration: INFRASTRUCTURE_REVEAL_DURATION,
               },
               overlayStart + INFRASTRUCTURE_REVEAL_DURATION * 0.36,
             );
@@ -904,13 +1027,13 @@ export function ScrollStage({ children }: ScrollStageProps) {
               {
                 y: () => -window.innerHeight * 0.42,
                 ease: "none",
-                duration: INFRASTRUCTURE_SCROLL_DURATION,
+                duration: INFRASTRUCTURE_SCROLL_DURATION * 0.2,
               },
               overlayStart + INFRASTRUCTURE_REVEAL_DURATION,
             );
           }
 
-          overlayStart += infrastructureDuration;
+          overlayStart += infrastructureDuration * 0.6;
         }
 
         if (scrollDrivenSlider && scrollDrivenDuration > 0) {
