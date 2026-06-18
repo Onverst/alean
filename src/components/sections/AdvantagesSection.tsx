@@ -5,6 +5,8 @@ import { useState } from "react";
 import type { WpMedia } from "@/types/wordpress";
 import styles from "./AdvantagesSection.module.css";
 import {Button} from "@/components/Button";
+import { gsap } from "gsap";
+import { useRef } from "react";
 
 type AdvantagesSectionProps = {
   top_title: string;
@@ -13,7 +15,7 @@ type AdvantagesSectionProps = {
   img: WpMedia | null;
   tabs: {
     name: string;
-    list: { 
+    list: {
       title: string;
       text: string;
     }[];
@@ -33,8 +35,55 @@ export function AdvantagesSection({
   const imgHeight = img?.media_details?.height ?? 767;
   const activeTab = tabs[activeTabIndex];
 
+  const item_refs = useRef<Record<string, HTMLDivElement | null>>({});
+
   const toggleItem = (itemKey: string) => {
-    setOpenItemKey((current) => (current === itemKey ? null : itemKey));
+    const el = item_refs.current[itemKey];
+
+    if ( !el ) {
+      setOpenItemKey((current) => (current === itemKey ? null : itemKey));
+      return;
+    }
+
+    const is_open = openItemKey === itemKey;
+
+    if ( is_open ) {
+      gsap.to(el, {
+        height: 0,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power1.out",
+        onComplete: () => {
+          el.style.display = "none";
+        },
+      });
+
+      setOpenItemKey(null);
+
+      return;
+    }
+
+    el.style.display = "block";
+    el.style.overflow = "hidden";
+
+    gsap.fromTo(
+      el,
+      {
+        height: 0,
+        opacity: 0,
+      },
+      {
+        height: el.scrollHeight,
+        opacity: 1,
+        duration: 0.4,
+        ease: "power1.out",
+        onComplete: () => {
+          gsap.set(el, { height: "auto" });
+        },
+      },
+    );
+
+    setOpenItemKey(itemKey);
   };
 
   return (
@@ -71,7 +120,7 @@ export function AdvantagesSection({
                 height={imgHeight}
               />
             ) : null}
-            
+
           </div>
 
           <div className={styles.tabs} data-advantages-reveal>
@@ -92,7 +141,9 @@ export function AdvantagesSection({
                 </div>
 
                 {activeTab ? (
-                  <ul className={styles.tab_list}>
+                  <ul
+                      key={activeTabIndex}
+                      className={styles.tab_list}>
                     {activeTab.list.map((item, index) => {
                       const itemKey = `${activeTabIndex}-${index}`;
                       const isOpen = openItemKey === itemKey;
@@ -107,12 +158,14 @@ export function AdvantagesSection({
                           >
                             <span dangerouslySetInnerHTML={{ __html: item.title }} />
                           </button>
-                          {isOpen ? (
                             <div
+                              ref={(el) => {
+                                item_refs.current[itemKey] = el;
+                              }}
                               className={styles.item_text}
+                              data-open={isOpen}
                               dangerouslySetInnerHTML={{ __html: item.text }}
                             />
-                          ) : null}
                         </li>
                       );
                     })}

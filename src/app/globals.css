@@ -138,6 +138,10 @@ a {
   transition: background-color 0.5s ease;
 }
 
+header .main-button {
+  border-radius: 0;
+}
+
 @media (hover: hover){
   .main-button:hover {
     background: color-mix(

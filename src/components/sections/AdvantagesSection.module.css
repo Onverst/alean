@@ -131,7 +131,23 @@
     max-width: 100%;
     display: flex;
     flex-direction: column;
+    animation: tab_fade 1s ease forwards;
 }
+
+@keyframes tab_fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.item_text {
+    display: none;
+}
+
+
 
 .tab_list li {
     padding: 12px 0 32px;

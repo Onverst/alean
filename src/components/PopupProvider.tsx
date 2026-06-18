@@ -134,6 +134,7 @@ export function PopupProvider({
         className={`${styles.overlay} ${isOpen ? styles.open : ""}`}
         onClick={() => setIsOpen(false)}
       >
+      </div>
         <div
           className={`${styles.popup} ${isOpen ? styles.open : ""}`}
           onClick={(e) => e.stopPropagation()}
@@ -237,7 +238,6 @@ export function PopupProvider({
             )}
           </div>
         </div>
-      </div>
     </PopupContext.Provider>
   );
 }

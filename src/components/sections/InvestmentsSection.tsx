@@ -62,10 +62,10 @@ export function InvestmentsSection({
       </div>
 
       {list.length > 0 ? (
-          <ul className={styles.list} data-investments-list>
+          <ul className={styles.list} data-investments-reveal>
             {list.map((item, index) => {
               return (
-                <li key={`${item.title}-${index}`} data-investments-reveal>
+                <li key={`${item.title}-${index}`}>
                   <span className={styles.list_title} dangerouslySetInnerHTML={{ __html: item.title }}></span>
                   <span className={styles.list_text} dangerouslySetInnerHTML={{ __html: item.text }}></span>
                 </li>

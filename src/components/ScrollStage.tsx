@@ -344,7 +344,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
         );
       }
 
-      if (investmentsList) {
+      /*if (investmentsList) {
         timeline.to(
           investmentsList,
           {
@@ -354,7 +354,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           },
           investmentsExitStart,
         );
-      }
+      }*/
 
       overlayStart =
         investmentsExitStart +
@@ -363,6 +363,9 @@ export function ScrollStage({ children }: ScrollStageProps) {
       snapPoints.push(overlayStart);
 
       overlayPanels.forEach((panel) => {
+          const advantagesSection = gsap.utils.toArray<HTMLElement>(
+              panel.querySelectorAll("[data-advantages-section]"),
+          );
           const advantagesRevealElements = gsap.utils.toArray<HTMLElement>(
               panel.querySelectorAll("[data-advantages-reveal]"),
           );
@@ -435,6 +438,17 @@ export function ScrollStage({ children }: ScrollStageProps) {
               "[data-room-section]",
           );
 
+          if ( advantagesSection ) {
+              timeline.to(
+                  IncomeSection,
+                  {
+                      y: 0,
+                      duration: 1,
+                      ease: "power1.out",
+                  },
+                  overlayStart += 0.3
+              );
+          }
 
           if (advantagesRevealElements.length > 0) {
               gsap.set(advantagesRevealElements, {
