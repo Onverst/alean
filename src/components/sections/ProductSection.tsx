@@ -157,7 +157,7 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
             spaceBetween={8}
             //loop={activeTab.list_img.length > 1}
             centeredSlides={!isMobileSlider}
-            speed={600}
+            speed={300}
             freeMode={{
               enabled: true,
               momentum: true,
@@ -168,7 +168,7 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
               enabled: true,
               forceToAxis: true,
               releaseOnEdges: false,
-              sensitivity: 0.25,
+              sensitivity: 0.7,
             }}
             modules={[FreeMode, Mousewheel]}
             onSlideChange={(swiper) => {
