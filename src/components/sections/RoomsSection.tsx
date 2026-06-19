@@ -52,14 +52,20 @@ export function RoomsSection({
     const nextIndex = Math.round(clampedProgress * (slides.length - 1));
 
     imageSwiper?.setProgress(clampedProgress, 0);
-    titleSwiper?.setProgress(clampedProgress, 0);
-    textSwiper?.setProgress(clampedProgress, 0);
+    /*titleSwiper?.setProgress(clampedProgress, 0);
+    textSwiper?.setProgress(clampedProgress, 0);*/
 
     setProgressValue(clampedProgress);
 
+    /*if (nextIndex !== activeIndexRef.current) {
+      activeIndexRef.current = nextIndex;
+      setActiveIndex(nextIndex);
+    }*/
     if (nextIndex !== activeIndexRef.current) {
       activeIndexRef.current = nextIndex;
       setActiveIndex(nextIndex);
+      titleSwiper?.slideTo(nextIndex);
+      textSwiper?.slideTo(nextIndex);
     }
   }, [imageSwiper, slides.length, textSwiper, titleSwiper]);
 
@@ -214,6 +220,8 @@ export function RoomsSection({
             slidesPerView={1}
             allowTouchMove={false}
             autoHeight
+            watchSlidesProgress={true}
+            updateOnWindowResize={false}
             effect="fade"
             fadeEffect={{ crossFade: true }}
             modules={[EffectFade]}
@@ -267,6 +275,8 @@ export function RoomsSection({
             slidesPerView={1}
             allowTouchMove={false}
             autoHeight
+            watchSlidesProgress={true}
+            updateOnWindowResize={false}
             effect="fade"
             fadeEffect={{ crossFade: true }}
             modules={[EffectFade]}
@@ -277,21 +287,25 @@ export function RoomsSection({
             {slides.map((slide, index) => (
               <SwiperSlide key={`text-${index}`}>
                 <div className={styles.slide_content}>
-                  {isOpen && (
                     <div>
-                    <p
-                      className={styles.square}
-                      dangerouslySetInnerHTML={{
-                        __html: slide.square,
-                    }}/>
-                    <p
+                    <div
                       className={styles.text}
-                      dangerouslySetInnerHTML={{
-                        __html: slide.text,
-                      }}
-                    />
+                      >
+                      <div className={styles.text_outer}>
+                      <p
+                          className={styles.square}
+                          dangerouslySetInnerHTML={{
+                            __html: slide.square,
+                          }}/>
+                        <div className={styles.text_inner}
+                             dangerouslySetInnerHTML={{
+                               __html: slide.text,
+                             }}
+                        >
+                        </div>
                     </div>
-                  )}
+                      </div>
+                    </div>
                 </div>
               </SwiperSlide>
             ))}

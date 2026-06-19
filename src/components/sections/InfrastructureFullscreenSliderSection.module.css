@@ -75,6 +75,9 @@
 
 .slide_content {
   width: 100%;
+  will-change: transform, opacity, max-height;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .title_row {
@@ -119,6 +122,7 @@
   width: 100%;
   height: 2px;
   background: rgb(250 245 239 / 28%);
+  margin-bottom: 64px;
 }
 
 .progress span {
@@ -185,13 +189,41 @@
 }
 
 .text {
-  margin-top: 64px;
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
   line-height: 130%;
   color: var(--new-color-light-beight);
+
+  transform: translateY(20px);
+  opacity: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+
+  transition: opacity .3s linear, grid-template-rows .3s linear, transform .3s linear;
+  will-change: transform, opacity, grid-template-rows;
+  pointer-events: none;
 }
+
+.panel:hover .text {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0px);
+  pointer-events: auto;
+}
+
+.panel:hover .text_inner {
+  max-height: 500px;
+}
+
+.text_inner {
+  max-height: 0;
+}
+
+
+
+
 
 @media (max-width: 1500px){
   .panel {

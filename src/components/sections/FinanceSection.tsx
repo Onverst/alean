@@ -33,7 +33,9 @@ export function FinanceSection({
     <section className={styles.finance}
              data-finance-section={1}
     >
-        <div className={styles.container}>
+        <div className={styles.container}
+             data-finance-reveal={1}
+        >
             <span
                 className={styles.top_title}
                 dangerouslySetInnerHTML={{ __html: top_title }}
@@ -76,7 +78,8 @@ export function FinanceSection({
         </div>
 
         {list_two.length > 0 ? (
-        <ul className={styles.list_two}>
+        <ul className={styles.list_two}
+            data-finance-reveal={1}>
             {list_two.map((item, index) => {
                 return (
                 <li key={`${item.numb}-${index}`}>

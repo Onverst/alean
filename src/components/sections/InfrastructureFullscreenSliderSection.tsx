@@ -38,17 +38,18 @@ export function InfrastructureFullscreenSliderSection({
 
   const syncProgress = useCallback((progress: number) => {
     const clampedProgress = Math.min(Math.max(progress, 0), 1);
-    const nextIndex = Math.round(clampedProgress * (slides.length - 1));
+    const nextIndex = Math.round(
+        clampedProgress * (slides.length - 1),
+    );
 
     imageSwiper?.setProgress(clampedProgress, 0);
-    titleSwiper?.setProgress(clampedProgress, 0);
-    textSwiper?.setProgress(clampedProgress, 0);
-
     setProgressValue(clampedProgress);
 
     if (nextIndex !== activeIndexRef.current) {
       activeIndexRef.current = nextIndex;
       setActiveIndex(nextIndex);
+      titleSwiper?.slideTo(nextIndex);
+      textSwiper?.slideTo(nextIndex);
     }
   }, [imageSwiper, slides.length, textSwiper, titleSwiper]);
 
@@ -130,6 +131,7 @@ export function InfrastructureFullscreenSliderSection({
       <div className={styles.wrap}>
         <Swiper
           className={styles.bg_swiper}
+          cssMode={false}
           slidesPerView={1}
           allowTouchMove={false}
           onSwiper={setImageSwiper}
@@ -140,7 +142,7 @@ export function InfrastructureFullscreenSliderSection({
               <InnerBackgroundSlider images={slide.images} />
             </SwiperSlide>
           ))}
-        </Swiper> 
+        </Swiper>
       </div>
 
       {/* <div className={styles.container}> */}
@@ -175,9 +177,12 @@ export function InfrastructureFullscreenSliderSection({
           </button>
           <Swiper
             className={styles.content_swiper}
+            cssMode={false}
             slidesPerView={1}
             allowTouchMove={false}
             autoHeight
+            watchSlidesProgress={true}
+            updateOnWindowResize={false}
             effect="fade"
             fadeEffect={{ crossFade: true }}
             modules={[EffectFade]}
@@ -189,7 +194,7 @@ export function InfrastructureFullscreenSliderSection({
               <SwiperSlide key={`title-${index}`}>
                 <div className={styles.slide_content}>
                   <div className={styles.title_row}>
-                    
+
 
                     <h3
                       className={styles.title}
@@ -213,9 +218,12 @@ export function InfrastructureFullscreenSliderSection({
 
           <Swiper
             className={styles.content_swiper}
+            cssMode={false}
             slidesPerView={1}
             allowTouchMove={false}
             autoHeight
+            watchSlidesProgress={true}
+            updateOnWindowResize={false}
             effect="fade"
             fadeEffect={{ crossFade: true }}
             modules={[EffectFade]}
@@ -226,14 +234,16 @@ export function InfrastructureFullscreenSliderSection({
             {slides.map((slide, index) => (
               <SwiperSlide key={`text-${index}`}>
                 <div className={styles.slide_content}>
-                  {isOpen && (
-                    <div
+                  <div
                       className={styles.text}
-                      dangerouslySetInnerHTML={{
-                        __html: slide.text,
-                      }}
-                    />
-                  )}
+                  >
+                    <div className={styles.text_inner}
+                         dangerouslySetInnerHTML={{
+                           __html: slide.text,
+                         }}
+                    >
+                    </div>
+                  </div>
                 </div>
               </SwiperSlide>
             ))}
@@ -261,10 +271,6 @@ function InnerBackgroundSlider({ images }: { images: WpMedia[] }) {
       <Swiper
         className={styles.bg_inner_swiper}
         slidesPerView={1}
-        effect="fade"
-        fadeEffect={{ crossFade: true }}
-        modules={[EffectFade]}
-        speed={1000}
         onSwiper={setSwiper}
         onSlideChange={(instance) => setActiveIndex(instance.activeIndex)}
       >
