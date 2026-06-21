@@ -108,6 +108,10 @@ export function ScrollStage({ children }: ScrollStageProps) {
               1) *
               0.08
           : 0;
+      /* На desktop (>1200px) Advantages не должен начинаться раньше завершения Investments —
+         overlap отключён, на mobile/tablet сохраняется INVESTMENTS_TO_ADVANTAGES_OVERLAP. */
+      const getInvestmentsToAdvantagesOverlap = () =>
+        window.innerWidth > 1200 ? 0 : INVESTMENTS_TO_ADVANTAGES_OVERLAP;
       const getAboutBgOverflow = () => {
         if (!aboutBg) {
           return 0;
@@ -171,7 +175,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
       const investmentsToAdvantagesOverlap =
         investmentsExitTotalDuration > 0
           ? Math.min(
-              INVESTMENTS_TO_ADVANTAGES_OVERLAP,
+              getInvestmentsToAdvantagesOverlap(),
               investmentsExitTotalDuration * 0.75,
             )
           : 0;

@@ -213,29 +213,66 @@
 }
 
 @media (min-width: 1201px) and (max-height: 900px) {
+  /* Compact-компоновка: title сверху, text_one | image | text_two в одну строку —
+     уменьшает общую высоту секции на низких desktop viewport. */
   .investments {
-    padding-top: 104px;
+    padding-top: 96px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 48px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 200px minmax(0, 1fr);
+    grid-template-areas:
+      "title title title"
+      "textOne image textTwo";
+    column-gap: 48px;
+    row-gap: 24px;
+    align-items: center;
+  }
+
+  .title {
+    grid-area: title;
+    justify-self: center;
+    text-align: center;
   }
 
   .img_wrap {
-    margin: 24px 0;
+    grid-area: image;
+    margin: 0;
+    justify-self: center;
+  }
+
+  .text_one {
+    grid-area: textOne;
+    max-width: 520px;
+    margin-bottom: 0;
+    justify-self: end;
+    text-align: right;
   }
 
   .text_two {
-    margin-bottom: 40px;
+    grid-area: textTwo;
+    max-width: 420px;
+    margin-bottom: 0;
+    justify-self: start;
+    text-align: left;
   }
 }
 
 @media (min-width: 1201px) and (max-height: 800px) {
+  /* Ещё более плотная compact-компоновка для экстремально низких desktop-height. */
   .investments {
-    padding-top: 88px;
+    padding-top: 72px;
   }
 
-  .img_wrap {
-    margin: 16px 0;
-  }
-
-  .text_two {
-    margin-bottom: 24px;
+  .container {
+    padding: 0 32px;
+    column-gap: 32px;
+    row-gap: 16px;
   }
 }
