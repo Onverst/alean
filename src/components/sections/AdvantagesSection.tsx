@@ -37,41 +37,44 @@ export function AdvantagesSection({
 
   const item_refs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const toggleItem = (itemKey: string) => {
+  // Закрывает accordion-item через GSAP: фиксирует текущую высоту и анимирует до 0.
+  const closeItem = (itemKey: string) => {
     const el = item_refs.current[itemKey];
 
-    if ( !el ) {
-      setOpenItemKey((current) => (current === itemKey ? null : itemKey));
+    if (!el) {
       return;
     }
 
-    const is_open = openItemKey === itemKey;
+    gsap.killTweensOf(el);
+    gsap.set(el, { height: el.offsetHeight, overflow: "hidden" });
 
-    if ( is_open ) {
-      gsap.to(el, {
-        height: 0,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power1.out",
-        onComplete: () => {
-          el.style.display = "none";
-        },
-      });
+    gsap.to(el, {
+      height: 0,
+      opacity: 0,
+      duration: 0.3,
+      ease: "power1.out",
+      onComplete: () => {
+        el.style.display = "none";
+      },
+    });
+  };
 
-      setOpenItemKey(null);
+  // Открывает accordion-item через GSAP: показывает элемент и анимирует высоту/прозрачность.
+  const openItem = (itemKey: string) => {
+    const el = item_refs.current[itemKey];
 
+    if (!el) {
+      setOpenItemKey(itemKey);
       return;
     }
 
+    gsap.killTweensOf(el);
     el.style.display = "block";
     el.style.overflow = "hidden";
 
     gsap.fromTo(
       el,
-      {
-        height: 0,
-        opacity: 0,
-      },
+      { height: 0, opacity: 0 },
       {
         height: el.scrollHeight,
         opacity: 1,
@@ -84,6 +87,34 @@ export function AdvantagesSection({
     );
 
     setOpenItemKey(itemKey);
+  };
+
+  const toggleItem = (itemKey: string) => {
+    if (openItemKey === itemKey) {
+      closeItem(itemKey);
+      setOpenItemKey(null);
+      return;
+    }
+
+    if (openItemKey !== null) {
+      closeItem(openItemKey);
+    }
+
+    openItem(itemKey);
+  };
+
+  // При смене верхнего tab закрываем открытый item и сбрасываем состояние.
+  const handleTabChange = (index: number) => {
+    if (index === activeTabIndex) {
+      return;
+    }
+
+    if (openItemKey) {
+      closeItem(openItemKey);
+    }
+
+    setOpenItemKey(null);
+    setActiveTabIndex(index);
   };
 
   return (
@@ -133,7 +164,7 @@ export function AdvantagesSection({
                       data-active={activeTabIndex === index}
                       key={`${tab.name}-${index}`}
                       type="button"
-                      onClick={() => setActiveTabIndex(index)}
+                      onClick={() => handleTabChange(index)}
                     >
                       <span dangerouslySetInnerHTML={{ __html: tab.name }} />
                     </button>

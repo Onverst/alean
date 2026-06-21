@@ -73,6 +73,35 @@ export function ScrollStage({ children }: ScrollStageProps) {
       
       const getPanelOverflow = (panel: HTMLElement) =>
         Math.max(panel.scrollHeight - window.innerHeight, 0);
+
+      // Для ConceptSection ограничиваем generic panel-scroll, чтобы заголовок не уходил за верх viewport.
+      const getConceptPanelScrollOffset = (panel: HTMLElement) => {
+        const conceptSection = panel.querySelector<HTMLElement>(
+          "[data-concept-section]",
+        );
+
+        if (!conceptSection) {
+          return getPanelOverflow(panel);
+        }
+
+        const title = conceptSection.querySelector<HTMLElement>("h3");
+        const titleOffsetTop = title?.offsetTop ?? 0;
+
+        /*
+         * Не даём generic panel-scroll поднять Concept так,
+         * чтобы заголовок ушёл за верх viewport.
+         */
+        const safeTopGap = window.innerHeight <= 800 ? 40 : 56;
+        const maxSafeScroll = Math.max(titleOffsetTop - safeTopGap, 0);
+
+        return Math.min(getPanelOverflow(panel), maxSafeScroll);
+      };
+
+      const getPanelScrollOffset = (panel: HTMLElement) =>
+        panel.querySelector("[data-concept-section]")
+          ? getConceptPanelScrollOffset(panel)
+          : getPanelOverflow(panel);
+
       const getThirdPanelOverflow = () => getPanelOverflow(thirdPanel);
       const getThirdPanelScrollDuration = () =>
         Math.max(getThirdPanelOverflow() / window.innerHeight, 0.01);
@@ -81,7 +110,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
       const getAboutScrollDuration = () =>
         Math.max(getAboutBgOverflow() / window.innerHeight, 0.01);
       const getPanelScrollDuration = (panel: HTMLElement) =>
-        getPanelOverflow(panel) / window.innerHeight;
+        getPanelScrollOffset(panel) / window.innerHeight;
       const getPanelScrollDrivenDuration = (panel: HTMLElement) => {
         const slider = panel.querySelector<HTMLElement>(
           "[data-scroll-driven-slider]",
@@ -429,6 +458,8 @@ export function ScrollStage({ children }: ScrollStageProps) {
           const InfrastructureSection = panel.querySelector<HTMLElement>(
               "[data-infrastructure-section]",
           );
+          // Infrastructure panel: отдельная stable snap-точка вместо раннего generic snap после входа.
+          const isInfrastructurePanel = Boolean(InfrastructureSection);
           const GenplanSection = panel.querySelector<HTMLElement>(
               "[data-genplan-section]",
           );
@@ -577,7 +608,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
                       yPercent: -80,
                   },
                   {
-                      yPercent: 20,
+                      yPercent: 0,
                       ease: "none",
                       duration: 1.5,
                   },
@@ -604,7 +635,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
                       yPercent: 80,
                   },
                   {
-                      yPercent: -70,
+                      yPercent: 0,
                       ease: "none",
                       duration: 1.5,
                   },
@@ -929,7 +960,11 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
 
         overlayStart += isLocationPanel ? LOCATION_REVEAL_DURATION : 0.95;
-        snapPoints.push(overlayStart);
+
+        // Для Infrastructure ранний snap после входа panel фиксирует transition-состояние.
+        if (!isInfrastructurePanel) {
+          snapPoints.push(overlayStart);
+        }
 
         if (isLocationPanel) {
           if (locationContent) {
@@ -968,6 +1003,17 @@ export function ScrollStage({ children }: ScrollStageProps) {
         const infrastructureDuration = getInfrastructureAnimationDuration(panel);
 
         if (infrastructureDuration > 0) {
+          // Начало infrastructure-анимаций совпадает с overlayStart после входа panel.
+          const infrastructureAnimStart = overlayStart;
+          /*
+           * Стабильная точка: panel вошёл, image раскрыт, текст полностью виден.
+           * text reveal: start + 0.36 * REVEAL + REVEAL duration.
+           */
+          const infrastructureReadyAt =
+            infrastructureAnimStart +
+            INFRASTRUCTURE_REVEAL_DURATION * 0.36 +
+            INFRASTRUCTURE_REVEAL_DURATION;
+
           if (infrastructureImage) {
             gsap.set(infrastructureImage, { xPercent: 0 });
           }
@@ -984,7 +1030,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
               y: 32,
             });
           }
-          snapPoints.push(overlayStart + infrastructureDuration);
+          snapPoints.push(infrastructureReadyAt);
 
           if (infrastructureImage) {
             timeline.to(
@@ -1082,7 +1128,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           timeline.to(
             panel,
             {
-              y: () => -getPanelOverflow(panel),
+              y: () => -getPanelScrollOffset(panel),
               ease: "none",
               duration: scrollDuration,
             },
