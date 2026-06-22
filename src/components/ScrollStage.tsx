@@ -25,6 +25,8 @@ const ADVANTAGES_REVEAL_DURATION = 1;
 const LOCATION_REVEAL_DURATION = 1.5;
 const LOCATION_EXIT_DURATION = 0.75;
 const CONCEPT_REVEAL_DURATION = 1.15;
+const INVESTMENTS_FIXED_LOW_DESKTOP_QUERY =
+  "(min-width: 1201px) and (max-height: 1200px)";
 
 export function ScrollStage({ children }: ScrollStageProps) {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -74,6 +76,15 @@ export function ScrollStage({ children }: ScrollStageProps) {
       const getPanelOverflow = (panel: HTMLElement) =>
         Math.max(panel.scrollHeight - window.innerHeight, 0);
 
+      /*
+       * На desktop medium/low-height InvestmentsSection фиксируется ровно в viewport:
+       * отключаем panel-scroll (y-сдвиг), иначе снизу видна полоска AdvantagesSection.
+       * Порог 1200px покрывает средние desktop вроде 1503×1184.
+       */
+      const isFixedInvestmentsLowDesktop = (panel?: HTMLElement | null) =>
+        Boolean(panel?.querySelector("[data-investments-section]")) &&
+        window.matchMedia(INVESTMENTS_FIXED_LOW_DESKTOP_QUERY).matches;
+
       // Для ConceptSection ограничиваем generic panel-scroll, чтобы заголовок не уходил за верх viewport.
       const getConceptPanelScrollOffset = (panel: HTMLElement) => {
         const conceptSection = panel.querySelector<HTMLElement>(
@@ -97,12 +108,33 @@ export function ScrollStage({ children }: ScrollStageProps) {
         return Math.min(getPanelOverflow(panel), maxSafeScroll);
       };
 
-      const getPanelScrollOffset = (panel: HTMLElement) =>
-        panel.querySelector("[data-concept-section]")
+      /*
+       * GenplanSection — интерактивный horizontal/panzoom слайд на desktop:
+       * отключаем generic vertical panel-scroll, иначе снизу виден следующий panel.
+       */
+      const shouldLockGenplanVerticalScroll = (panel: HTMLElement) =>
+        Boolean(panel.querySelector("[data-genplan-section]")) &&
+        window.innerWidth > 1200;
+
+      const getPanelScrollOffset = (panel: HTMLElement) => {
+        if (shouldLockGenplanVerticalScroll(panel)) {
+          return 0;
+        }
+
+        return panel.querySelector("[data-concept-section]")
           ? getConceptPanelScrollOffset(panel)
           : getPanelOverflow(panel);
+      };
 
-      const getThirdPanelOverflow = () => getPanelOverflow(thirdPanel);
+      const getThirdPanelOverflow = () => {
+        if (!thirdPanel) {
+          return 0;
+        }
+
+        return isFixedInvestmentsLowDesktop(thirdPanel)
+          ? 0
+          : getPanelOverflow(thirdPanel);
+      };
       const getThirdPanelScrollDuration = () =>
         Math.max(getThirdPanelOverflow() / window.innerHeight, 0.01);
       const getThirdPanelPassDuration = () =>
@@ -188,6 +220,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
       const aboutScrollDuration = getAboutScrollDuration();
       const thirdPanelRevealStart = 1 + aboutScrollDuration;
+      const thirdPanelPassStart = thirdPanelRevealStart + 0.3;
       const investmentsRevealElements = thirdPanel
         ? gsap.utils.toArray<HTMLElement>(
             thirdPanel.querySelectorAll("[data-investments-reveal]"),
@@ -343,7 +376,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           ease: "none",
           duration: getThirdPanelPassDuration,
         },
-        thirdPanelRevealStart + 0.3,
+        thirdPanelPassStart,
       );
 
       if (investmentsRevealElements.length > 0) {
@@ -361,7 +394,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
       }
 
       const investmentsExitStart =
-        thirdPanelRevealStart + getThirdPanelPassDuration();
+        thirdPanelPassStart + getThirdPanelPassDuration();
 
       if (investmentsRevealElements.length > 0) {
         timeline.to(

@@ -197,3 +197,96 @@
         font-size: 14px;
     }
 }
+
+/*
+ * Desktop (Figma 75-3067): вся композиция в один viewport.
+ * Пропорции масштабируются от artboard 1680px через svh, потолок — значения макета.
+ */
+@media (min-width: 1391px) {
+    .concept {
+        height: 100svh;
+        min-height: 100svh;
+        max-height: 100svh;
+        overflow: hidden;
+        padding: clamp(48px, 11.43svh, 192px) 0 clamp(24px, 11.43svh, 192px);
+    }
+
+    .img_one_wrap {
+        margin: clamp(16px, 3.81svh, 64px) 0;
+        max-width: clamp(96px, 11.9svh, 200px);
+    }
+
+    .text_one {
+        margin-bottom: clamp(8px, 1.43svh, 24px);
+        max-width: min(1024px, 58vw);
+        font-size: clamp(28px, 4.4svh, 40px);
+    }
+
+    .text_two {
+        max-width: min(720px, 42vw);
+        font-size: clamp(12px, 1.7svh, 16px);
+    }
+
+    .img_two_wrap {
+        left: clamp(24px, 5vw, 96px);
+        bottom: clamp(24px, 11.43svh, 192px);
+        max-width: clamp(180px, 23.81svh, 400px);
+    }
+
+    .img_three_wrap {
+        right: clamp(24px, 5vw, 96px);
+        bottom: clamp(24px, 11.43svh, 192px);
+        max-width: clamp(260px, 38.1svh, 640px);
+    }
+}
+
+/* Узкий desktop: уменьшаем боковые картинки, чтобы текст не наезжал на изображения. */
+@media (min-width: 1391px) and (max-width: 1550px) {
+    .text_one {
+        max-width: min(720px, 50vw);
+    }
+
+    .text_two {
+        max-width: min(600px, 36vw);
+    }
+
+    .img_two_wrap {
+        max-width: clamp(160px, 21svh, 320px);
+    }
+
+    .img_three_wrap {
+        max-width: clamp(240px, 34svh, 520px);
+    }
+}
+
+/* Ещё более плотная компоновка для экстремально низких desktop viewport. */
+@media (min-width: 1391px) and (max-height: 760px) {
+    .concept {
+        padding-top: clamp(32px, 5svh, 64px);
+    }
+
+    .img_one_wrap {
+        max-width: clamp(80px, 12svh, 130px);
+        margin: clamp(10px, 1.8svh, 24px) 0;
+    }
+
+    .text_one {
+        font-size: clamp(24px, 3.8svh, 34px);
+        max-width: min(820px, 56vw);
+    }
+
+    .text_two {
+        font-size: clamp(11px, 1.6svh, 14px);
+        max-width: min(660px, 40vw);
+    }
+
+    .img_two_wrap {
+        max-width: clamp(180px, 30svh, 320px);
+        bottom: clamp(16px, 4svh, 56px);
+    }
+
+    .img_three_wrap {
+        max-width: clamp(260px, 48svh, 520px);
+        bottom: clamp(16px, 4svh, 56px);
+    }
+}

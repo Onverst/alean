@@ -182,19 +182,78 @@
   }
 }
 
-/* Desktop: уменьшаем вертикальные промежутки на низких viewport,
-   чтобы заголовок не уходил за верх экрана при сдвиге thirdPanel в ScrollStage. */
-@media (min-width: 1201px) and (max-height: 1152px) {
+/* Desktop medium/low viewport: фиксированный layout 100svh, .list не сжимается по высоте. */
+@media (min-width: 1201px) and (max-height: 1200px) {
   .investments {
-    padding-top: 160px;
+    height: 100svh;
+    min-height: 100svh;
+    max-height: 100svh;
+    padding-top: clamp(56px, 8svh, 160px);
+    padding-bottom: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .container {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
   .img_wrap {
-    margin: 48px 0;
+    margin: clamp(24px, 4svh, 48px) 0;
+  }
+
+  .text_one {
+    max-width: min(900px, 68vw);
+    margin-bottom: clamp(8px, 1.5svh, 18px);
+    font-size: clamp(28px, 4svh, 40px);
   }
 
   .text_two {
-    margin-bottom: 96px;
+    max-width: min(680px, 56vw);
+    margin-bottom: clamp(16px, 3svh, 64px);
+    font-size: clamp(12px, 1.35svh, 16px);
+  }
+
+  .list {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    width: 100%;
+    padding-top: clamp(24px, 3svh, 32px);
+    padding-bottom: clamp(24px, 3svh, 32px);
+    min-height: clamp(92px, 10svh, 120px);
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: visible;
+    align-items: center;
+  }
+}
+
+/* Узкий desktop: адаптируем элементы списка, не режем плашку по высоте. */
+@media (min-width: 1201px) and (max-width: 1450px) {
+  .list {
+    justify-content: center;
+  }
+
+  .list li {
+    max-width: 190px;
+    padding: 0 12px;
+  }
+
+  .list_title {
+    font-size: clamp(30px, 2.8vw, 40px);
+  }
+
+  .list_text {
+    font-size: clamp(10px, 0.9vw, 14px);
   }
 }
 
