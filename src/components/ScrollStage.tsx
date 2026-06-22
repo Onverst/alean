@@ -120,8 +120,20 @@ export function ScrollStage({ children }: ScrollStageProps) {
         Boolean(panel.querySelector("[data-genplan-section]")) &&
         window.innerWidth > 1200;
 
+      /*
+       * FinanceSection — viewport-slide с нижней плашкой на desktop:
+       * отключаем generic vertical panel-scroll, иначе снизу виден GallerySection.
+       */
+      const shouldLockFinanceVerticalScroll = (panel: HTMLElement) =>
+        Boolean(panel.querySelector("[data-finance-section]")) &&
+        window.innerWidth > 1200;
+
       const getPanelScrollOffset = (panel: HTMLElement) => {
         if (shouldLockGenplanVerticalScroll(panel)) {
+          return 0;
+        }
+
+        if (shouldLockFinanceVerticalScroll(panel)) {
           return 0;
         }
 
