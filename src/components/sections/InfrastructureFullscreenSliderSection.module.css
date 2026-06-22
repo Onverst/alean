@@ -201,24 +201,31 @@
   grid-template-rows: 0fr;
   overflow: hidden;
 
-  transition: opacity .3s linear, grid-template-rows .3s linear, transform .3s linear;
+  transition:
+    opacity 0.55s ease,
+    grid-template-rows 0.55s ease,
+    transform 0.55s ease;
   will-change: transform, opacity, grid-template-rows;
   pointer-events: none;
 }
 
-.panel:hover .text {
+.panel:hover .text,
+.panel:focus-within .text {
   grid-template-rows: 1fr;
   opacity: 1;
-  transform: translateY(0px);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
-.panel:hover .text_inner {
+.panel:hover .text_inner,
+.panel:focus-within .text_inner {
   max-height: 500px;
 }
 
 .text_inner {
   max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.65s ease;
 }
 
 

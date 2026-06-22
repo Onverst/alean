@@ -1077,7 +1077,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
               {
                 y: () => -window.innerHeight * 0.42,
                 ease: "none",
-                duration: INFRASTRUCTURE_SCROLL_DURATION * 0.2,
+                duration: INFRASTRUCTURE_SCROLL_DURATION //* 0.2,
               },
               overlayStart + INFRASTRUCTURE_REVEAL_DURATION,
             );
