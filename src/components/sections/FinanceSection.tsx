@@ -33,18 +33,17 @@ export function FinanceSection({
     <section className={styles.finance}
              data-finance-section={1}
     >
-        <div className={styles.container}
-             data-finance-reveal={1}
-        >
+        <div className={styles.container}>
             <span
                 className={styles.top_title}
+                data-finance-reveal
                 dangerouslySetInnerHTML={{ __html: top_title }}
             />
-            <h3 className={styles.title}>
+            <h3 className={styles.title} data-finance-reveal>
                 <span dangerouslySetInnerHTML={{ __html: title }} />
             </h3>
 
-            <div className={styles.img_wrap}>
+            <div className={styles.img_wrap} data-finance-reveal>
                 {img ? (
                 <Image
                     className={styles.img}
@@ -57,10 +56,14 @@ export function FinanceSection({
                 ) : null}
             </div>
 
-            <p className={styles.text} dangerouslySetInnerHTML={{ __html: text }}></p>
+            <p
+                className={styles.text}
+                data-finance-reveal
+                dangerouslySetInnerHTML={{ __html: text }}
+            ></p>
 
             {list_one.length > 0 ? (
-            <ul className={styles.list_one}>
+            <ul className={styles.list_one} data-finance-reveal>
                 {list_one.map((item, index) => {
                     return (
                     <li key={`${item.percent}-${index}`}>
@@ -72,14 +75,16 @@ export function FinanceSection({
             </ul>
             ) : null}
 
-            <Button className={`${styles.button} main-button`}>
-                Получить предложение
-            </Button>
+            {/* Обёртка для reveal: Button не дублируем с родителем по data-атрибуту */}
+            <div data-finance-reveal>
+                <Button className={`${styles.button} main-button`}>
+                    Получить предложение
+                </Button>
+            </div>
         </div>
 
         {list_two.length > 0 ? (
-        <ul className={styles.list_two}
-            data-finance-reveal={1}>
+        <ul className={styles.list_two} data-finance-reveal>
             {list_two.map((item, index) => {
                 return (
                 <li key={`${item.numb}-${index}`}>

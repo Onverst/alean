@@ -103,6 +103,7 @@
 
 .form_area {
   position: relative;
+  width: 100%;
 }
 
 .field {
@@ -190,7 +191,8 @@
   cursor: pointer;
 }
 
-.button {
+/* width: 100% должен перебивать globals .main-button { width: auto } после сборки */
+.button:global(.main-button) {
   width: 100%;
 }
 

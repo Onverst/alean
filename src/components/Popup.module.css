@@ -233,7 +233,8 @@
   cursor: pointer;
 }
 
-.button {
+/* width: 100% должен перебивать globals .main-button-white { width: auto } после сборки */
+.button:global(.main-button-white) {
   width: 100%;
 }
 

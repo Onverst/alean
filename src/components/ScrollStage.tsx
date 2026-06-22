@@ -20,6 +20,10 @@ const INFRASTRUCTURE_REVEAL_DURATION = 1.35;
 const INFRASTRUCTURE_SCROLL_DURATION = 0.9;
 const INVESTMENTS_REVEAL_DURATION = 1.15;
 const INVESTMENTS_EXIT_DURATION = 1.4;
+const FINANCE_REVEAL_DURATION = 1.15;
+// Зарезервировано для опционального fade-out Finance → Gallery.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- будет использовано при добавлении exit-анимации
+const FINANCE_EXIT_DURATION = 1.4;
 const INVESTMENTS_TO_ADVANTAGES_OVERLAP = 0.26;
 const ADVANTAGES_REVEAL_DURATION = 1;
 const LOCATION_REVEAL_DURATION = 1.5;
@@ -482,6 +486,9 @@ export function ScrollStage({ children }: ScrollStageProps) {
           const FinanceSection = panel.querySelector<HTMLElement>(
               "[data-finance-section]",
           );
+          const financeRevealElements = gsap.utils.toArray<HTMLElement>(
+              panel.querySelectorAll("[data-finance-reveal]"),
+          );
           const Footer = panel.querySelector<HTMLElement>(
               "footer",
           );
@@ -772,7 +779,10 @@ export function ScrollStage({ children }: ScrollStageProps) {
               );
           }
 
-          if ( FinanceSection ) {
+          if (FinanceSection) {
+              overlayStart += 0.3;
+              const financeRevealStart = overlayStart;
+
               timeline.to(
                   FinanceSection,
                   {
@@ -780,8 +790,22 @@ export function ScrollStage({ children }: ScrollStageProps) {
                       duration: 1,
                       ease: "power1.out",
                   },
-                  overlayStart += 0.3
+                  financeRevealStart,
               );
+
+              if (financeRevealElements.length > 0) {
+                  timeline.to(
+                      financeRevealElements,
+                      {
+                          autoAlpha: 1,
+                          y: 0,
+                          ease: "power1.out",
+                          stagger: 0.12,
+                          duration: FINANCE_REVEAL_DURATION,
+                      },
+                      financeRevealStart + 0.18,
+                  );
+              }
           }
 
           if (locationImage) {
@@ -799,6 +823,13 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
           if (conceptRevealElements.length > 0) {
               gsap.set(conceptRevealElements, {
+                  autoAlpha: 0,
+                  y: 28,
+              });
+          }
+
+          if (financeRevealElements.length > 0) {
+              gsap.set(financeRevealElements, {
                   autoAlpha: 0,
                   y: 28,
               });
