@@ -54,7 +54,10 @@ a {
 }
 
 
-[class*="__container"] {
+/* Применяем только к BEM-классам вроде block__container.
+   CSS Modules генерируют имена с «-module__», поэтому исключаем их,
+   чтобы глобальный padding не перебивал локальные стили модулей. */
+[class*="__container"]:not([class*="-module__"]) {
   margin: 0 auto;
   width: 100%;
   max-width: 2560px;
@@ -62,13 +65,13 @@ a {
 }
 
 @media (max-width: 1500px){
-  [class*="__container"] {
+  [class*="__container"]:not([class*="-module__"]) {
     padding: 0 24px;
   }
 }
 
 @media (max-width: 990px){
-  [class*="__container"] {
+  [class*="__container"]:not([class*="-module__"]) {
     padding: 0 16px;
   }
 }

@@ -22,6 +22,13 @@
   align-items: center;
   justify-content: center;
   z-index: 2;
+  /* Ширина и центрирование перенесены из глобального [class*="__container"]:
+     без width: 100% flex-элемент сжимается до ширины формы и уходит влево */
+  width: 100%;
+  max-width: 2560px;
+  margin: 0 auto;
+  padding-left: 96px;
+  padding-right: 96px;
 }
 
 .title {
@@ -197,6 +204,11 @@
 }
 
 @media (max-width: 1500px){
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
   .title {
     font-size: 40px;
   }
@@ -224,6 +236,13 @@
     font-size: 12px;
   }
   
+}
+
+@media (max-width: 990px){
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 @media (max-width: 600px){

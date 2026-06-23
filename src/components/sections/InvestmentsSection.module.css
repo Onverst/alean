@@ -12,6 +12,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* Горизонтальный отступ перенесён локально из глобального [class*="__container"] */
+  padding-left: 96px;
+  padding-right: 96px;
 }
 
 .title {
@@ -122,6 +125,13 @@
 }
 
 
+@media (max-width: 1500px){
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
 @media (max-width: 1200px){
   .investments {
     padding-top: 96px;
@@ -155,6 +165,11 @@
 }
 
 @media (max-width: 990px){
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   .list_title {
     font-size: 32px;
   }
@@ -188,7 +203,8 @@
     height: 100svh;
     min-height: 100svh;
     max-height: 100svh;
-    padding-top: clamp(56px, 8svh, 160px);
+    /* Не опускаем ниже ~96px: иначе верх заголовка уходит под viewport / обрезается */
+    padding-top: clamp(96px, 10svh, 160px);
     padding-bottom: 0;
     overflow: hidden;
     display: flex;
@@ -203,8 +219,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    /* flex-start: center + overflow:hidden обрезал верх крупного .section-title */
+    justify-content: flex-start;
+    padding-top: clamp(8px, 1.5svh, 20px);
+  }
+
+  .title {
+    /* Резерв под абсолютный .section-title-top внутри h3 */
+    padding-top: 0.5em;
   }
 
   .img_wrap {
@@ -259,7 +281,7 @@
 
 @media (min-width: 1201px) and (max-height: 1000px) {
   .investments {
-    padding-top: 128px;
+    padding-top: clamp(112px, 12svh, 128px);
   }
 
   .img_wrap {
@@ -275,7 +297,7 @@
   /* Compact-компоновка: title сверху, text_one | image | text_two в одну строку —
      уменьшает общую высоту секции на низких desktop viewport. */
   .investments {
-    padding-top: 96px;
+    padding-top: clamp(88px, 10svh, 96px);
   }
 
   .container {
@@ -326,7 +348,7 @@
 @media (min-width: 1201px) and (max-height: 800px) {
   /* Ещё более плотная compact-компоновка для экстремально низких desktop-height. */
   .investments {
-    padding-top: 72px;
+    padding-top: clamp(72px, 9svh, 80px);
   }
 
   .container {

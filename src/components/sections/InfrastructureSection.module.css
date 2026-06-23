@@ -9,8 +9,12 @@
 .container {
     position: relative;
     width: 100%;
+    /* Горизонтальный отступ перенесён локально из глобального [class*="__container"].
+       Вертикальный padding задан явно и теперь больше не будет затираться глобалкой. */
     padding-top: 96px;
+    padding-right: 96px;
     padding-bottom: 48px;
+    padding-left: 96px;
     min-height: 100svh;
     display: flex;
     flex-direction: column;
@@ -70,6 +74,13 @@
     object-fit: cover;
 }
 
+@media (max-width: 1500px){
+    .container {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
 @media (max-width: 1200px){
     .container {
         padding-top: 72px;
@@ -85,6 +96,13 @@
         bottom: auto;
         right: 0;
         top: 16px;
+    }
+}
+
+@media (max-width: 990px){
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
     }
 }
 
