@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test:visual": "playwright test -c playwright.visual.config.ts",
-    "test:visual:investments": "playwright test -c playwright.visual.config.ts tests/visual/scrollstage-investments.spec.ts",
+    "test:visual:investments": "echo \"Use Cursor browser: http://localhost:3000/__visual/sections/03-investments\"",
     "test:visual:headed": "playwright test -c playwright.visual.config.ts --headed",
     "test:visual:report": "playwright show-report playwright-report/visual"
   },

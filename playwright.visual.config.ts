@@ -1,14 +1,17 @@
 import { defineConfig } from "@playwright/test";
 
 /**
- * Отдельный конфиг для runtime visual/diagnostic тестов ScrollStage-слайдов.
- * Не смешивается с будущими e2e/unit-тестами Playwright.
+ * Конфиг для будущего Playwright batch runner (screenshots / overflow).
+ * Active specs отсутствуют — всё в tests/visual/_experimental/ (testIgnore).
+ * Текущая проверка: Cursor browser + isolated routes (/__visual/sections/*).
  */
 export default defineConfig({
   testDir: "./tests/visual",
+  testIgnore: ["**/_experimental/**"],
   fullyParallel: false,
   workers: 1,
   retries: 0,
+  timeout: 120_000,
   reporter: [
     ["list"],
     ["html", { outputFolder: "playwright-report/visual", open: "never" }],

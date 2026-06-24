@@ -8,8 +8,8 @@ import { saveRuntimeScreenshot } from "./helpers/screenshots";
 import { scrollToSectionByDominance } from "./helpers/scroll-to-section";
 import { getDominantVisibleSection } from "./helpers/visible-section";
 import { waitForScrollStageReady } from "./helpers/wait-for-scrollstage";
-import { viewportPresets } from "./viewport-presets";
-import { visualSections } from "./visual-sections.config";
+import { viewportPresets } from "../../viewport-presets";
+import { visualSections } from "../../visual-sections.config";
 
 const investmentsSection = visualSections.find(
   (section) => section.slug === "03-investments",

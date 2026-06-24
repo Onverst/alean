@@ -4,7 +4,7 @@ import { isScrollStageInitialized } from "./visible-section";
 
 /** Задержка после fonts.ready для стабилизации GSAP/Lenis анимаций. */
 const GSAP_LENIS_STABILIZATION_MS = 400;
-const SCROLLSTAGE_INIT_TIMEOUT_MS = 15_000;
+const SCROLLSTAGE_INIT_TIMEOUT_MS = 3_000;
 
 /**
  * Ждёт готовности ScrollStage перед скроллом и скриншотами.
