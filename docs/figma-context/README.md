@@ -40,6 +40,8 @@ docs/figma-context/sections/<section-slug>/
       reference.png
 ```
 
+Section inventory: `docs/figma-context/design-map.json`.
+
 ## What to save per variant
 
 For each Figma breakpoint variant save:
@@ -67,4 +69,82 @@ Figma variants mostly describe width-based layouts.
 Runtime viewport checks describe real browser behavior.
 
 Low-height desktop is not a separate Figma breakpoint.
-It must be checked through Playwright/runtime screenshots.
+Check it manually in Cursor browser on isolated visual routes.
+
+## Visual workflow (primary)
+
+### 1. Figma context
+
+Read local `context.md` and `reference.png` for the target section variant.
+Do not call Figma MCP unless explicitly requested.
+
+### 2. Isolated visual routes
+
+Dev-only pages without ScrollStage / GSAP / Lenis — one section with real data.
+
+URL alias:
+```
+http://localhost:3000/__visual/sections/<section-slug>
+```
+
+Direct route:
+```
+http://localhost:3000/visual/sections/<section-slug>
+```
+
+Example:
+```
+http://localhost:3000/__visual/sections/03-investments
+```
+
+Route file:
+```
+src/app/visual/sections/<section-slug>/page.tsx
+```
+
+> Next.js App Router treats `_`-prefixed folders as private. Alias `/__visual/*` is configured via rewrite in `next.config.ts`.
+
+Do not check section layout on the full homepage with ScrollStage.
+
+### 3. Cursor browser
+
+1. Run `npm run dev`.
+2. Open isolated route in Cursor browser.
+3. Resize viewport to target size.
+4. Compare with Figma context in `docs/figma-context/`.
+
+## Viewport groups (manual checks)
+
+Mobile:
+- 375×812
+
+Tablet:
+- 768×1024
+- 1024×768
+
+Desktop:
+- 1366×768
+- 1440×900
+- 1920×1080
+
+Low-height desktop (critical for fit/pinned slides):
+- 1440×760
+- 1503×700
+- 1920×800
+
+2K / QHD:
+- 2048×1080
+- 2048×1152
+- 2560×1080
+- 2560×1440
+- 2560×1600
+- 3440×1440
+
+Per-section critical viewports are listed in each `section.md`.
+
+## Adding a new isolated section
+
+1. Create `src/app/visual/sections/<slug>/page.tsx` (dev-only, `notFound()` in production).
+2. No extra rewrite needed — `/__visual/:path*` already maps to `/visual/:path*`.
+3. Add section entry to `design-map.json` and create `docs/figma-context/sections/<slug>/section.md`.
+4. Check in Cursor browser at `/__visual/sections/<slug>`.

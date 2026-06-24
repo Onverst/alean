@@ -1,19 +1,12 @@
 {
   "canonicalFigmaBreakpoint": "1920",
-  "figmaBreakpoints": ["1920", "1440", "1024", "768", "375"],
-  "runtimeViewportGroups": {
-    "mobile": ["375x812"],
-    "tablet": ["768x1024", "1024x768"],
-    "desktop": ["1366x768", "1440x900", "1920x1080"],
-    "lowHeightDesktop": ["1440x760", "1503x700", "1920x800"],
-    "twoK": ["2048x1080", "2048x1152", "2560x1080", "2560x1440", "2560x1600", "3440x1440"]
-  },
-  "sectionModes": {
-    "fit": "Section should fit in one viewport state. Next panel must not be visible.",
-    "scroll": "Section is taller than viewport and has internal vertical progress inside ScrollStage.",
-    "scroll-driven": "Section state depends on scroll progress, sliders, or GSAP-driven progress.",
-    "free": "Regular long section or non-strict fullscreen block."
-  },
+  "figmaBreakpoints": [
+    "1920",
+    "1440",
+    "1024",
+    "768",
+    "375"
+  ],
   "sections": [
     {
       "order": 1,
@@ -27,16 +20,21 @@
         "stylePath": "src/components/sections/HeroSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["default", "progress-0", "progress-50"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "GSAP parallax on hero bg and container during initial scroll transition."
     },
@@ -52,16 +50,21 @@
         "stylePath": "src/components/sections/AboutSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["start", "middle", "end"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "Background image taller than viewport; ScrollStage scrolls about bg via data-scroll-about-bg."
     },
@@ -77,12 +80,14 @@
         "stylePath": "src/components/sections/InvestmentsSection.module.css"
       },
       "figma": {
-        "1920": {
-          "frameName": "3_investment",
-          "frameSize": "1920x1350",
-          "saved": true,
-          "contextPath": "docs/figma-context/sections/03-investments/variants/1920/context.md",
-          "screenshotPath": "docs/figma-context/sections/03-investments/variants/1920/reference.png"
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
         },
         "1440": {
           "frameName": "3_investment",
@@ -92,14 +97,13 @@
           "screenshotPath": "docs/figma-context/sections/03-investments/variants/1440/reference.png",
           "comparePath": "docs/figma-context/sections/03-investments/compare-1920-1440.md"
         },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["default"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "1920": {
+          "frameName": "3_investment",
+          "frameSize": "1920x1350",
+          "saved": true,
+          "contextPath": "docs/figma-context/sections/03-investments/variants/1920/context.md",
+          "screenshotPath": "docs/figma-context/sections/03-investments/variants/1920/reference.png"
+        }
       },
       "notes": "Known risk: next panel visible at bottom on wide low-height desktop. ScrollStage locks panel-scroll on (min-width: 1201px) and (max-height: 1200px). Figma 1920 context captured 2026-06-24. Figma 1440 captured 2026-06-24 — identical layout to 1920."
     },
@@ -115,16 +119,21 @@
         "stylePath": "src/components/sections/AdvantagesSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["default", "progress-0", "progress-100"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "GSAP reveal via data-advantages-reveal. Overlap with Investments exit on mobile/tablet."
     },
@@ -140,16 +149,21 @@
         "stylePath": "src/components/sections/IncomeSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["default", "progress-0", "progress-100"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "Side panels animate via data-income-side left/right; tab buttons via data-income-buttons."
     },
@@ -165,16 +179,21 @@
         "stylePath": "src/components/sections/LocationSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["progress-0", "progress-50", "progress-100"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "Dedicated LOCATION_REVEAL_DURATION and exit animation in ScrollStage."
     },
@@ -190,16 +209,21 @@
         "stylePath": "src/components/sections/PointSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["default", "progress-0", "progress-100"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "Tab switch pattern shared with Income/Product; uses data-income-side selectors."
     },
@@ -215,16 +239,21 @@
         "stylePath": "src/components/sections/ConceptSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["start", "middle", "end"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "min-height 1680px on desktop; ScrollStage limits panel-scroll so title stays visible."
     },
@@ -240,16 +269,21 @@
         "stylePath": "src/components/sections/ProductSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["default", "progress-0", "progress-100"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "max-height 100svh on desktop; tab switch via data-income-side pattern."
     },
@@ -265,16 +299,21 @@
         "stylePath": "src/components/sections/OpenFormSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": false,
-        "states": ["default"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1920x1080"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "mode requires manual confirmation. GSAP animates data-form-title, data-form-text, data-form-area on entry."
     },
@@ -290,16 +329,21 @@
         "stylePath": "src/components/sections/InfrastructureSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["progress-0", "progress-50", "progress-100"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "Dedicated infrastructure reveal + content scroll sequence; stable snap point after text reveal."
     },
@@ -315,16 +359,21 @@
         "stylePath": "src/components/sections/GenplanSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["default"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "ScrollStage locks vertical panel-scroll on desktop (>1200px) to prevent next panel reveal."
     },
@@ -340,16 +389,21 @@
         "stylePath": "src/components/sections/InfrastructureSliderSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": false,
-        "states": ["default"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1920x1080"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "mode requires manual confirmation. Note typo in data attribute: infrastruture-slider-section."
     },
@@ -365,16 +419,21 @@
         "stylePath": "src/components/sections/InfrastructureFullscreenSliderSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["progress-0", "progress-50", "progress-100"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "Uses data-scroll-driven-slider with data-scroll-duration."
     },
@@ -390,16 +449,21 @@
         "stylePath": "src/components/sections/ServiceSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["default"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "min-height 100svh; intro gallery with data-active slide states."
     },
@@ -415,16 +479,21 @@
         "stylePath": "src/components/sections/ServiceSliderSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["default"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "height 100svh on desktop."
     },
@@ -440,16 +509,21 @@
         "stylePath": "src/components/sections/RoomsSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["progress-0", "progress-50", "progress-100"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "Uses data-scroll-driven-slider with data-scroll-duration."
     },
@@ -465,16 +539,21 @@
         "stylePath": "src/components/sections/FinanceSection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": true,
-        "states": ["default"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "ScrollStage locks vertical panel-scroll on desktop (>1200px). Bottom stats bar similar to Investments."
     },
@@ -490,16 +569,21 @@
         "stylePath": "src/components/sections/GallerySection.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": false,
-        "states": ["default", "progress-0", "progress-100"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1440x760", "1503x700", "1920x1080", "1920x800", "2048x1152", "2560x1440", "2560x1080", "2560x1600"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "Panel enters with y: 500 animation in ScrollStage."
     },
@@ -515,16 +599,21 @@
         "stylePath": "src/components/Footer.module.css"
       },
       "figma": {
-        "1920": { "saved": false },
-        "1440": { "saved": false },
-        "1024": { "saved": false },
-        "768": { "saved": false },
-        "375": { "saved": false }
-      },
-      "visualChecks": {
-        "mustNotRevealNextPanel": false,
-        "states": ["default"],
-        "viewports": ["375x812", "768x1024", "1024x768", "1440x900", "1920x1080"]
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
       },
       "notes": "Last panel; enters with y: 500 animation. No section-level data-* attribute."
     }

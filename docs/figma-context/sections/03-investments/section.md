@@ -48,7 +48,16 @@ Each variant context should include:
 
 Figma URL and node ID are stored only in the local gitignored `context.md`, not in publishable repo files.
 
-## Runtime checks
+## Runtime checks (Cursor browser)
+
+Open isolated route:
+```
+http://localhost:3000/__visual/sections/03-investments
+```
+
+1. Run `npm run dev`.
+2. Open the URL in Cursor browser.
+3. Resize viewport and compare with Figma context.
 
 Important viewports:
 - 1440x760

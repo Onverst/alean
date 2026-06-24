@@ -6,11 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "test:visual": "playwright test -c playwright.visual.config.ts",
-    "test:visual:investments": "echo \"Use Cursor browser: http://localhost:3000/__visual/sections/03-investments\"",
-    "test:visual:headed": "playwright test -c playwright.visual.config.ts --headed",
-    "test:visual:report": "playwright show-report playwright-report/visual"
+    "lint": "eslint"
   },
   "dependencies": {
     "@panzoom/panzoom": "^4.6.2",
@@ -23,7 +19,6 @@
     "swiper": "^12.2.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.61.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
