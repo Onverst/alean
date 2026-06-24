@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { InvestmentsSection } from "@/components/sections/InvestmentsSection";
+import { VisualRouteChromeController } from "@/components/VisualRouteChromeController";
 import { fetchMediaById, getHomePage } from "@/lib/wordpress";
 
 /**
@@ -28,6 +29,7 @@ export default async function InvestmentsVisualPage() {
 
   return (
     <main data-visual-page="03-investments">
+      <VisualRouteChromeController />
       <InvestmentsSection
         top_title={investmentsTopTitle}
         title={investmentsTitle}

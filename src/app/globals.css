@@ -310,3 +310,8 @@ body {
 body * {
   box-sizing: border-box;
 }
+
+/* Dev-only visual routes: скрываем глобальный chrome из RootLayout, не трогая секцию. */
+body[data-visual-route="true"] header {
+  display: none;
+}

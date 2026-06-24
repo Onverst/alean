@@ -48,6 +48,41 @@ Each variant context should include:
 
 Figma URL and node ID are stored only in the local gitignored `context.md`, not in publishable repo files.
 
+## Manual design inspection
+
+Route:
+http://localhost:3000/__visual/sections/03-investments
+
+### Figma parity viewports
+- 1920×1350
+- 1440×1350
+
+### Real runtime viewports
+- 1440×900
+- 1920×1080
+- 2560×1440
+- 2560×1080
+
+### Low-height viewports
+- 1440×760
+- 1503×700
+- 1920×800
+
+### Checkpoints
+- title
+- top badge
+- image
+- text_one
+- text_two
+- stats bar
+- column widths
+- vertical spacing
+- horizontal overflow
+- compact layout decision
+
+| Viewport | Result | Problem | Decision |
+|---|---|---|---|
+
 ## Runtime checks (Cursor browser)
 
 Open isolated route:
