@@ -1,0 +1,29 @@
+# Responsive Slides Rules
+
+- This project uses ScrollStage with fullscreen/pinned panels.
+- Do not modify ScrollStage unless explicitly asked.
+- Prefer CSS module changes for section layout fixes.
+- Preserve all data-* attributes.
+- Classify each section before testing:
+  - fit
+  - scroll
+  - scroll-driven
+  - free
+- For fit sections:
+  - next panel must not be visible;
+  - no horizontal overflow;
+  - title must not be cropped.
+- For scroll sections:
+  - use start/middle/end states;
+  - next panel must not appear before allowed transition.
+- Low-height desktop is critical:
+  - 1440x760
+  - 1503x700
+  - 1920x800
+- 2K/QHD must be checked:
+  - 2048x1080
+  - 2048x1152
+  - 2560x1080
+  - 2560x1440
+  - 2560x1600
+  - 3440x1440

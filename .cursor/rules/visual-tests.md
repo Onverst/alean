@@ -1,0 +1,21 @@
+# Visual Tests Rules
+
+- Use Playwright Test for runtime visual checks.
+- Do not create a new test harness for every section.
+- Reuse playwright.visual.config.ts.
+- Reuse tests/visual/viewport-presets.ts.
+- Reuse tests/visual/visual-sections.config.ts.
+- Reuse helpers in tests/visual/helpers.
+- Add new sections to visual-sections.config.ts.
+- Add new specs only when section-specific behavior is needed.
+- Do not use Puppeteer for this project unless the user explicitly asks.
+- Do not call Figma MCP from visual tests.
+- Do not modify ScrollStage from a visual-test setup task.
+- **Rects are not visibility truth for ScrollStage panels.** Stacked/pinned panels share bounding rects.
+- **Use elementFromPoint / dominant visible section** for ScrollStage visibility (`visible-section.ts`).
+- **Never save screenshot under expected section folder** if actual visible section differs — use `_navigation-failed`.
+- **Navigation failure is a test harness issue**, not a section layout failure.
+- For fit-panel sections: bottom strip must not show another concrete section slug.
+- For overflow-panel sections: use start/middle/end states.
+- For progress-panel sections: use progress-0/progress-50/progress-100 states.
+- For interactive-panel sections: capture UI states explicitly.

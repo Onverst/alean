@@ -41,3 +41,20 @@ yarn-error.log*
 next-env.d.ts
 
 .history/
+
+
+# -- git hygiene --
+# Figma MCP local design context
+docs/figma-context/sections/*/variants/*/context.md
+docs/figma-context/sections/*/variants/*/reference.png
+docs/figma-context/sections/*/variants/*/raw-mcp.md
+docs/figma-context/sections/*/compare-*.md
+
+# Visual test runtime artifacts
+tests/visual/runtime-screenshots/**
+!tests/visual/runtime-screenshots/.gitkeep
+test-results/
+playwright-report/
+
+# Local Playwright artifacts
+playwright/.cache/
