@@ -161,6 +161,36 @@
     }
 }
 
+/* Низкие viewport (<1050 по высоте): минимальный верхний отступ заголовка,
+   чтобы пагинация помещалась в 100svh без обрезки. */
+@media (max-height: 1050px) {
+    .container {
+        padding-top: 16px;
+        padding-bottom: 24px;
+    }
+
+    .title {
+        margin-bottom: 16px;
+    }
+
+    .img {
+        min-height: clamp(240px, 38svh, 400px);
+    }
+}
+
+/* Desktop (>1200): убираем padding 192px у секции — именно он не давал влезть пагинации. */
+@media (min-width: 1201px) and (max-height: 1050px) {
+    .gallery {
+        padding-top: 16px;
+        padding-bottom: 24px;
+        align-items: flex-start;
+    }
+
+    .controls {
+        margin-top: 24px;
+    }
+}
+
 @media (max-width: 990px) {
     .container {
         padding-left: 16px;
