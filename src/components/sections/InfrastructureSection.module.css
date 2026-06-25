@@ -96,7 +96,7 @@
         padding-top: 72px;
     }
 
-    .top_title {
+    .title .top_title {
         margin-bottom: 16px;
     }
 }
@@ -109,7 +109,7 @@
 }
 
 @media (max-width: 750px){
-    .top_title {
+    .title .top_title {
         margin-bottom: 8px;
     }
 }
@@ -129,7 +129,7 @@
         font-size: 30px;
     }
 
-    .top_title {
+    .title .top_title {
         margin-bottom: 4px;
     }
    
