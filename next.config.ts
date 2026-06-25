@@ -5,6 +5,14 @@ const wordpressApiUrl = process.env.WORDPRESS_API
   : null;
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/__visual/:path*",
+        destination: "/visual/:path*",
+      },
+    ];
+  },
   images: {
     remotePatterns: wordpressApiUrl
       ? [

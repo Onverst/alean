@@ -1,0 +1,629 @@
+{
+  "canonicalFigmaBreakpoint": "1920",
+  "figmaBreakpoints": [
+    "1920",
+    "1440",
+    "1024",
+    "768",
+    "375"
+  ],
+  "sections": [
+    {
+      "order": 1,
+      "slug": "01-hero",
+      "title": "Hero",
+      "component": "HeroSection",
+      "selector": "[data-hero-section]",
+      "mode": "scroll-driven",
+      "code": {
+        "componentPath": "src/components/sections/HeroSection.tsx",
+        "stylePath": "src/components/sections/HeroSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "GSAP parallax on hero bg and container during initial scroll transition."
+    },
+    {
+      "order": 2,
+      "slug": "02-about",
+      "title": "About",
+      "component": "AboutSection",
+      "selector": "[data-about-section]",
+      "mode": "scroll",
+      "code": {
+        "componentPath": "src/components/sections/AboutSection.tsx",
+        "stylePath": "src/components/sections/AboutSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "Background image taller than viewport; ScrollStage scrolls about bg via data-scroll-about-bg."
+    },
+    {
+      "order": 3,
+      "slug": "03-investments",
+      "title": "Investments",
+      "component": "InvestmentsSection",
+      "selector": "[data-investments-section]",
+      "mode": "fit",
+      "code": {
+        "componentPath": "src/components/sections/InvestmentsSection.tsx",
+        "stylePath": "src/components/sections/InvestmentsSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "frameName": "3_investment",
+          "frameSize": "375x1115",
+          "saved": true,
+          "contextPath": "docs/figma-context/sections/03-investments/variants/375/context.md",
+          "screenshotPath": "docs/figma-context/sections/03-investments/variants/375/reference.png"
+        },
+        "768": {
+          "frameName": "3_investment",
+          "frameSize": "768x1062",
+          "saved": true,
+          "contextPath": "docs/figma-context/sections/03-investments/variants/768/context.md",
+          "screenshotPath": "docs/figma-context/sections/03-investments/variants/768/reference.png"
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "frameName": "3_investment",
+          "frameSize": "1440x1350",
+          "saved": true,
+          "contextPath": "docs/figma-context/sections/03-investments/variants/1440/context.md",
+          "screenshotPath": "docs/figma-context/sections/03-investments/variants/1440/reference.png",
+          "comparePath": "docs/figma-context/sections/03-investments/compare-1920-1440.md"
+        },
+        "1920": {
+          "frameName": "3_investment",
+          "frameSize": "1920x1350",
+          "saved": true,
+          "contextPath": "docs/figma-context/sections/03-investments/variants/1920/context.md",
+          "screenshotPath": "docs/figma-context/sections/03-investments/variants/1920/reference.png"
+        }
+      },
+      "notes": "Known risk: next panel visible at bottom on wide low-height desktop. ScrollStage locks panel-scroll on (min-width: 1201px) and (max-height: 1200px). Figma 1920/1440 captured 2026-06-24. Figma 768/375 captured 2026-06-24 — tablet keeps 5 stats columns; mobile uses horizontal scroll on 919px-wide table."
+    },
+    {
+      "order": 4,
+      "slug": "04-advantages",
+      "title": "Advantages",
+      "component": "AdvantagesSection",
+      "selector": "[data-advantages-section]",
+      "mode": "scroll-driven",
+      "code": {
+        "componentPath": "src/components/sections/AdvantagesSection.tsx",
+        "stylePath": "src/components/sections/AdvantagesSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "GSAP reveal via data-advantages-reveal. Overlap with Investments exit on mobile/tablet."
+    },
+    {
+      "order": 5,
+      "slug": "05-income",
+      "title": "Income",
+      "component": "IncomeSection",
+      "selector": "[data-income-section]",
+      "mode": "scroll-driven",
+      "code": {
+        "componentPath": "src/components/sections/IncomeSection.tsx",
+        "stylePath": "src/components/sections/IncomeSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "Side panels animate via data-income-side left/right; tab buttons via data-income-buttons."
+    },
+    {
+      "order": 6,
+      "slug": "06-location",
+      "title": "Location",
+      "component": "LocationSection",
+      "selector": "[data-location-section]",
+      "mode": "scroll-driven",
+      "code": {
+        "componentPath": "src/components/sections/LocationSection.tsx",
+        "stylePath": "src/components/sections/LocationSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "Dedicated LOCATION_REVEAL_DURATION and exit animation in ScrollStage."
+    },
+    {
+      "order": 7,
+      "slug": "07-point",
+      "title": "Point",
+      "component": "PointSection",
+      "selector": "[data-point-section]",
+      "mode": "scroll-driven",
+      "code": {
+        "componentPath": "src/components/sections/PointSection.tsx",
+        "stylePath": "src/components/sections/PointSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "Tab switch pattern shared with Income/Product; uses data-income-side selectors."
+    },
+    {
+      "order": 8,
+      "slug": "08-concept",
+      "title": "Concept",
+      "component": "ConceptSection",
+      "selector": "[data-concept-section]",
+      "mode": "scroll",
+      "code": {
+        "componentPath": "src/components/sections/ConceptSection.tsx",
+        "stylePath": "src/components/sections/ConceptSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "min-height 1680px on desktop; ScrollStage limits panel-scroll so title stays visible."
+    },
+    {
+      "order": 9,
+      "slug": "09-product",
+      "title": "Product",
+      "component": "ProductSection",
+      "selector": "[data-product-section]",
+      "mode": "scroll-driven",
+      "code": {
+        "componentPath": "src/components/sections/ProductSection.tsx",
+        "stylePath": "src/components/sections/ProductSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "max-height 100svh on desktop; tab switch via data-income-side pattern."
+    },
+    {
+      "order": 10,
+      "slug": "10-open-form",
+      "title": "Open Form",
+      "component": "OpenFormSection",
+      "selector": "[data-body-form-section]",
+      "mode": "free",
+      "code": {
+        "componentPath": "src/components/sections/OpenFormSection.tsx",
+        "stylePath": "src/components/sections/OpenFormSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "mode requires manual confirmation. GSAP animates data-form-title, data-form-text, data-form-area on entry."
+    },
+    {
+      "order": 11,
+      "slug": "11-infrastructure",
+      "title": "Infrastructure",
+      "component": "InfrastructureSection",
+      "selector": "[data-infrastructure-section]",
+      "mode": "scroll-driven",
+      "code": {
+        "componentPath": "src/components/sections/InfrastructureSection.tsx",
+        "stylePath": "src/components/sections/InfrastructureSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "Dedicated infrastructure reveal + content scroll sequence; stable snap point after text reveal."
+    },
+    {
+      "order": 12,
+      "slug": "12-genplan",
+      "title": "Genplan",
+      "component": "GenplanSection",
+      "selector": "[data-genplan-section]",
+      "mode": "fit",
+      "code": {
+        "componentPath": "src/components/sections/GenplanSection.tsx",
+        "stylePath": "src/components/sections/GenplanSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "ScrollStage locks vertical panel-scroll on desktop (>1200px) to prevent next panel reveal."
+    },
+    {
+      "order": 13,
+      "slug": "13-infrastructure-slider",
+      "title": "Infrastructure Slider",
+      "component": "InfrastructureSliderSection",
+      "selector": "[data-infrastruture-slider-section]",
+      "mode": "free",
+      "code": {
+        "componentPath": "src/components/sections/InfrastructureSliderSection.tsx",
+        "stylePath": "src/components/sections/InfrastructureSliderSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "mode requires manual confirmation. Note typo in data attribute: infrastruture-slider-section."
+    },
+    {
+      "order": 14,
+      "slug": "14-infrastructure-fullscreen-slider",
+      "title": "Infrastructure Fullscreen Slider",
+      "component": "InfrastructureFullscreenSliderSection",
+      "selector": "[data-infrastructure-full]",
+      "mode": "scroll-driven",
+      "code": {
+        "componentPath": "src/components/sections/InfrastructureFullscreenSliderSection.tsx",
+        "stylePath": "src/components/sections/InfrastructureFullscreenSliderSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "Uses data-scroll-driven-slider with data-scroll-duration."
+    },
+    {
+      "order": 15,
+      "slug": "15-service",
+      "title": "Service",
+      "component": "ServiceSection",
+      "selector": "[data-service-section]",
+      "mode": "fit",
+      "code": {
+        "componentPath": "src/components/sections/ServiceSection.tsx",
+        "stylePath": "src/components/sections/ServiceSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "min-height 100svh; intro gallery with data-active slide states."
+    },
+    {
+      "order": 16,
+      "slug": "16-service-slider",
+      "title": "Service Slider",
+      "component": "ServiceSliderSection",
+      "selector": "[data-service-slider-section]",
+      "mode": "fit",
+      "code": {
+        "componentPath": "src/components/sections/ServiceSliderSection.tsx",
+        "stylePath": "src/components/sections/ServiceSliderSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "height 100svh on desktop."
+    },
+    {
+      "order": 17,
+      "slug": "17-rooms",
+      "title": "Rooms",
+      "component": "RoomsSection",
+      "selector": "[data-room-section]",
+      "mode": "scroll-driven",
+      "code": {
+        "componentPath": "src/components/sections/RoomsSection.tsx",
+        "stylePath": "src/components/sections/RoomsSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "Uses data-scroll-driven-slider with data-scroll-duration."
+    },
+    {
+      "order": 18,
+      "slug": "18-finance",
+      "title": "Finance",
+      "component": "FinanceSection",
+      "selector": "[data-finance-section]",
+      "mode": "fit",
+      "code": {
+        "componentPath": "src/components/sections/FinanceSection.tsx",
+        "stylePath": "src/components/sections/FinanceSection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "ScrollStage locks vertical panel-scroll on desktop (>1200px). Bottom stats bar similar to Investments."
+    },
+    {
+      "order": 19,
+      "slug": "19-gallery",
+      "title": "Gallery",
+      "component": "GallerySection",
+      "selector": "[data-gallery]",
+      "mode": "scroll-driven",
+      "code": {
+        "componentPath": "src/components/sections/GallerySection.tsx",
+        "stylePath": "src/components/sections/GallerySection.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "Panel enters with y: 500 animation in ScrollStage."
+    },
+    {
+      "order": 20,
+      "slug": "20-footer",
+      "title": "Footer",
+      "component": "Footer",
+      "selector": "footer",
+      "mode": "free",
+      "code": {
+        "componentPath": "src/components/Footer.tsx",
+        "stylePath": "src/components/Footer.module.css"
+      },
+      "figma": {
+        "375": {
+          "saved": false
+        },
+        "768": {
+          "saved": false
+        },
+        "1024": {
+          "saved": false
+        },
+        "1440": {
+          "saved": false
+        },
+        "1920": {
+          "saved": false
+        }
+      },
+      "notes": "Last panel; enters with y: 500 animation. No section-level data-* attribute."
+    }
+  ]
+}

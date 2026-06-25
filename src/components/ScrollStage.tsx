@@ -29,8 +29,6 @@ const ADVANTAGES_REVEAL_DURATION = 1;
 const LOCATION_REVEAL_DURATION = 1.5;
 const LOCATION_EXIT_DURATION = 0.75;
 const CONCEPT_REVEAL_DURATION = 1.15;
-const INVESTMENTS_FIXED_LOW_DESKTOP_QUERY =
-  "(min-width: 1201px) and (max-height: 1200px)";
 
 export function ScrollStage({ children }: ScrollStageProps) {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -81,13 +79,11 @@ export function ScrollStage({ children }: ScrollStageProps) {
         Math.max(panel.scrollHeight - window.innerHeight, 0);
 
       /*
-       * На desktop medium/low-height InvestmentsSection фиксируется ровно в viewport:
-       * отключаем panel-scroll (y-сдвиг), иначе снизу видна полоска AdvantagesSection.
-       * Порог 1200px покрывает средние desktop вроде 1503×1184.
+       * InvestmentsSection — fit-slide на всех breakpoint'ах:
+       * отключаем vertical panel-scroll (y-сдвиг), иначе снизу виден About или следующий panel.
        */
-      const isFixedInvestmentsLowDesktop = (panel?: HTMLElement | null) =>
-        Boolean(panel?.querySelector("[data-investments-section]")) &&
-        window.matchMedia(INVESTMENTS_FIXED_LOW_DESKTOP_QUERY).matches;
+      const shouldLockInvestmentsVerticalScroll = (panel?: HTMLElement | null) =>
+        Boolean(panel?.querySelector("[data-investments-section]"));
 
       // Для ConceptSection ограничиваем generic panel-scroll, чтобы заголовок не уходил за верх viewport.
       const getConceptPanelScrollOffset = (panel: HTMLElement) => {
@@ -113,20 +109,39 @@ export function ScrollStage({ children }: ScrollStageProps) {
       };
 
       /*
-       * GenplanSection — интерактивный horizontal/panzoom слайд на desktop:
-       * отключаем generic vertical panel-scroll, иначе снизу виден следующий panel.
+       * GenplanSection — fit-slide / panzoom на всех breakpoint'ах:
+       * отключаем vertical panel-scroll, иначе снизу виден предыдущий panel.
        */
       const shouldLockGenplanVerticalScroll = (panel: HTMLElement) =>
-        Boolean(panel.querySelector("[data-genplan-section]")) &&
-        window.innerWidth > 1200;
+        Boolean(panel.querySelector("[data-genplan-section]"));
 
       /*
-       * FinanceSection — viewport-slide с нижней плашкой на desktop:
-       * отключаем generic vertical panel-scroll, иначе снизу виден GallerySection.
+       * FinanceSection — fit-slide с нижней плашкой на всех breakpoint'ах:
+       * отключаем vertical panel-scroll, иначе снизу виден предыдущий panel.
        */
       const shouldLockFinanceVerticalScroll = (panel: HTMLElement) =>
-        Boolean(panel.querySelector("[data-finance-section]")) &&
-        window.innerWidth > 1200;
+        Boolean(panel.querySelector("[data-finance-section]"));
+
+      /*
+       * ProductSection — fit-slide на всех breakpoint'ах:
+       * отключаем vertical panel-scroll, иначе снизу виден ConceptSection.
+       */
+      const shouldLockProductVerticalScroll = (panel: HTMLElement) =>
+        Boolean(panel.querySelector("[data-product-section]"));
+
+      /*
+       * OpenFormSection — fit-slide на всех breakpoint'ах:
+       * отключаем vertical panel-scroll, иначе снизу виден ProductSection.
+       */
+      const shouldLockOpenFormVerticalScroll = (panel: HTMLElement) =>
+        Boolean(panel.querySelector("[data-body-form-section]"));
+
+      /*
+       * GallerySection — fit-slide на всех breakpoint'ах:
+       * отключаем vertical panel-scroll, иначе снизу виден FinanceSection.
+       */
+      const shouldLockGalleryVerticalScroll = (panel: HTMLElement) =>
+        Boolean(panel.querySelector("[data-gallery]"));
 
       const getPanelScrollOffset = (panel: HTMLElement) => {
         if (shouldLockGenplanVerticalScroll(panel)) {
@@ -134,6 +149,18 @@ export function ScrollStage({ children }: ScrollStageProps) {
         }
 
         if (shouldLockFinanceVerticalScroll(panel)) {
+          return 0;
+        }
+
+        if (shouldLockProductVerticalScroll(panel)) {
+          return 0;
+        }
+
+        if (shouldLockOpenFormVerticalScroll(panel)) {
+          return 0;
+        }
+
+        if (shouldLockGalleryVerticalScroll(panel)) {
           return 0;
         }
 
@@ -147,7 +174,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           return 0;
         }
 
-        return isFixedInvestmentsLowDesktop(thirdPanel)
+        return shouldLockInvestmentsVerticalScroll(thirdPanel)
           ? 0
           : getPanelOverflow(thirdPanel);
       };

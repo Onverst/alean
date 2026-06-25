@@ -7,6 +7,9 @@
 .container {
     display: flex;
     flex-direction: column;
+    /* Горизонтальный отступ перенесён локально из глобального [class*="__container"] */
+    padding-left: 96px;
+    padding-right: 96px;
 }
 
 .title {
@@ -219,6 +222,11 @@
 
 
 @media (max-width: 1500px){
+    .container {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
     .bottom {
         padding-left: 0;
     }
@@ -260,6 +268,13 @@
     }
 }
 
+
+@media (max-width: 990px){
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
 
 @media (max-width: 600px){
     .text {

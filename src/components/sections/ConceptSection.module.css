@@ -9,6 +9,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* Горизонтальный отступ перенесён локально из глобального [class*="__container"] */
+    padding-left: 96px;
+    padding-right: 96px;
 }
 
 .title {
@@ -97,6 +100,13 @@
     object-fit: cover;
 }
 
+@media (max-width: 1500px){
+    .container {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
 @media (max-width: 1550px){
     .text_two {
         max-width: 40%;
@@ -179,6 +189,11 @@
 }
 
 @media (max-width: 990px){
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
     .img_three_wrap {
         max-width: 400px;
     } 

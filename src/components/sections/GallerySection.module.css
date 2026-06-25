@@ -11,6 +11,11 @@
     flex-direction: column;
     align-items: flex-start;
     min-width: 0;
+    /* Горизонтальный отступ перенесён локально из глобального [class*="__container"].
+       Значение 96px согласовано с .slider::before { left: -96px }, который
+       «выезжает» за левый край контейнера ровно на величину этого отступа. */
+    padding-left: 96px;
+    padding-right: 96px;
 }
 
 .top_title {
@@ -109,17 +114,40 @@
 }
 
 @media (max-width: 1500px) {
+    .container {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
     .slider::before {
-        left: -48px;
-        width: 48px;
+        left: -24px;
+        width: 24px;
     }
 }
 
 @media (max-width: 1200px) {
     .gallery {
-        padding: 96px 0;
-        min-height: auto;
+        /* Fit-slide: секция закрывает viewport на высоком mobile. */
+        min-height: 100svh;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
     }
+
+    .container {
+        flex: 1 1 auto;
+        min-height: 100svh;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 96px;
+        padding-bottom: 96px;
+    }
+
     .title {
         margin-bottom: 24px;
     }
@@ -129,11 +157,16 @@
     }
 
     .controls {
-        margin-top: 24px;
+        margin-top: auto;
     }
 }
 
 @media (max-width: 990px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
     .slider::before {
         left: -16px;
         width: 16px;
