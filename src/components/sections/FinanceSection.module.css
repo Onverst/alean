@@ -266,8 +266,24 @@
 
 @media (max-width: 1200px){
     .finance {
+        /* Fit-slide: на высоком mobile секция закрывает 100svh, stats bar у нижнего края. */
+        min-height: 100svh;
+        padding-top: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .container {
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         padding-top: 96px;
-        min-height: auto;
+        box-sizing: border-box;
     }
 
     .title {
@@ -287,7 +303,10 @@
     }
 
     .list_two {
-        margin-top: 64px;
+        flex: 0 0 auto;
+        flex-shrink: 0;
+        margin-top: auto;
+        width: 100%;
     }
 
     .list_two li {

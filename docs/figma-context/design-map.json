@@ -81,10 +81,18 @@
       },
       "figma": {
         "375": {
-          "saved": false
+          "frameName": "3_investment",
+          "frameSize": "375x1115",
+          "saved": true,
+          "contextPath": "docs/figma-context/sections/03-investments/variants/375/context.md",
+          "screenshotPath": "docs/figma-context/sections/03-investments/variants/375/reference.png"
         },
         "768": {
-          "saved": false
+          "frameName": "3_investment",
+          "frameSize": "768x1062",
+          "saved": true,
+          "contextPath": "docs/figma-context/sections/03-investments/variants/768/context.md",
+          "screenshotPath": "docs/figma-context/sections/03-investments/variants/768/reference.png"
         },
         "1024": {
           "saved": false
@@ -105,7 +113,7 @@
           "screenshotPath": "docs/figma-context/sections/03-investments/variants/1920/reference.png"
         }
       },
-      "notes": "Known risk: next panel visible at bottom on wide low-height desktop. ScrollStage locks panel-scroll on (min-width: 1201px) and (max-height: 1200px). Figma 1920 context captured 2026-06-24. Figma 1440 captured 2026-06-24 — identical layout to 1920."
+      "notes": "Known risk: next panel visible at bottom on wide low-height desktop. ScrollStage locks panel-scroll on (min-width: 1201px) and (max-height: 1200px). Figma 1920/1440 captured 2026-06-24. Figma 768/375 captured 2026-06-24 — tablet keeps 5 stats columns; mobile uses horizontal scroll on 919px-wide table."
     },
     {
       "order": 4,

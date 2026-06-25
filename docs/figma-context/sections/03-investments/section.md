@@ -111,6 +111,14 @@ Code already has `@media (min-width: 1201px) and (max-width: 1450px)` shrinking 
 
 Full comparison: local `compare-1920-1440.md` (gitignored).
 
+## 768 vs 375 summary
+
+**768 (540:9088):** tablet layout — padding 96/48, gaps 64/32/12, heading 96 px, script 32 px, image **200×280** (same as desktop), all **5 stats columns** visible with compressed column widths (~142–155 px).
+
+**375 (540:9691):** mobile layout — heading 48 px, badge **two lines**, script 24 px, image **180×240**, body full width. Stats bar is **919 px wide** inside 375 px frame → **horizontal scroll**, ~2 columns visible in viewport.
+
+Captured 2026-06-24. See `variants/768/context.md` and `variants/375/context.md`.
+
 ## Risks
 
 - next slide visible at bottom

@@ -135,8 +135,22 @@
 @media (max-width: 1200px){
   .investments {
     padding-top: 96px;
-    padding-bottom: 48px;
-    min-height: auto;
+    /* Нижний край — stats bar вплотную к viewport; padding создавал щель с фоном следующего panel. */
+    padding-bottom: 0;
+    /* Fit-slide: на высоком mobile контент короче экрана — секция всё равно закрывает 100svh. */
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .container {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .img_wrap {
@@ -150,10 +164,14 @@
   }
 
   .text_two {
-    margin-bottom: 64px;
+    margin-bottom: 0;
   }
 
   .list {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    margin-top: auto;
+    width: 100%;
     justify-content: flex-start;
   }
 

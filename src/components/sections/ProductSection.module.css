@@ -1,6 +1,12 @@
 .product {
     position: relative;
     overflow: hidden;
+    min-height: 100svh;
+}
+
+.container {
+    position: relative;
+    min-height: 100svh;
 }
 
 .tab {
@@ -336,17 +342,39 @@
 
 
 @media (max-width: 1200px){
+    .product {
+        /* Fit-slide: секция закрывает viewport, фон content_inner не оставляет «окон». */
+        min-height: 100svh;
+    }
+
+    .container {
+        min-height: 100svh;
+    }
+
     .tab {
         grid-template-columns: 1fr;
-        max-height: none;
+        min-height: 100svh;
+        height: 100svh;
+        max-height: 100svh;
     }
 
     .side:has(.image_inner) {
         display: none;
     }
 
+    .side:has(.content_inner) {
+        height: 100%;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
     .content_inner {
         padding: 64px 0 112px;
+        flex: 1 1 auto;
+        min-height: 100%;
+        height: 100%;
+        box-sizing: border-box;
         flex-direction: column-reverse;
         max-height: none;
         overflow: hidden;

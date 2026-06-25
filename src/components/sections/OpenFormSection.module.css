@@ -1,7 +1,9 @@
 .open_form {
   position: relative;
   display: flex;
+  flex-direction: column;
   min-height: 100svh;
+  overflow: hidden;
 }
 
 .bg {
@@ -16,7 +18,9 @@
 
 .container {
   position: relative;
-  height: auto;
+  flex: 1 1 auto;
+  min-height: 100svh;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -216,8 +220,14 @@
 
 @media (max-width: 1200px){
   .open_form {
-    min-height: auto;
-    padding: 100px 0;
+    /* Fit-slide: фон .bg (height: 100%) закрывает весь viewport на высоком mobile. */
+    min-height: 100svh;
+  }
+
+  .container {
+    min-height: 100svh;
+    padding-top: 100px;
+    padding-bottom: 100px;
   }
 
   .text {
