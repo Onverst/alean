@@ -225,7 +225,7 @@
 }
 
 /* Ещё более низкие desktop viewport: дополнительное сжатие типографики и отступов. */
-@media (min-width: 1201px) and (max-height: 900px) {
+@media (min-width: 1201px) and (max-height: 1200px) {
     .container {
         padding-top: clamp(24px, 4svh, 56px);
     }
