@@ -5,6 +5,7 @@ const wordpressApiUrl = process.env.WORDPRESS_API
   : null;
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["172.20.10.2"],
   async rewrites() {
     return [
       {

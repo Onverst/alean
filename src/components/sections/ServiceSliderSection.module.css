@@ -193,15 +193,22 @@
 }
 
 @media (max-width: 600px){
+  /*
+   * column вместо column-reverse: при переполнении flex-контент
+   * уходит вниз, а не вверх в предыдущий viewport (ScrollStage panel).
+   */
   .service_slider {
-    min-height: auto;
+    min-height: 100svh;
+    height: auto;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 
   .images {
+    order: -1;
     aspect-ratio: 375 / 280;
     min-height: 280px;
+    flex: 0 0 auto;
   }
 
   .controls {
@@ -218,6 +225,7 @@
   }
 
   .content {
+    order: 0;
     padding-top: 32px;
   }
 

@@ -24,15 +24,25 @@
 }
 
 .title {
-    /* margin-bottom: 24px; */
-    width: 100%;
+    /* Ширина по содержимому: правый край h3 совпадает с правым краем основного заголовка. */
+    width: fit-content;
     max-width: 1060px;
+    margin-left: auto;
+    /* Колонка + выравнивание вправо: верхний и нижний текст делят одну правую границу. */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
     color: var(--new-color-light-beight);
 }
 
-.top_title {
-    top: 8%;
-    right: 0;
+.title .top_title {
+    /* Статичный поток вместо absolute — иначе right: 0 привязывается к ширине h3, а не к тексту title.
+       Специфичность выше глобального .section-title-top { position: absolute }. */
+    position: static;
+    top: auto;
+    right: auto;
+    margin-bottom: 16px;
     color: var(--new-color-light-beight);
 }
 
@@ -86,16 +96,8 @@
         padding-top: 72px;
     }
 
-    .title {
-        align-items: flex-end;
-    }
-
     .top_title {
-        position: relative;
-        left: auto;
-        bottom: auto;
-        right: 0;
-        top: 16px;
+        margin-bottom: 16px;
     }
 }
 
@@ -108,7 +110,7 @@
 
 @media (max-width: 750px){
     .top_title {
-        top: 8px;
+        margin-bottom: 8px;
     }
 }
 
@@ -128,7 +130,7 @@
     }
 
     .top_title {
-        top: 4px;
+        margin-bottom: 4px;
     }
    
 }
