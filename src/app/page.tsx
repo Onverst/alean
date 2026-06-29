@@ -1,3 +1,4 @@
+import { Preloader } from "@/components/Preloader";
 import { ScrollStage } from "@/components/ScrollStage";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
@@ -217,6 +218,7 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <ScrollStage>
+          <Preloader />
         <HeroSection title={heroTitle} text={heroText} logo={heroLogo} bgImg={heroBg}/>
         <AboutSection
           top_title={aboutTopTitle}

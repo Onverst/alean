@@ -5,6 +5,7 @@ const wordpressApiUrl = process.env.WORDPRESS_API
   : null;
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["192.168.0.197"], // для локалки, если не работает сайт, добавь сюда свой ip
   async rewrites() {
     return [
       {

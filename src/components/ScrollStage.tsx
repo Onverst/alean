@@ -60,7 +60,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
     const ctx = gsap.context(() => {
       const stage = stageRef.current;
       const panels = gsap.utils.toArray<HTMLElement>("[data-scroll-panel]");
-      const [heroPanel, aboutPanel, thirdPanel] = panels;
+      const [PreloaderSection, heroPanel, aboutPanel, thirdPanel] = panels;
       const overlayPanels = panels.slice(3);
       const heroBg = heroPanel?.querySelector<HTMLElement>(
         "[data-scroll-hero-bg]",
@@ -238,6 +238,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
         );
 
 
+      gsap.set(PreloaderSection, { yPercent: 0, zIndex: 3 });
       gsap.set(heroPanel, { yPercent: 0, zIndex: 3 });
       gsap.set(aboutPanel, { yPercent: 0, zIndex: 2 });
       gsap.set(thirdPanel, { y: 0, yPercent: 100, zIndex: 4 });
@@ -1048,6 +1049,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
           if ( Footer ) {
               gsap.set(panel, {
+                  zIndex: 1,
                   y: 500,
               });
               timeline.to(
