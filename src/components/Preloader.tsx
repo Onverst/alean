@@ -10,29 +10,12 @@ export function Preloader() {
     const [ fading, set_fading ] = useState( false );
     const preloader_ref = useRef( null );
 
-    function wait_for_transition_end( element, callback ) {
-        if ( !element ) {
-            callback();
-            return;
-        }
+    function wait_for_transition_end(  callback: () => void ) {
+        callback();
 
         setTimeout( () => {
-
-            wait_for_transition_end( null, () => {
-                //document.querySelector(".preloader_section").style.display = "none";
-            } );
-        }, 1);
-
-        const handler = ( event ) => {
-            if ( event.propertyName !== "opacity" ) {
-                return;
-            }
-
-            element.removeEventListener( "transitionend", handler );
-            callback();
-        };
-
-        element.addEventListener( "transitionend", handler );
+            //document.querySelector(".preloader_section").style.display = "none";
+        }, 1000);
     }
 
     useEffect( () => {
@@ -48,9 +31,9 @@ export function Preloader() {
             const el = preloader_ref.current;
 
 
-            wait_for_transition_end( el, () => {
+            wait_for_transition_end( () => {
                 document.body.style.overflow = "";
-            } );
+            });
         };
 
         if ( document.readyState === "complete" ) {
