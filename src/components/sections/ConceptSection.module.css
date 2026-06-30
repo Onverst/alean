@@ -217,7 +217,7 @@
  * Desktop (Figma 75-3067): вся композиция в один viewport.
  * Пропорции масштабируются от artboard 1680px через svh, потолок — значения макета.
  */
-@media (min-width: 1391px) {
+/* @media (min-width: 1391px) {
     .concept {
         height: 100svh;
         min-height: 100svh;
@@ -253,10 +253,10 @@
         bottom: clamp(24px, 11.43svh, 192px);
         max-width: clamp(260px, 38.1svh, 640px);
     }
-}
+} */
 
 /* Узкий desktop: уменьшаем боковые картинки, чтобы текст не наезжал на изображения. */
-@media (min-width: 1391px) and (max-width: 1550px) {
+/* @media (min-width: 1391px) and (max-width: 1550px) {
     .text_one {
         max-width: min(720px, 50vw);
     }
@@ -272,10 +272,10 @@
     .img_three_wrap {
         max-width: clamp(240px, 34svh, 520px);
     }
-}
+} */
 
 /* Ещё более плотная компоновка для экстремально низких desktop viewport. */
-@media (min-width: 1391px) and (max-height: 760px) {
+/* @media (min-width: 1391px) and (max-height: 760px) {
     .concept {
         padding-top: clamp(32px, 5svh, 64px);
     }
@@ -304,4 +304,4 @@
         max-width: clamp(260px, 48svh, 520px);
         bottom: clamp(16px, 4svh, 56px);
     }
-}
+} */

@@ -1,4 +1,5 @@
 .finance {
+    padding-top: 192px;
     background: var(--new-color-light-beight);
     min-height: 100svh;
 }
@@ -7,9 +8,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Горизонтальный отступ перенесён локально из глобального [class*="__container"] */
-    padding-left: 96px;
-    padding-right: 96px;
 }
 
 .top_title {
@@ -95,6 +93,7 @@
 }
 
 .list_two {
+    margin-top: 96px;
     padding: 32px 0;
     width: 100%;
     max-width: 100%;
@@ -160,130 +159,11 @@
     color: var(--new-color-light-beight);
 }
 
-/*
- * Desktop: FinanceSection — viewport-slide с нижней плашкой внутри 100svh.
- * Отступ сверху переносим в .container, чтобы padding-top не раздувал секцию.
- */
-@media (min-width: 1201px) {
-    .finance {
-        height: 100svh;
-        min-height: 100svh;
-        max-height: 100svh;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding-top: 0;
-    }
-
-    .container {
-        flex: 1 1 auto;
-        min-height: 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-top: clamp(48px, 8svh, 128px);
-        overflow: hidden;
-    }
-
-    .list_two {
-        flex: 0 0 auto;
-        flex-shrink: 0;
-        margin-top: 0;
-        width: 100%;
-        padding-top: clamp(24px, 3svh, 32px);
-        padding-bottom: clamp(24px, 3svh, 32px);
-        box-sizing: border-box;
-        overflow-x: auto;
-        overflow-y: visible;
-        align-items: center;
-        min-height: clamp(92px, 10svh, 120px);
-    }
-}
-
-/* Средние/низкие desktop по высоте: сжимаем вертикальные отступы центральной зоны. */
-@media (min-width: 1201px) and (max-height: 1150px) {
-    .container {
-        padding-top: clamp(32px, 6svh, 96px);
-    }
-
-    .img_wrap {
-        margin: clamp(24px, 4svh, 48px) 0;
-    }
-
-    .list_one {
-        margin: clamp(32px, 5svh, 56px) 0;
-    }
-
-    .list_two {
-        margin-top: 0;
-        padding-top: clamp(24px, 3svh, 32px);
-        padding-bottom: clamp(24px, 3svh, 32px);
-    }
-}
-
-/* Ещё более низкие desktop viewport: дополнительное сжатие типографики и отступов. */
-@media (min-width: 1201px) and (max-height: 1200px) {
-    .container {
-        padding-top: clamp(24px, 4svh, 56px);
-    }
-
-    .title {
-        margin-top: 8px;
-    }
-
-    .img_wrap {
-        max-width: clamp(120px, 16svh, 200px);
-        margin: clamp(16px, 2.5svh, 32px) 0;
-    }
-
-    .text {
-        font-size: clamp(12px, 1.6svh, 16px);
-    }
-
-    .list_one {
-        margin: clamp(20px, 3svh, 40px) 0;
-    }
-
-    .list_one_numb {
-        font-size: clamp(72px, 11svh, 128px);
-    }
-
-    .list_two {
-        padding-top: clamp(20px, 2.8svh, 32px);
-        padding-bottom: clamp(20px, 2.8svh, 32px);
-    }
-}
-
-@media (max-width: 1500px){
-    .container {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-}
 
 @media (max-width: 1200px){
     .finance {
-        /* Fit-slide: на высоком mobile секция закрывает 100svh, stats bar у нижнего края. */
-        min-height: 100svh;
-        padding-top: 0;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-    }
-
-    .container {
-        flex: 1 1 auto;
-        min-height: 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         padding-top: 96px;
-        box-sizing: border-box;
+        min-height: auto;
     }
 
     .title {
@@ -303,10 +183,7 @@
     }
 
     .list_two {
-        flex: 0 0 auto;
-        flex-shrink: 0;
-        margin-top: auto;
-        width: 100%;
+        margin-top: 64px;
     }
 
     .list_two li {
@@ -316,11 +193,6 @@
 }
 
 @media (max-width: 990px){
-    .container {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
     .list_two {
         justify-content: flex-start;
     }

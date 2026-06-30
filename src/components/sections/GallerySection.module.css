@@ -1,5 +1,5 @@
 .gallery {
-    padding: 192px 0;
+    padding: 192px 0 48px;
     display: flex;
     align-items: center;
     min-height: 100svh;
@@ -11,11 +11,8 @@
     flex-direction: column;
     align-items: flex-start;
     min-width: 0;
-    /* Горизонтальный отступ перенесён локально из глобального [class*="__container"].
-       Значение 96px согласовано с .slider::before { left: -96px }, который
-       «выезжает» за левый край контейнера ровно на величину этого отступа. */
-    padding-left: 96px;
     padding-right: 96px;
+    padding-left: 96px;
 }
 
 .top_title {
@@ -114,40 +111,23 @@
 }
 
 @media (max-width: 1500px) {
-    .container {
-        padding-left: 24px;
-        padding-right: 24px;
+    .slider::before {
+        left: -48px;
+        width: 48px;
     }
 
-    .slider::before {
-        left: -24px;
-        width: 24px;
+    .container {
+        padding: 0 24px;
     }
 }
 
+
+
 @media (max-width: 1200px) {
     .gallery {
-        /* Fit-slide: секция закрывает viewport на высоком mobile. */
-        min-height: 100svh;
-        padding: 0;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-start;
+        padding: 96px 0;
+        min-height: auto;
     }
-
-    .container {
-        flex: 1 1 auto;
-        min-height: 100svh;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding-top: 96px;
-        padding-bottom: 96px;
-    }
-
     .title {
         margin-bottom: 24px;
     }
@@ -157,49 +137,18 @@
     }
 
     .controls {
-        margin-top: auto;
-    }
-}
-
-/* Низкие viewport (<1050 по высоте): минимальный верхний отступ заголовка,
-   чтобы пагинация помещалась в 100svh без обрезки. */
-@media (max-height: 1050px) {
-    .container {
-        padding-top: 16px;
-        padding-bottom: 24px;
-    }
-
-    .title {
-        margin-bottom: 16px;
-    }
-
-    .img {
-        min-height: clamp(240px, 38svh, 400px);
-    }
-}
-
-/* Desktop (>1200): убираем padding 192px у секции — именно он не давал влезть пагинации. */
-@media (min-width: 1201px) and (max-height: 1050px) {
-    .gallery {
-        padding-top: 16px;
-        padding-bottom: 24px;
-        align-items: flex-start;
-    }
-
-    .controls {
         margin-top: 24px;
     }
 }
 
 @media (max-width: 990px) {
-    .container {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
     .slider::before {
         left: -16px;
         width: 16px;
+    }
+
+    .container {
+        padding: 0 16px;
     }
 }
 
@@ -230,4 +179,3 @@
         height: 40px;
     }
 }
-

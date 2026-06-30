@@ -218,7 +218,7 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <ScrollStage>
-          <Preloader />
+        {/* <Preloader /> */}
         <HeroSection title={heroTitle} text={heroText} logo={heroLogo} bgImg={heroBg}/>
         <AboutSection
           top_title={aboutTopTitle}

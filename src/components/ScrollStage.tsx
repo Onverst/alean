@@ -16,6 +16,13 @@ type ScrollStageProps = {
   children: ReactNode;
 };
 
+declare global {
+  interface Window {
+    __heroIntroScrollLocked?: boolean;
+    __lenis?: Lenis;
+  }
+}
+
 const INFRASTRUCTURE_REVEAL_DURATION = 1.35;
 const INFRASTRUCTURE_SCROLL_DURATION = 0.9;
 const INVESTMENTS_REVEAL_DURATION = 1.15;
@@ -29,6 +36,7 @@ const ADVANTAGES_REVEAL_DURATION = 1;
 const LOCATION_REVEAL_DURATION = 1.5;
 const LOCATION_EXIT_DURATION = 0.75;
 const CONCEPT_REVEAL_DURATION = 1.15;
+const HERO_INTRO_LOCK_EVENT = "hero-intro-lock-change";
 
 export function ScrollStage({ children }: ScrollStageProps) {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -48,6 +56,21 @@ export function ScrollStage({ children }: ScrollStageProps) {
         ),
     });
 
+    window.__lenis = lenis;
+
+    const syncHeroIntroLock = () => {
+      if (!window.__heroIntroScrollLocked) {
+        lenis.start();
+        lenis.resize();
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+        });
+      }
+    };
+
+    syncHeroIntroLock();
+    window.addEventListener(HERO_INTRO_LOCK_EVENT, syncHeroIntroLock);
+
     lenis.on("scroll", ScrollTrigger.update);
 
     const updateLenis = (time: number) => {
@@ -60,7 +83,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
     const ctx = gsap.context(() => {
       const stage = stageRef.current;
       const panels = gsap.utils.toArray<HTMLElement>("[data-scroll-panel]");
-      const [PreloaderSection, heroPanel, aboutPanel, thirdPanel] = panels;
+      const [heroPanel, aboutPanel, thirdPanel] = panels;
       const overlayPanels = panels.slice(3);
       const heroBg = heroPanel?.querySelector<HTMLElement>(
         "[data-scroll-hero-bg]",
@@ -78,14 +101,6 @@ export function ScrollStage({ children }: ScrollStageProps) {
       const getPanelOverflow = (panel: HTMLElement) =>
         Math.max(panel.scrollHeight - window.innerHeight, 0);
 
-      /*
-       * InvestmentsSection — fit-slide на всех breakpoint'ах:
-       * отключаем vertical panel-scroll (y-сдвиг), иначе снизу виден About или следующий panel.
-       */
-      const shouldLockInvestmentsVerticalScroll = (panel?: HTMLElement | null) =>
-        Boolean(panel?.querySelector("[data-investments-section]"));
-
-      // Для ConceptSection ограничиваем generic panel-scroll, чтобы заголовок не уходил за верх viewport.
       const getConceptPanelScrollOffset = (panel: HTMLElement) => {
         const conceptSection = panel.querySelector<HTMLElement>(
           "[data-concept-section]",
@@ -95,17 +110,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           return getPanelOverflow(panel);
         }
 
-        const title = conceptSection.querySelector<HTMLElement>("h3");
-        const titleOffsetTop = title?.offsetTop ?? 0;
-
-        /*
-         * Не даём generic panel-scroll поднять Concept так,
-         * чтобы заголовок ушёл за верх viewport.
-         */
-        const safeTopGap = window.innerHeight <= 800 ? 40 : 56;
-        const maxSafeScroll = Math.max(titleOffsetTop - safeTopGap, 0);
-
-        return Math.min(getPanelOverflow(panel), maxSafeScroll);
+        return Math.max(conceptSection.scrollHeight - window.innerHeight, 0);
       };
 
       /*
@@ -115,12 +120,15 @@ export function ScrollStage({ children }: ScrollStageProps) {
       const shouldLockGenplanVerticalScroll = (panel: HTMLElement) =>
         Boolean(panel.querySelector("[data-genplan-section]"));
 
-      /*
-       * FinanceSection — fit-slide с нижней плашкой на всех breakpoint'ах:
-       * отключаем vertical panel-scroll, иначе снизу виден предыдущий panel.
-       */
-      const shouldLockFinanceVerticalScroll = (panel: HTMLElement) =>
-        Boolean(panel.querySelector("[data-finance-section]"));
+      const getFinancePanelScrollOffset = (panel: HTMLElement) => {
+        const financeSection = panel.querySelector<HTMLElement>(
+          "[data-finance-section]",
+        );
+
+        return financeSection
+          ? Math.max(financeSection.scrollHeight - window.innerHeight, 0)
+          : getPanelOverflow(panel);
+      };
 
       /*
        * ProductSection — fit-slide на всех breakpoint'ах:
@@ -136,20 +144,23 @@ export function ScrollStage({ children }: ScrollStageProps) {
       const shouldLockOpenFormVerticalScroll = (panel: HTMLElement) =>
         Boolean(panel.querySelector("[data-body-form-section]"));
 
-      /*
-       * GallerySection — fit-slide на всех breakpoint'ах:
-       * отключаем vertical panel-scroll, иначе снизу виден FinanceSection.
-       */
-      const shouldLockGalleryVerticalScroll = (panel: HTMLElement) =>
-        Boolean(panel.querySelector("[data-gallery]"));
+      const getGalleryPanelScrollOffset = (panel: HTMLElement) => {
+        const gallerySection = panel.querySelector<HTMLElement>(
+          "[data-gallery]",
+        );
+
+        return gallerySection
+          ? Math.max(gallerySection.scrollHeight - window.innerHeight, 0)
+          : getPanelOverflow(panel);
+      };
 
       const getPanelScrollOffset = (panel: HTMLElement) => {
         if (shouldLockGenplanVerticalScroll(panel)) {
           return 0;
         }
 
-        if (shouldLockFinanceVerticalScroll(panel)) {
-          return 0;
+        if (panel.querySelector("[data-finance-section]")) {
+          return getFinancePanelScrollOffset(panel);
         }
 
         if (shouldLockProductVerticalScroll(panel)) {
@@ -160,8 +171,8 @@ export function ScrollStage({ children }: ScrollStageProps) {
           return 0;
         }
 
-        if (shouldLockGalleryVerticalScroll(panel)) {
-          return 0;
+        if (panel.querySelector("[data-gallery]")) {
+          return getGalleryPanelScrollOffset(panel);
         }
 
         return panel.querySelector("[data-concept-section]")
@@ -174,8 +185,12 @@ export function ScrollStage({ children }: ScrollStageProps) {
           return 0;
         }
 
-        return shouldLockInvestmentsVerticalScroll(thirdPanel)
-          ? 0
+        const investmentsSection = thirdPanel.querySelector<HTMLElement>(
+          "[data-investments-section]",
+        );
+
+        return investmentsSection
+          ? Math.max(investmentsSection.scrollHeight - window.innerHeight, 0)
           : getPanelOverflow(thirdPanel);
       };
       const getThirdPanelScrollDuration = () =>
@@ -237,9 +252,8 @@ export function ScrollStage({ children }: ScrollStageProps) {
           0,
         );
 
-
-      gsap.set(PreloaderSection, { yPercent: 0, zIndex: 3 });
-      gsap.set(heroPanel, { yPercent: 0, zIndex: 3 });
+      // gsap.set(PreloaderSection, { yPercent: 0, zIndex: 3 });
+      gsap.set(heroPanel, { yPercent: 0, zIndex: 25 });
       gsap.set(aboutPanel, { yPercent: 0, zIndex: 2 });
       gsap.set(thirdPanel, { y: 0, yPercent: 100, zIndex: 4 });
       overlayPanels.forEach((panel, index) => {
@@ -871,7 +885,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           if (financeRevealElements.length > 0) {
               gsap.set(financeRevealElements, {
                   autoAlpha: 0,
-                  y: 28,
+                  y: 0,
               });
           }
 
@@ -1034,7 +1048,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
           if ( gallerySection ) {
               gsap.set(panel, {
-                  y: 500,
+                  y: 0,
               });
               timeline.to(
                   panel,
@@ -1049,7 +1063,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
           if ( Footer ) {
               gsap.set(panel, {
-                  zIndex: 1,
+                  // zIndex: 1,
                   y: 500,
               });
               timeline.to(
@@ -1251,7 +1265,11 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
     return () => {
       // ctx.revert();
+      window.removeEventListener(HERO_INTRO_LOCK_EVENT, syncHeroIntroLock);
       gsap.ticker.remove(updateLenis);
+      if (window.__lenis === lenis) {
+        window.__lenis = undefined;
+      }
       lenis.destroy();
     };
   }, []);
@@ -1264,7 +1282,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
             key={index}
             className={styles.panel}
             data-scroll-panel
-            style={{ "--panel-index": index + 1 } as CSSProperties}
+            style={{ "--panel-index": index === 0 ? 25 : index + 1, } as CSSProperties}
           >
             <div className={styles.panelInner}>{child}</div>
           </div>

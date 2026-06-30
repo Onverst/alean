@@ -1,6 +1,7 @@
 .footer {
     background: var(--new-color-dark-taupe);
     min-height: 100svh;
+    z-index: 1;
 }
 
 .container {
