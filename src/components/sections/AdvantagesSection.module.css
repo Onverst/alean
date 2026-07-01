@@ -30,10 +30,16 @@
 .text {
     margin-bottom: 48px;
     max-width: 990px;
-    font-family: var(--font3);
+    /* font-family: var(--font3);
     font-weight: 400;
     font-size: 40px;
     line-height: 110%;
+    color: var(--new-color-taupe); */
+    font-family: var(--second-family);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 120%;
+    letter-spacing: -0.04em;
     color: var(--new-color-taupe);
 }
 
@@ -244,7 +250,8 @@
     .text {
         margin-bottom: 32px;
         max-width: 100%;
-        font-size: 32px;
+        /* font-size: 32px; */
+        font-size: 28px;
     }
 
     .button {
@@ -278,7 +285,8 @@
 
 @media (max-width: 600px){
     .text {
-        font-size: 24px;
+        /* font-size: 24px; */
+        font-size: 20px;
     }
 
     .img_wrap {

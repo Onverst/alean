@@ -27,22 +27,24 @@ export function HeroSection({
 
       <div className={styles.video_wrap}>
         <video
-            className={`${styles.video} ${styles.desktop_video}`}
-            data-scroll-hero-bg
-            autoPlay
-            muted
-            loop
-            playsInline
+          className={`${styles.video} ${styles.desktop_video}`}
+          data-scroll-hero-bg
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
         >
           <source src="/hero_desktop.mp4" type="video/mp4" />
         </video>
         <video
-            className={`${styles.video} ${styles.mobile_video}`}
-            data-scroll-hero-bg
-            autoPlay
-            muted
-            loop
-            playsInline
+          className={`${styles.video} ${styles.mobile_video}`}
+          data-scroll-hero-bg
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
         >
           <source src="/hero_mobile.mp4" type="video/mp4" />
         </video>

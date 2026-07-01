@@ -50,10 +50,17 @@
 .text {
     width: 100%;
     max-width: 650px;
-    font-family: var(--font3);
+    /* font-family: var(--font3);
     font-weight: 400;
     font-size: 40px;
     line-height: 110%;
+    color: var(--new-color-light-beight); */
+
+    font-family: var(--second-family);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 120%;
+    letter-spacing: -0.04em;
     color: var(--new-color-light-beight);
 }
 
@@ -94,7 +101,8 @@
     .text {
         margin-bottom: 100px;
         max-width: 520px;
-        font-size: 32px;
+        /* font-size: 32px; */
+        font-size: 28px;
     }
 }
 
@@ -109,7 +117,8 @@
     .text {
         margin-bottom: 140px;
         max-width: 400px;
-        font-size: 24px;
+        /* font-size: 24px; */
+        font-size: 20px;
     } 
 
     .text_two {
