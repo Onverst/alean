@@ -142,6 +142,7 @@ function InnerImageSlider({ images }: { images: WpMedia[] }) {
                 alt={img.alt_text}
                 width={imgWidth}
                 height={imgHeight}
+                unoptimized
               />
             </SwiperSlide>
           );
