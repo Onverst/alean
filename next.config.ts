@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
         destination: "/visual/:path*",
       },
     ];
-  },
+  }, 
   images: {
     remotePatterns: wordpressApiUrl
       ? [
