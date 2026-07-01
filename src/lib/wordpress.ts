@@ -1,7 +1,7 @@
 import type { HomePageAcf, WpMedia, WpPage, SiteOptions } from "@/types/wordpress";
 
 const WORDPRESS_API = process.env.WORDPRESS_API;
-
+ 
 type FetchPageBySlugOptions = {
   slug: string;
   revalidate?: number;
