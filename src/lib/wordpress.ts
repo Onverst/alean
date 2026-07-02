@@ -59,7 +59,7 @@ export async function fetchMediaById(
   }
 
   const params = new URLSearchParams({
-    _fields: "id,source_url,alt_text,title,media_details",
+    _fields: "id,source_url,alt_text,mime_type,title,media_details",
   });
 
   const response = await fetch(`${WORDPRESS_API}/wp/v2/media/${id}?${params}`, {

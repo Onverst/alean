@@ -11,6 +11,7 @@
   width: 100%;
   height: auto;
   min-height: 100svh;
+  height: 165svh;
   object-fit: cover;
 }
 
@@ -22,7 +23,7 @@
   width: 100%;
   /* Вертикальный отступ управляется локально; горизонтальный — явно,
      так как глобальный [class*="__container"] теперь не применяется к CSS Modules */
-  padding-top: 192px!important;
+  padding-top: 192px;
   padding-left: 96px;
   padding-right: 96px;
   display: flex;

@@ -35,6 +35,8 @@ export default async function Home() {
   const heroText = page?.acf?.hero_text || "";
   const heroLogo = await fetchMediaById(page?.acf?.hero_logo);
   const heroBg = await fetchMediaById(page?.acf?.hero_bg);
+  const heroVideo = await fetchMediaById(page?.acf?.hero_video);
+  const heroVideoMob = await fetchMediaById(page?.acf?.hero_video_mob);
 
   const aboutTopTitle = page?.acf?.about_top_title || "";
   const aboutTitle = page?.acf?.about_title || "";
@@ -219,7 +221,14 @@ export default async function Home() {
     <main className={styles.main}>
       <ScrollStage>
         {/* <Preloader /> */}
-        <HeroSection title={heroTitle} text={heroText} logo={heroLogo} bgImg={heroBg}/>
+        <HeroSection
+          title={heroTitle}
+          text={heroText}
+          logo={heroLogo}
+          bgImg={heroBg}
+          video={heroVideo}
+          mobileVideo={heroVideoMob}
+        />
         <AboutSection
           top_title={aboutTopTitle}
           title={aboutTitle}

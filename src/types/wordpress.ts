@@ -6,6 +6,7 @@ export type WpMedia = {
   id: number;
   source_url: string;
   alt_text: string;
+  mime_type?: string;
   title: WpRenderedField;
   media_details?: {
     width?: number;
@@ -26,6 +27,8 @@ export type HomePageAcf = {
   hero_text: string;
   hero_logo: number;
   hero_bg: number;
+  hero_video: number;
+  hero_video_mob: number;
 
   about_top_title: string;
   about_title: string;

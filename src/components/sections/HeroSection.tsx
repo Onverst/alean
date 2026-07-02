@@ -8,46 +8,54 @@ type HeroSectionProps = {
   text: string;
   logo: WpMedia | null;
   bgImg: WpMedia | null;
+  video: WpMedia | null;
+  mobileVideo: WpMedia | null;
 };
 
 export function HeroSection({
   title,
   text,
   logo,
+  video,
+  mobileVideo,
 }: HeroSectionProps) {
   const logoWidth = logo?.media_details?.width ?? 302;
   const logoHeight = logo?.media_details?.height ?? 211;
+  const desktopVideoSrc = video?.source_url ?? mobileVideo?.source_url;
+  const mobileVideoSrc = mobileVideo?.source_url ?? video?.source_url;
+  const desktopVideoType = video?.mime_type ?? "video/mp4";
+  const mobileVideoType = mobileVideo?.mime_type ?? desktopVideoType;
 
   return (
-    <section className={styles.hero}
-    data-hero-section
-    data-hero-intro="loading">
+    <section className={styles.hero} data-hero-section data-hero-intro="loading">
       <HeroIntroController />
+      
       <p className={styles.loader_text_one}>Инвестируй</p>
 
       <div className={styles.video_wrap}>
-        <video
-          className={`${styles.video} ${styles.desktop_video}`}
-          data-scroll-hero-bg
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        >
-          <source src="/hero_desktop.mp4" type="video/mp4" />
-        </video>
-        <video
-          className={`${styles.video} ${styles.mobile_video}`}
-          data-scroll-hero-bg
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        >
-          <source src="/hero_mobile.mp4" type="video/mp4" />
-        </video>
+        {desktopVideoSrc ? (
+          <video
+            className={styles.video}
+            data-scroll-hero-bg
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          >
+            {mobileVideoSrc ? (
+              <source
+                src={mobileVideoSrc}
+                type={mobileVideoType}
+                media="(max-width: 480px)"
+              />
+            ) : null}
+            <source
+              src={desktopVideoSrc}
+              type={desktopVideoType}
+            />
+          </video>
+        ) : null}
       </div>
       
       <p className={styles.loader_text_two}>в будущее</p>
