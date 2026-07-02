@@ -22,7 +22,7 @@ export function LocationSection({
   const imgHeight = img?.media_details?.height ?? 1024;
 
   return (
-    <section className={styles.location} data-location-section>
+    <section className={styles.location} data-location-section id="location">
       <div className={styles.container} data-location-content>
         <h3 className={`${styles.title} section-title`}>
           <span

@@ -20,6 +20,7 @@ declare global {
   interface Window {
     __heroIntroScrollLocked?: boolean;
     __lenis?: Lenis;
+    __scrollStageScrollToHash?: (hash: string) => boolean;
   }
 }
 
@@ -79,6 +80,8 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
     gsap.ticker.add(updateLenis);
     gsap.ticker.lagSmoothing(0);
+
+    let removeAnchorNavigation: (() => void) | undefined;
 
     const ctx = gsap.context(() => {
       const stage = stageRef.current;
@@ -313,6 +316,32 @@ export function ScrollStage({ children }: ScrollStageProps) {
         0,
         1,
       ];
+      const anchorTimelineTimes = new Map<string, number>();
+      const setAnchorTimelineTime = (panel: HTMLElement | undefined, time: number) => {
+        const anchor = panel?.querySelector<HTMLElement>("[id]");
+
+        if (!anchor?.id) {
+          return;
+        }
+
+        anchorTimelineTimes.set(anchor.id, time);
+      };
+      const getThirdPanelTopAlignedTime = () => {
+        if (!thirdPanel) {
+          return thirdPanelPassStart;
+        }
+
+        const panelHeight = Math.max(thirdPanel.offsetHeight, window.innerHeight);
+        const overflow = getThirdPanelOverflow();
+        const topAlignedProgress =
+          overflow > 0 ? panelHeight / (panelHeight + overflow) : 1;
+
+        return (
+          thirdPanelPassStart +
+          getThirdPanelPassDuration() *
+            gsap.utils.clamp(0, 1, topAlignedProgress)
+        );
+      };
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: stage,
@@ -351,6 +380,10 @@ export function ScrollStage({ children }: ScrollStageProps) {
           invalidateOnRefresh: true,
         },
       });
+
+      setAnchorTimelineTime(heroPanel, 0);
+      setAnchorTimelineTime(aboutPanel, 1);
+      setAnchorTimelineTime(thirdPanel, getThirdPanelTopAlignedTime());
 
       timeline.to(heroPanel, {
         yPercent: -100,
@@ -943,6 +976,12 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
 
 
+          setAnchorTimelineTime(
+              panel,
+              overlayStart +
+                (isIncomePanel ? 0 : isLocationPanel ? LOCATION_REVEAL_DURATION : 0.95),
+          );
+
           if (isIncomePanel) {
               timeline.set(panel, {yPercent: 0}, overlayStart);
           } else if (isLocationPanel) {
@@ -1260,12 +1299,109 @@ export function ScrollStage({ children }: ScrollStageProps) {
         }
 
       });
+
+      const scrollToTimelineTime = (time: number, immediate = false) => {
+        const scrollTrigger = timeline.scrollTrigger;
+        const duration = timeline.duration();
+
+        if (!scrollTrigger || duration <= 0) {
+          return false;
+        }
+
+        ScrollTrigger.refresh();
+
+        const progress = gsap.utils.clamp(0, 1, time / duration);
+        const scrollY =
+          scrollTrigger.start +
+          (scrollTrigger.end - scrollTrigger.start) * progress;
+
+        lenis.start();
+        lenis.resize();
+        lenis.scrollTo(scrollY, {
+          immediate,
+          duration: immediate ? 0 : 1.65,
+          easing: (time: number) => 1 - Math.pow(1 - time, 3),
+        });
+
+        return true;
+      };
+
+      const scrollToAnchorHash = (hash: string, immediate = false) => {
+        const anchorId = decodeURIComponent(hash.replace(/^#/, ""));
+
+        if (!anchorId) {
+          return scrollToTimelineTime(0, immediate);
+        }
+
+        const anchorTime = anchorTimelineTimes.get(anchorId);
+
+        if (anchorTime === undefined) {
+          return false;
+        }
+
+        return scrollToTimelineTime(anchorTime, immediate);
+      };
+
+      const isSamePageHashLink = (link: HTMLAnchorElement) => {
+        if (!link.hash) {
+          return false;
+        }
+
+        return (
+          link.origin === window.location.origin &&
+          link.pathname.replace(/\/$/, "") ===
+            window.location.pathname.replace(/\/$/, "")
+        );
+      };
+
+      const handleAnchorClick = (event: MouseEvent) => {
+        const link = (event.target as Element | null)?.closest<HTMLAnchorElement>(
+          "a[href]",
+        );
+
+        if (!link || !isSamePageHashLink(link)) {
+          return;
+        }
+
+        if (!scrollToAnchorHash(link.hash)) {
+          return;
+        }
+
+        event.preventDefault();
+        window.history.pushState(null, "", link.hash || window.location.pathname);
+      };
+
+      const handleHashChange = () => {
+        if (window.location.hash) {
+          scrollToAnchorHash(window.location.hash);
+        }
+      };
+
+      window.__scrollStageScrollToHash = scrollToAnchorHash;
+      document.addEventListener("click", handleAnchorClick);
+      window.addEventListener("hashchange", handleHashChange);
+
+      removeAnchorNavigation = () => {
+        document.removeEventListener("click", handleAnchorClick);
+        window.removeEventListener("hashchange", handleHashChange);
+
+        if (window.__scrollStageScrollToHash === scrollToAnchorHash) {
+          window.__scrollStageScrollToHash = undefined;
+        }
+      };
+
+      requestAnimationFrame(() => {
+        if (window.location.hash) {
+          scrollToAnchorHash(window.location.hash, true);
+        }
+      });
     }, stageRef);
 
     ScrollTrigger.refresh();
 
     return () => {
       // ctx.revert();
+      removeAnchorNavigation?.();
       window.removeEventListener(HERO_INTRO_LOCK_EVENT, syncHeroIntroLock);
       gsap.ticker.remove(updateLenis);
       if (window.__lenis === lenis) {

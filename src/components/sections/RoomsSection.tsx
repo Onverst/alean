@@ -168,6 +168,7 @@ export function RoomsSection({
       data-scroll-duration={Math.max(slides.length - 1, 0)}
       ref={sectionRef}
       data-room-section={1}
+      id="rooms"
     >
       <div className={styles.wrap}>
         <Swiper 

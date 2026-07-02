@@ -22,8 +22,7 @@ export function AboutSection({
   const bgHeight = bgImg?.media_details?.height ?? 1536;
 
   return (
-    <section className={styles.about}
-    data-about-section={1}>
+    <section className={styles.about} data-about-section={1} id="about">
       {bgImg ? (
         <Image
           className={styles.bg}

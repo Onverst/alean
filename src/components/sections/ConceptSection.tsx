@@ -29,7 +29,7 @@ export function ConceptSection({
   const imgThreeHeight = img_three?.media_details?.height ?? 400;
 
   return (
-    <section className={styles.concept} data-concept-section>
+    <section className={styles.concept} data-concept-section id="concept">
       <div className={styles.container}>
         <h3 className={`${styles.title} section-title`} data-concept-reveal>
           <span

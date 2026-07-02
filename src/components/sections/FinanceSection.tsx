@@ -30,9 +30,7 @@ export function FinanceSection({
   const imgHeight = img?.media_details?.height ?? 280;
 
   return (
-    <section className={styles.finance}
-             data-finance-section={1}
-    >
+    <section className={styles.finance} data-finance-section={1} id="finance">
         <div className={styles.container}>
             <span
                 className={styles.top_title}

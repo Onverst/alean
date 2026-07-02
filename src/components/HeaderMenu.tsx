@@ -51,40 +51,40 @@ export default function HeaderMenu({
         <nav className={styles.menu_left}>
           <ul className={styles.list_one}>
             <li>
-              <a href="/#" onClick={closeMenu}>О проекте</a>
+              <a href="/#about" onClick={closeMenu}>О проекте</a>
             </li>
             <li>
-              <a href="/#about" onClick={closeMenu}>Инвестиции</a>
+              <a href="/#investments" onClick={closeMenu}>Инвестиции</a>
             </li>
             <li>
-              <a href="/#contacts" onClick={closeMenu}>Преимущества инвестирования</a>
+              <a href="/#advantages" onClick={closeMenu}>Преимущества инвестирования</a>
             </li>
             <li>
-              <a href="/#contacts" onClick={closeMenu}>Расположение</a>
+              <a href="/#location" onClick={closeMenu}>Расположение</a>
             </li>
             <li>
-              <a href="/#contacts" onClick={closeMenu}>Концепция</a>
+              <a href="/#concept" onClick={closeMenu}>Концепция</a>
             </li>
             <li>
-              <a href="/#contacts" onClick={closeMenu}>Инфраструктура</a>
+              <a href="/#infrastructure" onClick={closeMenu}>Инфраструктура</a>
             </li>
             <li>
-              <a href="/#contacts" onClick={closeMenu}>Номера и доходность</a>
+              <a href="/#rooms" onClick={closeMenu}>Номера и доходность</a>
             </li>
             <li>
-              <a href="/#contacts" onClick={closeMenu}>Финансовая архитектура</a>
+              <a href="/#finance" onClick={closeMenu}>Финансовая архитектура</a>
             </li>
           </ul>
 
           <ul className={styles.list_two}>
             <li>
-              <a href="/#" onClick={closeMenu}>Способы оплаты</a>
+              <a href="/#advantages" onClick={closeMenu}>Способы оплаты</a>
             </li>
             <li>
-              <a href="/#about" onClick={closeMenu}>Галерея</a>
+              <a href="/#gallery" onClick={closeMenu}>Галерея</a>
             </li>
             <li>
-              <a href="/#contacts" onClick={closeMenu}>Контакты</a>
+              <a href="/#footer" onClick={closeMenu}>Контакты</a>
             </li>
           </ul>
         </nav>

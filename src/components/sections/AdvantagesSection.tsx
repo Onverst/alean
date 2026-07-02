@@ -118,7 +118,7 @@ export function AdvantagesSection({
   };
 
   return (
-  <section className={styles.advantages} data-advantages-section>
+  <section className={styles.advantages} data-advantages-section id="advantages">
     <div className={styles.container}>
       <h3 className={`${styles.title} section-title`} data-advantages-reveal>
         <span

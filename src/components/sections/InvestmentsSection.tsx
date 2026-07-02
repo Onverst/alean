@@ -26,7 +26,7 @@ export function InvestmentsSection({
   const imgHeight = img?.media_details?.height ?? 280;
 
   return (
-    <section className={styles.investments} data-investments-section>
+    <section className={styles.investments} data-investments-section id="investments">
       <div className={styles.container}>
         <h3 className={`${styles.title} section-title`} data-investments-reveal>
           <span

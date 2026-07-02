@@ -28,7 +28,7 @@ export async function Footer({ data }: FooterProps) {
   );
 
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} id="footer">
       <div className={styles.container}>
         <div className={styles.top}>
           <div className={styles.top_left}>

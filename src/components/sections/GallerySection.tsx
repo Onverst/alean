@@ -58,7 +58,7 @@ export function GallerySection({
         goToSlide(Math.min(activeIndex + 1, gallery.length - 1));
     };
   return (
-    <section className={styles.gallery} data-gallery={1}>
+    <section className={styles.gallery} data-gallery={1} id="gallery">
         <div className={styles.container}>
             <h3 className={`${styles.title} section-title`} >
                 <span

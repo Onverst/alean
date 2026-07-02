@@ -19,7 +19,7 @@ export function InfrastructureSection({
   const imgHeight = img?.media_details?.height ?? 1024;
 
   return (
-    <section className={styles.infrastructure} data-infrastructure-section>
+    <section className={styles.infrastructure} data-infrastructure-section id="infrastructure">
       <div className={styles.container} data-infrastructure-content>
         <h3
           className={`${styles.title} section-title`}
