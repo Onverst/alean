@@ -1,10 +1,13 @@
 .income {
     position: relative;
     overflow: hidden;
+    
+    height: 100svh;
+    overflow: hidden;
 }
 
 .tab {
-    min-height: 100svh;
+    height: 100svh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     overflow: hidden;
@@ -201,6 +204,11 @@
 }
 
 @media (max-width: 600px){
+    .content_inner {
+        padding: 48px 16px 64px;
+        max-height: none;
+    }
+
     .title {
         font-size: 32px;
     }
@@ -218,5 +226,18 @@
         right: 16px;
         transform: none;
         max-width: calc(100% - 32px);
+        bottom: 24px;
+    }
+}
+
+
+@media (max-width: 470px){
+    .title {
+        font-size: 26px;
+    }
+
+    .content_img_wrap {
+        max-height: 200px;
+        max-width: 160px;
     }
 }

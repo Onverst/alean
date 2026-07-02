@@ -1,7 +1,8 @@
 .investments {
   min-height: 100svh;
   padding-top: 192px;
-  padding-bottom: 96px;
+  /* padding-bottom: 96px; */
+  padding-bottom: 0;
   background: var(--new-color-light-beight);
   display: flex;
   flex-direction: column;
@@ -192,7 +193,7 @@
   }
 
   .text_two {
-    margin-bottom: 0;
+    margin-bottom: 64px;
   }
 
   .list {

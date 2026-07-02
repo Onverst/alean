@@ -303,7 +303,8 @@ export function ScrollStage({ children }: ScrollStageProps) {
       if (investmentsRevealElements.length > 0) {
         gsap.set(investmentsRevealElements, {
           autoAlpha: 0,
-          y: 28,
+          // y: 28,
+          y: 0,
         });
       }
 

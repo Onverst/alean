@@ -19,8 +19,8 @@
     /* Вертикальный padding задан явно; горизонтальный перенесён из глобального [class*="__container"].
        !important больше не нужен, но оставлен для обратной совместимости. */
     padding-top: 124px!important;
-    padding-right: 96px;
     padding-bottom: 124px!important;
+    padding-right: 96px;
     padding-left: 96px;
     min-height: 100svh;
     display: flex;
@@ -85,8 +85,8 @@
 
 @media (max-width: 1200px){
     .container {
-        padding-top: 96px;
-        padding-bottom: 96px;
+        padding-top: 96px !important;
+        padding-bottom: 96px !important;
         min-height: auto;
     }
 
