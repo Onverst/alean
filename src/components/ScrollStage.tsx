@@ -32,8 +32,10 @@ const FINANCE_REVEAL_DURATION = 1.15;
 // Зарезервировано для опционального fade-out Finance → Gallery.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- будет использовано при добавлении exit-анимации
 const FINANCE_EXIT_DURATION = 1.4;
-const INVESTMENTS_TO_ADVANTAGES_OVERLAP = 0.26;
+const INVESTMENTS_TO_ADVANTAGES_OVERLAP = 0.9;
 const ADVANTAGES_REVEAL_DURATION = 1;
+const ADVANTAGES_PANEL_REVEAL_DURATION = 1.2;
+const ADVANTAGES_SCROLL_DURATION_MULTIPLIER = 1.65;
 const LOCATION_REVEAL_DURATION = 1.5;
 const LOCATION_EXIT_DURATION = 0.75;
 const CONCEPT_REVEAL_DURATION = 1.15;
@@ -222,7 +224,19 @@ export function ScrollStage({ children }: ScrollStageProps) {
       const getAboutScrollDuration = () =>
         Math.max(getAboutBgOverflow() / window.innerHeight, 0.01);
       const getPanelScrollDuration = (panel: HTMLElement) =>
-        getPanelScrollOffset(panel) / window.innerHeight;
+        (getPanelScrollOffset(panel) / window.innerHeight) *
+        (panel.querySelector("[data-advantages-section]")
+          ? ADVANTAGES_SCROLL_DURATION_MULTIPLIER
+          : 1);
+      const getPanelRevealDuration = (panel: HTMLElement) => {
+        if (panel.querySelector("[data-location-section]")) {
+          return LOCATION_REVEAL_DURATION;
+        }
+
+        return panel.querySelector("[data-advantages-section]")
+          ? ADVANTAGES_PANEL_REVEAL_DURATION
+          : 0.95;
+      };
       const getPanelScrollDrivenDuration = (panel: HTMLElement) => {
         const slider = panel.querySelector<HTMLElement>(
           "[data-scroll-driven-slider]",
@@ -250,7 +264,8 @@ export function ScrollStage({ children }: ScrollStageProps) {
               0.08
           : 0;
       /* На desktop (>1200px) Advantages не должен начинаться раньше завершения Investments —
-         overlap отключён, на mobile/tablet сохраняется INVESTMENTS_TO_ADVANTAGES_OVERLAP. */
+         overlap отключён, на mobile/tablet Advantages начинает входить до полного fade-out,
+         чтобы после исчезновения Investments не оставалась пустая scroll-пауза. */
       const getInvestmentsToAdvantagesOverlap = () =>
         window.innerWidth > 1200 ? 0 : INVESTMENTS_TO_ADVANTAGES_OVERLAP;
       const getAboutBgOverflow = () => {
@@ -264,7 +279,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
         overlayPanels.reduce(
           (duration, panel) =>
             duration +
-            0.95 +
+            getPanelRevealDuration(panel) +
             getLocationAnimationDuration(panel) +
             getInfrastructureAnimationDuration(panel) +
             getPanelScrollDrivenDuration(panel) +
@@ -649,19 +664,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           const FormBodyArea = panel.querySelector<HTMLElement>(
               "[data-form-area]",
           );
-
-
-          if ( advantagesSection ) {
-              timeline.to(
-                  IncomeSection,
-                  {
-                      y: 0,
-                      duration: 1,
-                      ease: "power1.out",
-                  },
-                  overlayStart += 0.3
-              );
-          }
+          const panelRevealDuration = getPanelRevealDuration(panel);
 
           if (advantagesRevealElements.length > 0) {
               gsap.set(advantagesRevealElements, {
@@ -1013,7 +1016,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           setAnchorTimelineTime(
               panel,
               overlayStart +
-                (isIncomePanel ? 0 : isLocationPanel ? LOCATION_REVEAL_DURATION : 0.95),
+                (isIncomePanel ? 0 : panelRevealDuration),
           );
 
           if (isIncomePanel) {
@@ -1024,7 +1027,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
                   {
                       yPercent: 0,
                       ease: "none",
-                      duration: LOCATION_REVEAL_DURATION,
+                      duration: panelRevealDuration,
                   },
                   overlayStart,
               );
@@ -1034,7 +1037,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
                   {
                       yPercent: 0,
                       ease: "none",
-                      duration: 0.95,
+                      duration: panelRevealDuration,
                   },
                   overlayStart,
               );
@@ -1135,7 +1138,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
               );
           }
 
-        overlayStart += isLocationPanel ? LOCATION_REVEAL_DURATION : 0.95;
+        overlayStart += panelRevealDuration;
 
         // Для Infrastructure ранний snap после входа panel фиксирует transition-состояние.
         if (!isInfrastructurePanel) {
