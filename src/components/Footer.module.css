@@ -1,6 +1,6 @@
 .footer {
     background: var(--new-color-dark-taupe);
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
     z-index: 1;
 }
 
@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
     /* Горизонтальный отступ перенесён локально из глобального [class*="__container"] */
     padding-left: 96px;
     padding-right: 96px;

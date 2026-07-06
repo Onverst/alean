@@ -1,7 +1,7 @@
 .finance {
     padding-top: 192px;
     background: var(--new-color-light-beight);
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
 }
 
 .container {

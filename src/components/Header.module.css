@@ -176,7 +176,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
     width: 100%;
     display: flex;
     align-items: stretch;

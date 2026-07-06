@@ -271,7 +271,7 @@
 
 @media (max-width: 600px){
   .left {
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
   }
 
   .close {

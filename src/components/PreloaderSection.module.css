@@ -6,7 +6,7 @@
     background: #FAF5EF;
     font-size: 40px;
     width: 100svw;
-    height: 100dvh;
+    height: var(--app-viewport-height);
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;

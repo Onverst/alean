@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  min-height: var(--app-viewport-height);
   overflow: hidden;
 }
 
@@ -19,7 +19,7 @@
 .container {
   position: relative;
   flex: 1 1 auto;
-  min-height: 100dvh;
+  min-height: var(--app-viewport-height);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -221,11 +221,11 @@
 @media (max-width: 1200px){
   .open_form {
     /* Fit-slide: фон .bg (height: 100%) закрывает весь viewport на высоком mobile. */
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
   }
 
   .container {
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
     padding-top: 100px;
     padding-bottom: 100px;
   }

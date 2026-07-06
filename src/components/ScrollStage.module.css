@@ -1,14 +1,14 @@
  .stage {
   position: relative;
   width: 100%;
-  height: 100dvh;
+  height: var(--app-viewport-height);
   overflow: hidden;
   scroll-snap-type: y mandatory;
 }
 
 .viewport {
   position: relative;
-  height: 100dvh;
+  height: var(--app-viewport-height);
   overflow: hidden;
 }
 
@@ -19,14 +19,14 @@
   left: 0;
   width: 100%;
   z-index: var(--panel-index);
-  min-height: 100dvh;
+  min-height: var(--app-viewport-height);
   /* overflow: visible; */
   overflow: hidden;
   scroll-snap-align: start;
 }
 
 .panelInner {
-  min-height: 100dvh;
+  min-height: var(--app-viewport-height);
   scroll-snap-align: start;
 }
 
@@ -39,7 +39,7 @@
 
   .panel {
     position: relative;
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
     overflow: visible;
   }
 } */

@@ -1,5 +1,5 @@
 .infrastructure_slider {
-  min-height: 100dvh;
+  min-height: var(--app-viewport-height);
   display: grid;
   grid-template-columns: 1fr 1fr;
   background: var(--new-color-light-beight);

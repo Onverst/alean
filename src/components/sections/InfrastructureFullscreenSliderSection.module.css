@@ -1,6 +1,6 @@
 .fullscreen_slider {
   position: relative;
-  min-height: 100dvh;
+  min-height: var(--app-viewport-height);
   display: flex;
   overflow: hidden;
 }

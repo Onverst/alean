@@ -3,6 +3,8 @@
 @import "swiper/css/effect-fade";
 
 :root {
+  --app-viewport-height: 100vh;
+
 	--white: #fff;
 	--new-color-light-beight: #faf5ef;
 
@@ -25,6 +27,12 @@
   --font5: "Montserrat", sans-serif;
   --font6: "TT Neoris", sans-serif;
   --font7: "TT Norms Pro", sans-serif; */
+}
+
+@supports (height: 100lvh) {
+  :root {
+    --app-viewport-height: 100lvh;
+  }
 }
 
 html {

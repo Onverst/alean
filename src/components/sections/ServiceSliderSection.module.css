@@ -1,5 +1,5 @@
 .service_slider {
-  height: 100dvh;
+  height: var(--app-viewport-height);
   display: grid;
   grid-template-columns: 1fr 1fr;
   background: #e2d4c4;
@@ -198,7 +198,7 @@
    * уходит вниз, а не вверх в предыдущий viewport (ScrollStage panel).
    */
   .service_slider {
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
     height: auto;
     display: flex;
     flex-direction: column;

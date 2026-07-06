@@ -2,7 +2,7 @@
     padding: 192px 0 48px;
     display: flex;
     align-items: center;
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
     background: var(--new-color-light-beight);
 }
 

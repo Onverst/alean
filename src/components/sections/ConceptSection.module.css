@@ -228,9 +228,9 @@
  */
 /* @media (min-width: 1391px) {
     .concept {
-        height: 100dvh;
-        min-height: 100dvh;
-        max-height: 100dvh;
+        height: var(--app-viewport-height);
+        min-height: var(--app-viewport-height);
+        max-height: var(--app-viewport-height);
         overflow: hidden;
         padding: clamp(48px, 11.43svh, 192px) 0 clamp(24px, 11.43svh, 192px);
     }

@@ -1,17 +1,17 @@
 .product {
     position: relative;
     overflow: hidden;
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
 }
 
 .container {
     position: relative;
-    min-height: 100dvh;
+    min-height: var(--app-viewport-height);
 }
 
 .tab {
-    min-height: 100dvh;
-    max-height: 100dvh;
+    min-height: var(--app-viewport-height);
+    max-height: var(--app-viewport-height);
     overflow: hidden;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -45,7 +45,7 @@
 .content_inner {
     padding: 48px 40px;
     height: auto;
-    max-height: 100dvh;
+    max-height: var(--app-viewport-height);
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -320,16 +320,16 @@
 
 @media (max-width: 1200px){
     .product {
-        min-height: 100dvh;
+        min-height: var(--app-viewport-height);
     }
 
     .container {
-        min-height: 100dvh;
+        min-height: var(--app-viewport-height);
     }
 
     .tab {
         grid-template-columns: 1fr;
-        min-height: 100dvh;
+        min-height: var(--app-viewport-height);
         height: auto;
         max-height: none;
         overflow: visible;
@@ -341,7 +341,7 @@
 
     .side:has(.content_inner) {
         height: auto;
-        min-height: 100dvh;
+        min-height: var(--app-viewport-height);
         display: flex;
         flex-direction: column;
     }
@@ -349,7 +349,7 @@
     .content_inner {
         padding: 64px 0 112px;
         flex: 1 1 auto;
-        min-height: 100dvh;
+        min-height: var(--app-viewport-height);
         height: auto;
         box-sizing: border-box;
         flex-direction: column-reverse;

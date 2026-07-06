@@ -1,5 +1,5 @@
 .investments {
-  min-height: 100dvh;
+  min-height: var(--app-viewport-height);
   padding-top: 192px;
   /* padding-bottom: 96px; */
   padding-bottom: 0;
@@ -146,8 +146,8 @@
     padding-top: 48px;
     /* Нижний край — stats bar вплотную к viewport; padding создавал щель с фоном следующего panel. */
     padding-bottom: 0;
-    /* Fit-slide: на высоком mobile контент короче экрана — секция всё равно закрывает 100svh. */
-    min-height: 100dvh;
+    /* Fit-slide: на высоком mobile контент короче экрана — секция всё равно закрывает viewport. */
+    min-height: var(--app-viewport-height);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -235,15 +235,15 @@
 }
 
 /*
- * Desktop: InvestmentsSection — viewport-slide с нижней плашкой внутри 100svh.
+ * Desktop: InvestmentsSection — viewport-slide с нижней плашкой внутри viewport.
  * Отступ сверху переносим в .container, чтобы padding-top не раздувал секцию
  * и list целиком оставался у нижнего края слайда при фиксации ScrollStage.
  */
 /* @media (min-width: 1201px) {
   .investments {
-    height: 100dvh;
-    min-height: 100dvh;
-    max-height: 100dvh;
+    height: var(--app-viewport-height);
+    min-height: var(--app-viewport-height);
+    max-height: var(--app-viewport-height);
     overflow: hidden;
     display: flex;
     flex-direction: column;
