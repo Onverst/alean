@@ -1,5 +1,5 @@
 .investments {
-  min-height: 100svh;
+  min-height: 100dvh;
   padding-top: 192px;
   /* padding-bottom: 96px; */
   padding-bottom: 0;
@@ -147,7 +147,7 @@
     /* Нижний край — stats bar вплотную к viewport; padding создавал щель с фоном следующего panel. */
     padding-bottom: 0;
     /* Fit-slide: на высоком mobile контент короче экрана — секция всё равно закрывает 100svh. */
-    min-height: 100svh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -241,9 +241,9 @@
  */
 /* @media (min-width: 1201px) {
   .investments {
-    height: 100svh;
-    min-height: 100svh;
-    max-height: 100svh;
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
     overflow: hidden;
     display: flex;
     flex-direction: column;

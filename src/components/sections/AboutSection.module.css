@@ -1,7 +1,7 @@
 .about {
   position: relative;
   display: flex;
-  min-height: 100svh;
+  min-height: 100dvh;
   overflow: hidden;
 }
 
@@ -10,7 +10,7 @@
   z-index: 1;
   width: 100%;
   height: auto;
-  min-height: 100svh;
+  min-height: 100dvh;
   height: 165svh;
   object-fit: cover;
 }

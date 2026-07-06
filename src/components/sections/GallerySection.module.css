@@ -2,7 +2,7 @@
     padding: 192px 0 48px;
     display: flex;
     align-items: center;
-    min-height: 100svh;
+    min-height: 100dvh;
     background: var(--new-color-light-beight);
 }
 

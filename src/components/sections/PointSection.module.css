@@ -1,11 +1,11 @@
 .point {
     position: relative;
-    height: 100svh;
+    height: 100dvh;
     overflow: hidden;
 }
 
 .tab {
-    height: 100svh;
+    height: 100dvh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     overflow: hidden;

@@ -4,7 +4,7 @@
 
 .not_found {
   padding: 146px 96px 96px;
-  min-height: 100svh;
+  min-height: 100dvh;
   background: var(--new-color-light-beight);
   display: flex;
   height: 100%;

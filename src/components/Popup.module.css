@@ -271,7 +271,7 @@
 
 @media (max-width: 600px){
   .left {
-    min-height: 100svh;
+    min-height: 100dvh;
   }
 
   .close {

@@ -1,8 +1,8 @@
 .genplan {
     position: relative;
-    height: 100svh;
-    min-height: 100svh;
-    max-height: 100svh;
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
     overflow: hidden;
     background: var(--new-color-light-beight);
 }
@@ -230,9 +230,9 @@
 @media (max-width: 1200px){
     .genplan {
         /* Fit-slide: секция закрывает viewport, фон не пропускает предыдущий panel. */
-        height: 100svh;
-        min-height: 100svh;
-        max-height: 100svh;
+        height: 100dvh;
+        min-height: 100dvh;
+        max-height: 100dvh;
     }
 
     .wrap {

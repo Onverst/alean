@@ -1,6 +1,6 @@
 .infrastructure {
     position: relative;
-    min-height: 100svh;
+    min-height: 100dvh;
     display: flex;
     background: var(--new-color-light-beight);
     overflow: hidden;
@@ -15,7 +15,7 @@
     padding-right: 96px;
     padding-bottom: 48px;
     padding-left: 96px;
-    min-height: 100svh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
