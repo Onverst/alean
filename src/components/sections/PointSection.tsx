@@ -118,7 +118,6 @@ export function PointSection({ tabs = [] }: PointSectionProps) {
       className={`${styles.side_inner} ${styles.image_inner} ${hasTabSwitched ? styles.switching : ""}`}
       data-income-switch-side={side}
       key={`image-inner-${activeTabIndex}-${side}`}
-      data-point-section={1}
     >
       {activeTab.img_one ? (
         <Image
@@ -179,7 +178,7 @@ export function PointSection({ tabs = [] }: PointSectionProps) {
   );
 
   return (
-    <section className={styles.point}>
+    <section className={styles.point} data-point-section>
       <div className={styles.container}>
       <div className={styles.tab} data-reversed={isReversed} ref={tab_ref}>
           <div className={styles.side} data-income-side="left">

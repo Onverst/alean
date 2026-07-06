@@ -126,7 +126,7 @@
 @media (max-width: 1200px) {
     .gallery {
         padding: 96px 0;
-        min-height: auto;
+        /* min-height: auto; */
     }
     .title {
         margin-bottom: 24px;

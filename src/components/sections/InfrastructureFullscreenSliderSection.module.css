@@ -283,7 +283,7 @@
 @media (max-width: 600px){
   .fullscreen_slider {
     flex-direction: column;
-    min-height: auto;
+    /* min-height: auto; */
   }
 
   .wrap {
@@ -307,11 +307,28 @@
     position: static;
     max-width: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .progress {
+    margin-bottom: 0;
   }
 
   .text {
     font-size: 14px;
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
+
+  .text_inner {
+    max-height: none;
+    height: max-content;
+  }
+  
 
   .slider_controls {
     left: 50%;

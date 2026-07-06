@@ -143,6 +143,7 @@ export function ProductSection({ tabs = [] }: ProductSectionProps) {
   const renderContentPanel = (side: "left" | "right") => (
     <div
       className={`${styles.side_inner} ${styles.content_inner} ${hasTabSwitched ? styles.switching : ""}`}
+      data-product-scroll-content
       data-income-switch-side={side}
       key={`content-inner-${activeTabIndex}-${side}`}
     >

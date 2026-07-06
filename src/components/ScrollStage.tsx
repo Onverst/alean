@@ -38,6 +38,7 @@ const LOCATION_REVEAL_DURATION = 1.5;
 const LOCATION_EXIT_DURATION = 0.75;
 const CONCEPT_REVEAL_DURATION = 1.15;
 const HERO_INTRO_LOCK_EVENT = "hero-intro-lock-change";
+const PRODUCT_PANEL_SCROLL_CLASS = "product-panel-scroll-active";
 
 export function ScrollStage({ children }: ScrollStageProps) {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -133,12 +134,30 @@ export function ScrollStage({ children }: ScrollStageProps) {
           : getPanelOverflow(panel);
       };
 
-      /*
-       * ProductSection — fit-slide на всех breakpoint'ах:
-       * отключаем vertical panel-scroll, иначе снизу виден ConceptSection.
-       */
-      const shouldLockProductVerticalScroll = (panel: HTMLElement) =>
-        Boolean(panel.querySelector("[data-product-section]"));
+      const getProductPanelScrollOffset = (panel: HTMLElement) => {
+        const productSection = panel.querySelector<HTMLElement>(
+          "[data-product-section]",
+        );
+        const productScrollContent = productSection?.querySelector<HTMLElement>(
+          "[data-product-scroll-content]",
+        );
+
+        if (!productSection) {
+          return getPanelOverflow(panel);
+        }
+
+        if (!window.matchMedia("(max-width: 1200px)").matches) {
+          return 0;
+        }
+
+        const productScrollContentHeight =
+          productScrollContent?.offsetHeight ?? productSection.offsetHeight;
+
+        return Math.max(
+          productScrollContentHeight - window.innerHeight,
+          0,
+        );
+      };
 
       /*
        * OpenFormSection — fit-slide на всех breakpoint'ах:
@@ -166,8 +185,8 @@ export function ScrollStage({ children }: ScrollStageProps) {
           return getFinancePanelScrollOffset(panel);
         }
 
-        if (shouldLockProductVerticalScroll(panel)) {
-          return 0;
+        if (panel.querySelector("[data-product-section]")) {
+          return getProductPanelScrollOffset(panel);
         }
 
         if (shouldLockOpenFormVerticalScroll(panel)) {
@@ -317,6 +336,8 @@ export function ScrollStage({ children }: ScrollStageProps) {
         1,
       ];
       const anchorTimelineTimes = new Map<string, number>();
+      let productPanelScrollStart = -1;
+      let productPanelScrollEnd = -1;
       const setAnchorTimelineTime = (panel: HTMLElement | undefined, time: number) => {
         const anchor = panel?.querySelector<HTMLElement>("[id]");
 
@@ -378,6 +399,18 @@ export function ScrollStage({ children }: ScrollStageProps) {
             },
           },
           invalidateOnRefresh: true,
+          onUpdate: () => {
+            const timelineTime = timeline.time();
+            const isProductPanelScrollActive =
+              productPanelScrollEnd > productPanelScrollStart &&
+              timelineTime >= productPanelScrollStart &&
+              timelineTime <= productPanelScrollEnd;
+
+            document.documentElement.classList.toggle(
+              PRODUCT_PANEL_SCROLL_CLASS,
+              isProductPanelScrollActive,
+            );
+          },
         },
       });
 
@@ -493,7 +526,8 @@ export function ScrollStage({ children }: ScrollStageProps) {
           investmentsRevealElements,
           {
             autoAlpha: 0,
-            y: -24,
+            // y: -24,
+            y: 0,
             ease: "power1.in",
             stagger: 0.08,
             duration: INVESTMENTS_EXIT_DURATION,
@@ -556,6 +590,9 @@ export function ScrollStage({ children }: ScrollStageProps) {
           const PointSection = panel.querySelector<HTMLElement>(
               "[data-point-section]",
           );
+          const isMobilePointPanel = Boolean(
+              PointSection && window.matchMedia("(max-width: 1200px)").matches,
+          );
           const ConceptSection = panel.querySelector<HTMLElement>(
               "[data-concept-section]",
           );
@@ -576,9 +613,6 @@ export function ScrollStage({ children }: ScrollStageProps) {
           );
           const financeRevealElements = gsap.utils.toArray<HTMLElement>(
               panel.querySelectorAll("[data-finance-reveal]"),
-          );
-          const Footer = panel.querySelector<HTMLElement>(
-              "footer",
           );
           const BodyFormSection = panel.querySelector<HTMLElement>(
               "[data-body-form-section]",
@@ -654,7 +688,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
           if (incomeLeft) {
               gsap.set(incomeLeft, {
                 autoAlpha: 1,
-                yPercent: -100,
+                yPercent: isMobilePointPanel ? 100 : -100,
               });
             }
 
@@ -1101,23 +1135,6 @@ export function ScrollStage({ children }: ScrollStageProps) {
               );
           }
 
-          if ( Footer ) {
-              gsap.set(panel, {
-                  // zIndex: 1,
-                  y: 500,
-              });
-              timeline.to(
-                  panel,
-                  {
-                      y: 0,
-                      ease: "power1.out",
-                      duration: 1,
-                  },
-                  overlayStart,
-              );
-          }
-
-
         overlayStart += isLocationPanel ? LOCATION_REVEAL_DURATION : 0.95;
 
         // Для Infrastructure ранний snap после входа panel фиксирует transition-состояние.
@@ -1284,6 +1301,11 @@ export function ScrollStage({ children }: ScrollStageProps) {
         const scrollDuration = getPanelScrollDuration(panel);
 
         if (scrollDuration > 0 && !isLocationPanel) {
+          if (panel.querySelector("[data-product-section]")) {
+            productPanelScrollStart = overlayStart;
+            productPanelScrollEnd = overlayStart + scrollDuration;
+          }
+
           timeline.to(
             panel,
             {
@@ -1403,6 +1425,7 @@ export function ScrollStage({ children }: ScrollStageProps) {
       // ctx.revert();
       removeAnchorNavigation?.();
       window.removeEventListener(HERO_INTRO_LOCK_EVENT, syncHeroIntroLock);
+      document.documentElement.classList.remove(PRODUCT_PANEL_SCROLL_CLASS);
       gsap.ticker.remove(updateLenis);
       if (window.__lenis === lenis) {
         window.__lenis = undefined;

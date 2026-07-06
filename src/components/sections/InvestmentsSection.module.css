@@ -176,7 +176,7 @@
     left: auto;
     transform: none;
     align-self: center;
-    max-width: 232px;
+    /* max-width: 232px; */
     text-align: center;
   }
 

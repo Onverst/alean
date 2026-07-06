@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 
 const HIDDEN_CLASS = "header-is-hidden";
 const MENU_OPEN_CLASS = "header-menu-is-open";
+const PRODUCT_PANEL_SCROLL_CLASS = "product-panel-scroll-active";
 
 export default function HeaderScrollController() {
   const lastScrollY = useRef(0);
@@ -44,6 +45,11 @@ export default function HeaderScrollController() {
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+
+      if (root.classList.contains(PRODUCT_PANEL_SCROLL_CLASS)) {
+        lastScrollY.current = currentScrollY;
+        return;
+      }
 
       if (currentScrollY <= 0 || root.classList.contains(MENU_OPEN_CLASS)) {
         showHeader();
