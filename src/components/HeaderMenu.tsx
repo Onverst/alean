@@ -78,7 +78,7 @@ export default function HeaderMenu({
 
           <ul className={styles.list_two}>
             <li>
-              <a href="/#advantages" onClick={closeMenu}>Способы оплаты</a>
+              <a href="/#payment-methods" onClick={closeMenu}>Способы оплаты</a>
             </li>
             <li>
               <a href="/#gallery" onClick={closeMenu}>Галерея</a>

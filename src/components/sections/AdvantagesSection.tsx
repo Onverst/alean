@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { WpMedia } from "@/types/wordpress";
 import styles from "./AdvantagesSection.module.css";
 import {Button} from "@/components/Button";
 import { gsap } from "gsap";
 import { useRef } from "react";
+
+const ADVANTAGES_TAB_CHANGE_EVENT = "advantages-tab-change";
+const PAYMENT_METHODS_TAB_INDEX = 1;
 
 type AdvantagesSectionProps = {
   top_title: string;
@@ -117,6 +120,41 @@ export function AdvantagesSection({
     setActiveTabIndex(index);
   };
 
+  useEffect(() => {
+    const openPaymentMethodsTab = () => {
+      if (tabs.length <= PAYMENT_METHODS_TAB_INDEX) {
+        return;
+      }
+
+      handleTabChange(PAYMENT_METHODS_TAB_INDEX);
+    };
+
+    const handleAdvantagesTabChange = (event: Event) => {
+      const tabIndex = (event as CustomEvent<{ tabIndex?: number }>).detail
+        ?.tabIndex;
+
+      if (tabIndex === PAYMENT_METHODS_TAB_INDEX) {
+        openPaymentMethodsTab();
+      }
+    };
+
+    if (window.location.hash === "#payment-methods") {
+      openPaymentMethodsTab();
+    }
+
+    window.addEventListener(
+      ADVANTAGES_TAB_CHANGE_EVENT,
+      handleAdvantagesTabChange,
+    );
+
+    return () => {
+      window.removeEventListener(
+        ADVANTAGES_TAB_CHANGE_EVENT,
+        handleAdvantagesTabChange,
+      );
+    };
+  }, [activeTabIndex, openItemKey, tabs.length]);
+
   return (
   <section className={styles.advantages} data-advantages-section id="advantages">
     <div className={styles.container}>
@@ -154,7 +192,12 @@ export function AdvantagesSection({
 
           </div>
 
-          <div className={styles.tabs} data-advantages-reveal>
+          <div
+            className={styles.tabs}
+            data-advantages-payment-tabs
+            data-advantages-reveal
+            id="payment-methods"
+          >
             {tabs.length > 0 ? (
               <>
                 <div className={styles.tab_buttons}>

@@ -41,6 +41,9 @@ const LOCATION_EXIT_DURATION = 0.75;
 const CONCEPT_REVEAL_DURATION = 1.15;
 const HERO_INTRO_LOCK_EVENT = "hero-intro-lock-change";
 const PRODUCT_PANEL_SCROLL_CLASS = "product-panel-scroll-active";
+const ADVANTAGES_TAB_CHANGE_EVENT = "advantages-tab-change";
+const PAYMENT_METHODS_ANCHOR_ID = "payment-methods";
+const PAYMENT_METHODS_TAB_INDEX = 1;
 
 export function ScrollStage({ children }: ScrollStageProps) {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -361,6 +364,35 @@ export function ScrollStage({ children }: ScrollStageProps) {
         }
 
         anchorTimelineTimes.set(anchor.id, time);
+      };
+      const getElementPanelOffset = (
+        panel: HTMLElement,
+        element: HTMLElement,
+      ) => element.getBoundingClientRect().top - panel.getBoundingClientRect().top;
+      const getPanelElementTimelineTime = (
+        panel: HTMLElement,
+        element: HTMLElement,
+        panelReadyTime: number,
+      ) => {
+        const panelScrollOffset = getPanelScrollOffset(panel);
+
+        if (panelScrollOffset <= 0) {
+          return panelReadyTime;
+        }
+
+        const elementOffset = gsap.utils.clamp(
+          0,
+          panelScrollOffset,
+          getElementPanelOffset(panel, element),
+        );
+
+        return (
+          panelReadyTime +
+          (elementOffset / window.innerHeight) *
+            (panel.querySelector("[data-advantages-section]")
+              ? ADVANTAGES_SCROLL_DURATION_MULTIPLIER
+              : 1)
+        );
       };
       const getThirdPanelTopAlignedTime = () => {
         if (!thirdPanel) {
@@ -1013,11 +1045,21 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
 
 
-          setAnchorTimelineTime(
-              panel,
-              overlayStart +
-                (isIncomePanel ? 0 : panelRevealDuration),
+          const panelReadyTime =
+            overlayStart + (isIncomePanel ? 0 : panelRevealDuration);
+
+          setAnchorTimelineTime(panel, panelReadyTime);
+
+          const paymentMethodsTabs = panel.querySelector<HTMLElement>(
+            "[data-advantages-payment-tabs]",
           );
+
+          if (paymentMethodsTabs) {
+            anchorTimelineTimes.set(
+              PAYMENT_METHODS_ANCHOR_ID,
+              getPanelElementTimelineTime(panel, paymentMethodsTabs, panelReadyTime),
+            );
+          }
 
           if (isIncomePanel) {
               timeline.set(panel, {yPercent: 0}, overlayStart);
@@ -1362,6 +1404,16 @@ export function ScrollStage({ children }: ScrollStageProps) {
 
         if (anchorTime === undefined) {
           return false;
+        }
+
+        if (anchorId === PAYMENT_METHODS_ANCHOR_ID) {
+          window.dispatchEvent(
+            new CustomEvent(ADVANTAGES_TAB_CHANGE_EVENT, {
+              detail: {
+                tabIndex: PAYMENT_METHODS_TAB_INDEX,
+              },
+            }),
+          );
         }
 
         return scrollToTimelineTime(anchorTime, immediate);
