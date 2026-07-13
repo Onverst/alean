@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/OptimizedImage";
 import type { WpMedia } from "@/types/wordpress";
 import { HeroIntroController } from "./HeroIntroController";
 import styles from "./HeroSection.module.css";

@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    qualities: [85],
     remotePatterns: wordpressApiUrl
       ? [
           {

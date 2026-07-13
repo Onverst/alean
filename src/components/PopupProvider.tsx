@@ -13,7 +13,7 @@ import { ru } from "intl-tel-input/locale";
 import type { WpMedia } from "@/types/wordpress";
 import { sendForm } from "@/lib/sendForm";
 import styles from "./Popup.module.css";
-import Image from "next/image";
+import Image from "@/components/OptimizedImage";
 
 type PopupProviderProps = {
   children: React.ReactNode;

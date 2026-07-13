@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/OptimizedImage";
 import { useState } from "react";
 import type { WpMedia } from "@/types/wordpress";
 import { Swiper, SwiperSlide } from "swiper/react";

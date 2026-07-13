@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/OptimizedImage";
 import type { HeaderOptions, WpMedia } from "@/types/wordpress";
 import styles from "./Header.module.css";
 import { fetchMediaById } from "@/lib/wordpress";

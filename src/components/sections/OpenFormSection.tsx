@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/OptimizedImage";
 import { useState, useEffect, useRef, type FormEvent } from "react";
 import intlTelInput, { type Iti } from "intl-tel-input";
 import { ru } from "intl-tel-input/locale";

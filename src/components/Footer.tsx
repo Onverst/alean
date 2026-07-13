@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/OptimizedImage";
 import type { FooterOptions, WpMedia } from "@/types/wordpress";
 import styles from "./Footer.module.css";
 import { fetchMediaById } from "@/lib/wordpress";

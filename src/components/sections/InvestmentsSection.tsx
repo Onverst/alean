@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/OptimizedImage";
 import type { WpMedia } from "@/types/wordpress";
 import styles from "./InvestmentsSection.module.css";
 

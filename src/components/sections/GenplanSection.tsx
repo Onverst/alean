@@ -1,7 +1,7 @@
 
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/OptimizedImage";
 import Panzoom from "@panzoom/panzoom";
 import { useEffect, useRef, useState } from "react";
 import styles from "./GenplanSection.module.css";

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/OptimizedImage";
 import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import type { WpMedia } from "@/types/wordpress";

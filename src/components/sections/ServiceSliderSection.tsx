@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/OptimizedImage";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade } from "swiper/modules";
@@ -142,7 +142,6 @@ function InnerImageSlider({ images }: { images: WpMedia[] }) {
                 alt={img.alt_text}
                 width={imgWidth}
                 height={imgHeight}
-                unoptimized
               />
             </SwiperSlide>
           );
