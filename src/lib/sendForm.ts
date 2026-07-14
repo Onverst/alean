@@ -46,6 +46,18 @@ function getUtmParams() {
   return utmParams;
 }
 
+function getCookie(name: string) {
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  const cookie = document.cookie
+    .split("; ")
+    .find((item) => item.startsWith(`${name}=`));
+
+  return cookie ? decodeURIComponent(cookie.slice(name.length + 1)) : null;
+}
+
 export async function sendForm(
   name: string,
   phone: string
@@ -60,6 +72,8 @@ export async function sendForm(
   UTM_KEYS.forEach((key) => {
     formData.append(key, utmParams[key]);
   });
+
+  formData.append("roistat_visit", getCookie("roistat_visit") ?? "nocookie");
 
   const url = process.env.NEXT_PUBLIC_WORDPRESS_FORM_URL;
 
