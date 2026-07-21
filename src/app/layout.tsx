@@ -41,7 +41,13 @@ const ttLoveliesScript = localFont({
 
 export const metadata: Metadata = {
   title: "Alean",
-  description: "Лендинг Alean",
+  description: "",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "64x64" },
+      { url: "/favicon.png", type: "image/png", sizes: "64x64" },
+    ],
+  },
 };
 
 export default async function RootLayout({
