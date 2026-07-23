@@ -90,5 +90,13 @@ export async function sendForm(
     throw new Error("Form send error");
   }
 
+  const ym = (
+    window as Window & {
+      ym?: (counterId: number, method: string, goal: string) => void;
+    }
+  ).ym;
+
+  ym?.(98657632, "reachGoal", "send");
+
   return response.text();
 }
