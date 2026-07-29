@@ -82,6 +82,41 @@ export default async function RootLayout({
               ym(98657632, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
             `}
           </Script>
+          <Script id="yandex-scroll-goals" strategy="afterInteractive">
+            {`
+              (function() {
+                var thresholds = [10, 20, 30, 40, 50, 60, 70, 80];
+                var reached = {};
+                var scheduled = false;
+
+                function trackScrollDepth() {
+                  scheduled = false;
+
+                  var documentHeight = document.documentElement.scrollHeight;
+                  if (!documentHeight) return;
+
+                  var viewedHeight = window.scrollY + window.innerHeight;
+                  var scrollDepth = Math.min(100, (viewedHeight / documentHeight) * 100);
+
+                  thresholds.forEach(function(threshold) {
+                    if (!reached[threshold] && scrollDepth >= threshold) {
+                      reached[threshold] = true;
+                      window.ym?.(98657632, 'reachGoal', 'scroll' + threshold + 'per');
+                    }
+                  });
+                }
+
+                function handleScroll() {
+                  if (!scheduled) {
+                    scheduled = true;
+                    window.requestAnimationFrame(trackScrollDepth);
+                  }
+                }
+
+                window.addEventListener('scroll', handleScroll, { passive: true });
+              })();
+            `}
+          </Script>
           <noscript
             dangerouslySetInnerHTML={{
               __html:
