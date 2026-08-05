@@ -123,7 +123,7 @@ export function GenplanSection() {
                                     </svg>  
                                 </span>
                                 <span className={`${styles.text} ${styles.right}`}>
-                                    Шезлонги с&nbsp;эрариями
+                                    шезлонги с&nbsp;аэрариями
                                 </span>
                             </div>
 
